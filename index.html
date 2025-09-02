@@ -6,6 +6,19 @@
     <title>How To Be Insanely Rich | Lindsey Albright</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+/* Prevent phone number formatting on mobile devices */
+a[href^="tel"] {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+/* For iOS Safari specifically */
+@media (max-device-width: 480px) {
+    .instructions strong {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+}
         :root {
             /* Color Variables */
             --white: #FFFFFF;
@@ -220,12 +233,15 @@
         }
         
         .paywall-card .instructions {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: var(--charcoal-grey);
-            line-height: 1.6;
-            text-align: justify;
-        }
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--charcoal-grey);
+    line-height: 1.6;
+    text-align: center; /* Changed from justify to center */
+    hyphens: none; /* Added to remove hyphenation */
+    -webkit-hyphens: none; /* Vendor prefix for Safari */
+    -ms-hyphens: none; /* Vendor prefix for IE/Edge */
+}
         
         .whatsapp-link {
             display: inline-flex;
@@ -317,7 +333,7 @@
         <p>The pursuit of extraordinary wealth has captivated human imagination since ancient civilizations, yet true abundance extends beyond material accumulation to encompass strategic thinking, psychological mastery, and timeless principles observed across empires and eras. Historical analysis reveals that the most prosperous figures—from <span class="reference">King Solomon's legendary wisdom</span> to the <span class="reference">Medici dynasty's banking innovations</span>—understood that wealth creation is fundamentally a cognitive process rather than a mere financial endeavor. These visionaries recognized that sustainable affluence emerges from identifying undervalued opportunities, cultivating strategic relationships, and developing mental frameworks that transcend conventional economic thinking.</p>
         
         <div class="pull-quote">
-            True wealth is not merely having resources but commanding the systems that create them—a lesson echoed from Roman aqueducts to Silicon Valley algorithms.
+            True wealth is not merely having resources but commanding the systems that create them — a lesson echoed from Roman aqueducts to Silicon Valley algorithms.
         </div>
         
         <div class="locked-content">
@@ -365,7 +381,7 @@
             <input type="text" id="accessCode" placeholder="Access Code" />
             <button id="unlockBtn">Unlock Article</button>
             <p class="instructions">
-                To obtain an access code, contact Lindsey via WhatsApp and pay via M-PESA to <strong>+255 700 000 000</strong>.
+                To get an access code, contact Lindsey and make payment.
             </p>
             <div class="whatsapp-container">
                 <a href="https://wa.me/255700000000" target="_blank" class="whatsapp-button" aria-label="Contact Lindsey on WhatsApp">
