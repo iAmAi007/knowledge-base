@@ -21,22 +21,24 @@
         }
         
         :root {
-            /* Color Variables */
-            --white: #FFFFFF;
-            --obsidian-black: #1B1B1B;
-            --blue: #2563EB; /* Pure blue instead of blue marble */
-            --blue-light-bg: #D6E4FF; /* Light blue background for references */
-            --green-highlight: #138A36;
-            --red-warning: #C1121F;
-            --teal-emphasis: #138D8D;
-            --green-bg: #DFF3E6;
-            --red-bg: #FBD5D9;
-            --teal-bg: #CDEEEF;
-            --golden-yellow: #F5E9C9;
-            --varden: #FDD0D5;
-            --gochujang-red: #780000;
-            --cosmos-blue: #003049;
-            --charcoal-grey: #5C5C5C;
+            /* Dracula Theme Variables */
+            --primary-bg: #282A36;
+            --secondary-bg: #1E1F29;
+            --highlight-bg: #44475A;
+            --foreground: #F8F8F2;
+            --comments: #6272A4;
+            --line-numbers: #6C6F93;
+            --keywords: #FF79C6;
+            --functions: #50FA7B;
+            --variables: #8BE9FD;
+            --strings: #F1FA8C;
+            --numbers: #BD93F9;
+            --operators: #FFB86C;
+            --errors: #FF5555;
+            --diff-add: #50FA7B;
+            --diff-del: #FF5555;
+            --diff-mod: #BD93F9;
+            --todo: #FFB86C;
             
             /* Typography */
             --base-font-size: 18px;
@@ -59,8 +61,8 @@
             font-family: 'Inter', sans-serif;
             font-size: var(--base-font-size);
             line-height: var(--line-height);
-            color: var(--obsidian-black);
-            background-color: var(--white);
+            color: var(--foreground);
+            background-color: var(--primary-bg);
             padding: 0 var(--desktop-margin);
             text-align: justify;
             /* REMOVE HYPHENATION */
@@ -69,15 +71,14 @@
             -ms-hyphens: none;
             /* IMPROVE JUSTIFICATION */
             text-justify: inter-word;
-            word-spacing: -0.05em; /* Slightly reduce word spacing */
-            letter-spacing: -0.01em; /* Slightly reduce letter spacing */
+            word-spacing: -0.05em;
+            letter-spacing: -0.01em;
             user-select: none;
         }
         
         @media (max-width: 768px) {
             body {
                 padding: 0 var(--mobile-margin);
-                /* On mobile, consider left alignment for better readability */
                 text-align: left;
                 text-justify: auto;
             }
@@ -86,6 +87,7 @@
         article {
             max-width: 900px;
             margin: 40px auto;
+            background-color: var(--primary-bg);
         }
         
         header {
@@ -95,73 +97,70 @@
         h1 {
             font-size: var(--header-size);
             font-weight: 700;
-            color: var(--obsidian-black);
+            color: var(--foreground);
             margin-bottom: 8px;
-            text-align: left; /* Center title for better appearance */
+            text-align: left;
         }
         
         .meta {
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
-            color: var(--charcoal-grey);
+            color: var(--comments);
             font-size: 0.9rem;
             align-items: left;
-            justify-content: left; /* Center meta information */
+            justify-content: left;
         }
         
         .meta span:not(:last-child)::after {
             content: "•";
             margin-left: 10px;
-            color: var(--charcoal-grey);
+            color: var(--comments);
         }
         
         .separator {
             height: 1px;
-            background-color: var(--obsidian-black);
+            background-color: var(--highlight-bg);
             margin-bottom: 30px;
         }
         
         p {
             margin-bottom: calc(var(--base-font-size) * var(--line-height));
-            /* Ensure no hyphenation in paragraphs */
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
-            /* Improve text rendering */
             text-rendering: optimizeLegibility;
         }
         
         .reference {
-            color: var(--blue); /* Updated to pure blue */
+            color: var(--variables);
             font-weight: 500;
-            background-color: var(--blue-light-bg);
+            background-color: var(--secondary-bg);
             padding: 0 2px;
             border-radius: 2px;
         }
         
         .highlight-green {
-            color: var(--green-highlight);
+            color: var(--functions);
             font-weight: 600;
         }
         
         .highlight-red {
-            color: var(--red-warning);
+            color: var(--errors);
             font-weight: 600;
         }
         
         .highlight-teal {
-            color: var(--teal-emphasis);
+            color: var(--variables);
             font-weight: 600;
         }
         
         .block-highlight-green {
-            background-color: var(--green-bg);
-            color: var(--green-highlight);
+            background-color: var(--secondary-bg);
+            color: var(--functions);
             padding: 15px 20px;
             margin: 20px 0;
-            border-left: 4px solid var(--green-highlight);
-            /* Remove hyphenation */
+            border-left: 4px solid var(--functions);
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
@@ -169,12 +168,11 @@
         }
         
         .block-highlight-red {
-            background-color: var(--red-bg);
-            color: var(--red-warning);
+            background-color: var(--secondary-bg);
+            color: var(--errors);
             padding: 15px 20px;
             margin: 20px 0;
-            border-left: 4px solid var(--red-warning);
-            /* Remove hyphenation */
+            border-left: 4px solid var(--errors);
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
@@ -182,12 +180,11 @@
         }
         
         .block-highlight-teal {
-            background-color: var(--teal-bg);
-            color: var(--teal-emphasis);
+            background-color: var(--secondary-bg);
+            color: var(--variables);
             padding: 15px 20px;
             margin: 20px 0;
-            border-left: 4px solid var(--teal-emphasis);
-            /* Remove hyphenation */
+            border-left: 4px solid var(--variables);
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
@@ -195,22 +192,20 @@
         }
         
         .pull-quote {
-            font-size: calc(var(--base-font-size) * 1.01); /* Slightly reduced from original */
+            font-size: calc(var(--base-font-size) * 1.01);
             font-weight: 600;
-            background-color: var(--golden-yellow);
+            background-color: var(--secondary-bg);
             padding: 25px;
             margin: 30px 0;
-            border-left: 6px solid var(--red-warning);
+            border-left: 6px solid var(--numbers);
             text-align: left;
             text-justify: inter-word;
-            /* Remove hyphenation */
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
-            color: #5a4a2f;
+            color: var(--strings);
         }
         
-        /* This was missing - crucial for paywall functionality */
         .locked-content {
             display: none;
         }
@@ -223,15 +218,16 @@
             max-width: 500px;
             margin: 60px auto;
             padding: 30px;
-            background: var(--white);
+            background: var(--secondary-bg);
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
             text-align: center;
             font-family: 'Inter', sans-serif;
+            color: var(--foreground);
         }
         
         .paywall-card h2 {
-            color: var(--obsidian-black);
+            color: var(--foreground);
             font-size: 1.4rem;
             margin-bottom: 20px;
         }
@@ -241,14 +237,20 @@
             padding: 14px;
             font-size: 1rem;
             margin-bottom: 15px;
-            border: 2px solid var(--varden);
+            border: 2px solid var(--highlight-bg);
             border-radius: 8px;
             outline: none;
             transition: border-color 0.3s;
+            background-color: var(--primary-bg);
+            color: var(--foreground);
         }
         
         .paywall-card input:focus {
-            border-color: var(--cosmos-blue);
+            border-color: var(--variables);
+        }
+        
+        .paywall-card input::placeholder {
+            color: var(--comments);
         }
         
         .paywall-card button {
@@ -256,8 +258,8 @@
             padding: 14px;
             font-size: 1rem;
             font-weight: 600;
-            background: linear-gradient(135deg, var(--red-warning), var(--gochujang-red));
-            color: var(--white);
+            background: var(--numbers);
+            color: var(--primary-bg);
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -265,19 +267,19 @@
         }
         
         .paywall-card button:hover {
-            box-shadow: 0 4px 14px rgba(193, 18, 31, 0.4);
+            box-shadow: 0 4px 14px rgba(189, 147, 249, 0.4);
             transform: translateY(-2px);
         }
         
         .paywall-card .instructions {
             margin: 20px 0;
             font-size: 0.9rem;
-            color: var(--charcoal-grey);
+            color: var(--comments);
             line-height: 1.6;
-            text-align: center; /* Changed from justify to center */
-            hyphens: none; /* Added to remove hyphenation */
-            -webkit-hyphens: none; /* Vendor prefix for Safari */
-            -ms-hyphens: none; /* Vendor prefix for IE/Edge */
+            text-align: center;
+            hyphens: none;
+            -webkit-hyphens: none;
+            -ms-hyphens: none;
         }
         
         .whatsapp-link {
@@ -286,7 +288,7 @@
             text-decoration: none;
             margin: 0 5px;
             font-weight: 600;
-            color: #25D366;
+            color: var(--functions);
         }
         
         .whatsapp-container {
@@ -299,32 +301,33 @@
             display: inline-flex;
             align-items: center;
             text-decoration: none;
-            padding: 14px 20px;;
-            background-color: #25D366;
-            color: white;
+            padding: 14px 20px;
+            background-color: var(--functions);
+            color: var(--primary-bg);
             width: 100%;
             justify-content: center;
             font-size: 1rem;
             font-weight: 600;
             border-radius: 8px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 2px 8px rgba(80, 250, 123, 0.3);
         }
         
         .whatsapp-button:hover {
-            background-color: #128C7E;
+            background-color: var(--diff-add);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 4px 12px rgba(80, 250, 123, 0.4);
         }
         
         .nojs-message {
             display: none;
             text-align: center;
             padding: 20px;
-            background-color: var(--red-bg);
-            color: var(--red-warning);
+            background-color: var(--secondary-bg);
+            color: var(--errors);
             margin: 20px 0;
             border-radius: 8px;
+            border-left: 4px solid var(--errors);
         }
         
         .unlocked .paywall-card {
@@ -347,7 +350,6 @@
             .paywall-card {
                 display: block !important;
             }
-            /* Improve print text appearance */
             body {
                 text-align: left;
                 hyphens: none;
@@ -356,7 +358,8 @@
         
         /* Yellow highlighter style */
         .highlight-yellow {
-            background-color: #FFFD8C;
+            background-color: var(--strings);
+            color: var(--primary-bg);
             padding: 0 2px;
             border-radius: 2px;
         }
@@ -371,16 +374,16 @@
         }
         
         .validation-success {
-            background-color: var(--green-bg);
-            color: var(--green-highlight);
-            border: 1px solid var(--green-highlight);
+            background-color: var(--secondary-bg);
+            color: var(--functions);
+            border: 1px solid var(--functions);
             display: block;
         }
         
         .validation-error {
-            background-color: var(--red-bg);
-            color: var(--red-warning);
-            border: 1px solid var(--red-warning);
+            background-color: var(--secondary-bg);
+            color: var(--errors);
+            border: 1px solid var(--errors);
             display: block;
         }
     </style>
@@ -397,7 +400,7 @@
             <h1>In the Name of Love 🌹</h1>
             <div class="meta">
                 <span class="author">Lindsey Albright</span>
-                <span class="date">September 2, 2025</span>
+                <span class="date">September 3, 2025</span>
             </div>
             <div class="separator"></div>
         </header>
