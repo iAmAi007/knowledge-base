@@ -1,826 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>"And If I Perish, I Perish" | Albright</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Prevent phone number formatting on mobile devices */
-        a[href^="tel"] {
-            text-decoration: none !important;
-            color: inherit !important;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>"In the End, Love Always Wins" | Albright</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: #2C0F14;
+      --secondary-bg: #3D1A21;
+      --highlight-bg: #5C2A33;
+      --foreground: #F5E6E8;
+      --comments: #A68A8F;
+      --base-font-size: 18px;
+      --line-height: 1.75;
+      --header-size: calc(var(--base-font-size) * 1.30);
+      --desktop-margin: 15%;
+      --mobile-margin: 8%;
+      --terracotta: #F4A261;
+      --muted-terracotta: #CC9789;
+      --gold: #E9B44C;
+      --soft-pink: #E8B4BC;
+    }
 
-        /* For iOS Safari specifically */
-        @media (max-device-width: 480px) {
-            .instructions strong {
-                text-decoration: none !important;
-                color: inherit !important;
-            }
-        }
-        
-        :root {
-            /* Dark Burgundy Theme Variables */
-            --primary-bg: #2C0F14;
-            --secondary-bg: #3D1A21;
-            --highlight-bg: #5C2A33;
-            --foreground: #F5E6E8;
-            --comments: #A68A8F;
-            --line-numbers: #8F6B72;
-            --keywords: #E06C75;
-            --functions: #98C379;
-            --variables: #4ECDC4;
-            --strings: #F4A261;
-            --numbers: #CC9789;
-            --operators: #E5B567;
-            --errors: #D75F5F;
-            --diff-add: #98C379;
-            --diff-del: #D75F5F;
-            --diff-mod: #C678DD;
-            --todo: #E5B567;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-            /* Typography */
-            --base-font-size: 18px;
-            --line-height: 1.75;
-            --header-size: calc(var(--base-font-size) * 1.35);
-            
-            /* Spacing */
-            --desktop-margin: 15%;
-            --mobile-margin: 8%;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            font-size: var(--base-font-size);
-            line-height: var(--line-height);
-            color: var(--foreground);
-            background-color: var(--primary-bg);
-            padding: 0 var(--desktop-margin);
-            text-align: justify;
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            text-justify: inter-word;
-            word-spacing: -0.05em;
-            letter-spacing: -0.01em;
-            /* Text selection always disabled */
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 0 var(--mobile-margin);
-                text-align: left;
-                text-justify: auto;
-            }
-        }
-        
-        article {
-            max-width: 900px;
-            margin: 40px auto;
-            background-color: var(--primary-bg);
-            position: relative;
-        }
-        
-        header {
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            font-size: var(--header-size);
-            font-weight: 700;
-            color: var(--foreground);
-            margin-bottom: 5px;
-            text-align: left;
-        }
-        
-        .subtitle {
-            font-size: calc(var(--base-font-size) * 1);
-            color: var(--comments);
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-style: regular;
-            line-height: 1.4;
-        }
-        
-        .meta {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            color: var(--comments);
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            font-weight: 400;
-            align-items: left;
-            justify-content: left;
-        }
-        
-        .meta span:not(:last-child)::after {
-            content: "•";
-            margin-left: 10px;
-            color: var(--comments);
-        }
-        
-        .separator {
-            height: 1px;
-            background-color: var(--highlight-bg);
-            margin-bottom: 30px;
-        }
-        
-        p {
-            margin-bottom: calc(var(--base-font-size) * var(--line-height));
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            text-rendering: optimizeLegibility;
-        }
-        
-        .reference {
-            color: var(--variables);
-            font-weight: 500;
-            background-color: var(--secondary-bg);
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-        
-        .highlight-green {
-            color: var(--functions);
-            font-weight: 600;
-        }
-        
-        .highlight-red {
-            color: var(--errors);
-            font-weight: 600;
-        }
-        
-        .highlight-teal {
-            color: var(--variables);
-            font-weight: 600;
-        }
-        
-        .block-highlight-green {
-            background-color: var(--secondary-bg);
-            color: var(--functions);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-left: 4px solid var(--functions);
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            font-weight: 600;
-        }
-        
-        .block-highlight-red {
-            background-color: var(--secondary-bg);
-            color: var(--errors);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-left: 4px solid var(--errors);
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            font-weight: 600;
-        }
-        
-        .block-highlight-teal {
-            background-color: var(--secondary-bg);
-            color: var(--variables);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-left: 4px solid var(--variables);
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            font-weight: 600;
-        }
-        
-        .pull-quote {
-            font-size: calc(var(--base-font-size) * 1.01);
-            font-weight: 600;
-            background-color: var(--secondary-bg);
-            padding: 25px;
-            margin: 30px 0;
-            border-left: 6px solid var(--numbers);
-            text-align: left;
-            text-justify: inter-word;
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            color: var(--strings);
-        }
-        
-        .locked-content {
-            display: none;
-        }
-        
-        .unlocked .locked-content {
-            display: block;
-        }
-        
-        .paywall-card {
-            max-width: 500px;
-            margin: 60px auto;
-            padding: 30px;
-            background: var(--secondary-bg);
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            color: var(--foreground);
-            position: relative;
-            z-index: 100;
-        }
-        
-        .paywall-card h2 {
-            color: var(--foreground);
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-        }
-        
-        .paywall-card input {
-            width: 100%;
-            padding: 14px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            border: 2px solid var(--highlight-bg);
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.3s;
-            background-color: var(--primary-bg);
-            color: var(--foreground);
-        }
-        
-        .paywall-card input:focus {
-            border-color: var(--variables);
-        }
-        
-        .paywall-card input::placeholder {
-            color: var(--comments);
-        }
-        
-        .paywall-card button {
-            width: 100%;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: 600;
-            background: var(--numbers);
-            color: var(--primary-bg);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: box-shadow 0.3s, transform 0.2s;
-        }
-        
-        .paywall-card button:hover {
-            box-shadow: 0 4px 14px rgba(198, 120, 221, 0.4);
-            transform: translateY(-2px);
-        }
-        
-        .paywall-card .instructions {
-            margin: 20px 0;
-            font-size: 0.9rem;
-            color: var(--comments);
-            line-height: 1.6;
-            text-align: center;
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-        }
-        
-        .whatsapp-link {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-            margin: 0 5px;
-            font-weight: 600;
-            color: var(--functions);
-        }
-        
-        .whatsapp-container {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .whatsapp-button {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-            padding: 14px 20px;
-            background-color: var(--functions);
-            color: var(--primary-bg);
-            width: 100%;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(152, 195, 121, 0.3);
-        }
-        
-        .whatsapp-button:hover {
-            background-color: var(--diff-add);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(152, 195, 121, 0.4);
-        }
-        
-        .nojs-message {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background-color: var(--secondary-bg);
-            color: var(--errors);
-            margin: 20px 0;
-            border-radius: 8px;
-            border-left: 4px solid var(--errors);
-        }
-        
-        .unlocked .paywall-card {
-            display: none;
-        }
-        
-        /* Content protection */
-        .protected {
-            /* Text selection always disabled */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        
-        /* Print prevention */
-        @media print {
-            .locked-content {
-                display: none !important;
-            }
-            .paywall-card {
-                display: block !important;
-            }
-            body {
-                text-align: left;
-                hyphens: none;
-            }
-            * {
-                display: none !important;
-            }
-        }
-        
-        /* Yellow highlighter style */
-        .highlight-yellow {
-            background-color: #CC9789; /* Muted terracotta */
-            color: var(--primary-bg);
-            padding: 0 2px;
-            border-radius: 2px;
-            font-weight: 500;
-        }
-        
-        /* Validation message styling */
-        .validation-message {
-            padding: 10px;
-            border-radius: 6px;
-            margin: 0 0 15px 0;
-            font-size: 0.9rem;
-            display: none;
-        }
-        
-        .validation-success {
-            background-color: var(--secondary-bg);
-            color: var(--functions);
-            border: 1px solid var(--functions);
-            display: block;
-        }
-        
-        .validation-error {
-            background-color: var(--secondary-bg);
-            color: var(--errors);
-            border: 1px solid var(--errors);
-            display: block;
-        }
-        
-        .youtube-link {
-            color: var(--errors);
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-            /* Ensured these are always clickable */
-            pointer-events: auto !important;
-            position: relative;
-            z-index: 1000;
-            cursor: pointer !important;
-        }
-        
-        .youtube-link:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-        
-        /* Overlay for protection - REMOVED */
-        .protection-overlay {
-            display: none !important;
-        }
-        
-        /* Transparent overlay for content protection - REMOVED */
-        .content-protector {
-            display: none !important;
-        }
-        
-        /* Allow YouTube links to be clickable even when locked */
-        .allow-click {
-            pointer-events: auto !important;
-            position: relative;
-            z-index: 1000;
-            cursor: pointer !important;
-        }
-        
-        /* Make sure YouTube links are always above any potential overlays */
-        .youtube-link, .allow-click {
-            z-index: 10000 !important;
-        }
-        
-        /* Ensure all links are always clickable */
-        a {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-        }
-        
-        /* WhatsApp button specific styling */
-        .whatsapp-button, .whatsapp-link {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-        }
-        
-        /* Input fields should allow text selection */
-        input, textarea {
-            user-select: auto !important;
-            -webkit-user-select: auto !important;
-            -moz-user-select: auto !important;
-            -ms-user-select: auto !important;
-        }
-    </style>
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: var(--base-font-size);
+      line-height: var(--line-height);
+      color: var(--foreground);
+      background-color: var(--primary-bg);
+      padding: 0 var(--desktop-margin);
+      text-align: justify;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 0 var(--mobile-margin); text-align: left; }
+    }
+
+    article {
+      max-width: 900px;
+      margin: 40px auto;
+    }
+
+    header { margin-bottom: 30px; }
+
+    h1 {
+      font-size: var(--header-size);
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      font-size: calc(var(--base-font-size) * 1.2);
+      font-weight: 700;
+      color: var(--terracotta);
+      margin: 25px 0 10px 0;
+    }
+
+    .subtitle {
+      font-size: calc(var(--base-font-size) * 0.92);
+      color: var(--comments);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      color: var(--comments);
+      font-size: 0.9rem;
+    }
+
+    .meta span:not(:last-child)::after {
+      content: "•";
+      margin-left: 10px;
+      color: var(--comments);
+    }
+
+    .separator {
+      height: 1px;
+      background-color: var(--highlight-bg);
+      margin-bottom: 30px;
+    }
+
+    p { margin-bottom: calc(var(--base-font-size) * var(--line-height)); }
+
+    .highlight-line {
+      background-color: var(--muted-terracotta);
+      color: var(--primary-bg);
+      padding: 0 3px;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+    
+    .highlight-text {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    
+    .highlight-soft {
+      background-color: rgba(200, 150, 140, 0.15);
+      padding: 0 3px;
+      border-radius: 2px;
+      font-style: italic;
+    }
+    
+    .highlight-important {
+      color: var(--soft-pink);
+      font-weight: 700;
+      text-shadow: 0 0 5px rgba(232, 180, 188, 0.3);
+    }
+
+    .pull-quote {
+      font-size: calc(var(--base-font-size) * 1.05);
+      font-weight: 600;
+      background-color: var(--secondary-bg);
+      padding: 20px;
+      margin: 30px 0;
+      border-left: 6px solid var(--terracotta);
+      color: var(--terracotta);
+      border-radius: 4px;
+    }
+    
+    .key-concept {
+      display: inline-block;
+      border-bottom: 2px dotted var(--terracotta);
+      font-weight: 500;
+      padding-bottom: 1px;
+    }
+
+    .section-break {
+      text-align: center;
+      margin: 30px 0;
+      color: var(--comments);
+    }
+    
+    .conclusion {
+      font-size: calc(var(--base-font-size) * 1.1);
+      text-align: center;
+      margin: 40px 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+  </style>
 </head>
-<body class="protected">
-    
-    <noscript>
-        <div class="nojs-message">
-            This article requires JavaScript to unlock content.
-        </div>
-    </noscript>
-    
-    <article id="main-article">
-        
-        <header>
-            <h1>“And if I perish, I perish.”</h1>
-            <div class="subtitle">The Brave and Tragic Sacrifices Made in the Name of Love 🌹</div>
-            <div class="meta">
-                <span class="author">🌏 Albright Ai</span>
-                <span class="date">Tanzania</span>
-            </div>
-            <div class="separator"></div>
-        </header>
-        
-        <div>
-            <p>Love is a <span class="highlight-yellow">force that needs no translation</span>, a language that speaks to the heart of every human being regardless of time, culture, or religion. Across centuries and civilizations, love has been celebrated in art, literature, and music, revered as the ultimate bond between two souls. Yet it is also a paradox, possessing an <span class="highlight-yellow">unparalleled ability to create and destroy</span>. In its most romantic form, love has inspired acts of bravery, propelled individuals to greatness, and healed wounds that seemed impossible to mend. Conversely, it has led to heartbreak, betrayal, and even the collapse of empires.</p>
-            
-            <div class="pull-quote">
-                Love's essence is as complex as it is universal — a double-edged sword that cuts both ways.
-            </div>
-        </div>
-        
-        <div class="locked-content">
-            <p>The stories of <span class="reference">Esther</span>, <span class="reference">Suleiman</span>, <span class="reference">Samson</span>, <span class="reference">Adam and Eve</span>, <span class="reference">Cleopatra</span>, <span class="reference">Joseph and Mary</span>, and even fictional figures like <span class="reference">Jay Gatsby</span> and <span class="reference">Sonja</span> reveal how <span class="highlight-yellow">love inspires courage, fuels ambition, empowers sacrifice, or unravels into obsession and despair</span>.</p>
-            
-            <p>The transformative power of love is perhaps most vividly illustrated in the biblical story of Queen Esther. A young Jewish woman who rose from obscurity to become queen of Persia, Esther's journey is not merely political intrigue but a profound narrative of love, devotion, and courage. When her people faced annihilation, it was <span class="highlight-yellow">Esther's love and sense of responsibility that propelled her to act</span>. She risked her life by going before King Xerxes unbidden, defying royal protocol.</p>
-            
-            <div class="pull-quote">
-                “And if I perish, I perish.” — words that echo across centuries as the ultimate testament of sacrificial love.
-            </div>
-            
-            <p>Through Esther's bravery, we see that <span class="highlight-yellow">love does not merely comfort — it compels action</span>, inspiring individuals to rise above fear and make sacrifices that benefit others.</p>
-            
-            <p>Love possesses a <span class="highlight-yellow">remarkable ability to embolden individuals</span>, driving them to perform acts of immense courage. The biblical story of Samson and Delilah provides a vivid illustration. Samson, blessed with immense physical strength, fell deeply in love with Delilah. His devotion clouded his judgment, leading him to reveal the secret of his strength. Though Delilah betrayed him to the Philistines, <span class="highlight-yellow">Samson's final act was one of profound courage</span>: with his strength partially restored, he brought down the pillars of the Philistine temple, sacrificing his life to defeat his enemies.</p>
-            
-            <p>His story reminds us that love, even in its flawed forms, can inspire extraordinary bravery — but also devastating self-destruction.</p>
-            
-            <div class="block-highlight-red">
-                When love blinds rather than guides, it becomes obsession — capable of betrayal, ruin, and death.
-            </div>
-            
-            <p>In modern literature, Jay Gatsby represents love's capacity to both elevate and destroy. Gatsby's devotion to Daisy Buchanan transforms him from a poor young man into a figure of immense wealth and status. His entire identity, every decision, is driven by a singular dream: to reclaim a love lost to time. Yet that devotion also reveals love's destructive side. <span class="highlight-yellow">Gatsby is blinded by illusion, imprisoned by nostalgia, and ultimately undone by a passion that could never be reciprocated</span> as he imagined. His tragedy mirrors Samson's downfall — both are undone not by lack of strength, but by love's ability to distort judgment and tether the heart to false hope.</p>
-            
-            <p><a href="https://www.youtube.com/watch?v=rARN6agiW7o" target="_blank" rel="noopener" class="youtube-link allow-click">• Watch The Great Gatsby Trailer (2013)</a></p>
-            
-            <p>Love is not always destructive; it can be the catalyst for greatness. One striking example is Suleiman the Magnificent and Roxelana. Their bond was more than passion — it was partnership. <span class="highlight-yellow">Roxelana's counsel shaped Suleiman's reign</span>, encouraging reforms that consolidated power and promoted justice. Their love transformed the Ottoman Empire's course, proving how devotion can fuel enduring achievement.</p>
-            
-            <p>The biblical relationship of Joseph and Mary provides another facet of love's strength. In a society that viewed Mary's pregnancy outside of marriage as scandal, <span class="highlight-yellow">Joseph's unwavering love and belief in her empowered them both to endure trials</span>. From the long journey to Bethlehem to their flight into Egypt, their love gave them courage and resilience.</p>
-            
-            <p>Modern studies echo this truth: <span class="highlight-yellow">loving relationships improve immune function, accelerate healing, and extend lifespan</span>. Conversely, the loss of love produces measurable physical pain, with brain imaging showing that heartbreak activates the same neural pathways as physical injury.</p>
-            
-            <p>Yet history also teaches that love can be twisted into manipulation. The story of Cleopatra reveals love's darker potential. Her relationships with Julius Caesar and later Mark Antony were as much political as personal, turning affection into a tool of power. Ultimately, <span class="highlight-yellow">love entwined with ambition brought about her downfall</span>, but it also ensured her eternal legacy.</p>
-            
-            <p>The lesson is stark: <span class="highlight-yellow">when love is exploited or corrupted, it ceases to heal and begins to destroy</span>.</p>
-            
-            <p>Sonja, advising Natasha in Love and Death, utters perhaps the most haunting reflection on love's paradox:</p>
-            
-            <div class="pull-quote">
-                "To love is to suffer. To avoid suffering, one must not love. But then one suffers from not loving. Therefore, to love is to suffer; not to love is to suffer; to suffer is to suffer. To be happy is to love. To be happy, then, is to suffer, but suffering makes one unhappy. Therefore, to be happy one must love or love to suffer or suffer from too much happiness."
-            </div>
-            
-            <p>Her words echo the experiences of Esther, Samson, Cleopatra, and Gatsby alike. <span class="highlight-yellow">Esther embraced suffering for her people</span>. <span class="highlight-yellow">Samson suffered for blind devotion</span>. <span class="highlight-yellow">Cleopatra suffered for ambition disguised as passion</span>. <span class="highlight-yellow">Gatsby suffered for a dream of love that could never truly be</span>. Sonja captures the paradox that unites them all: to love is to suffer, but to live without love is to suffer still more.</p>
-            
-            <p><a href="https://www.youtube.com/watch?v=Yc4FFNTHIZ4" target="_blank" rel="noopener" class="youtube-link allow-click">• Watch Natasha's Monologue from Love and Death</a></p>
-            
-            <p>Love, though often seen as personal, can shape entire legacies. From Cleopatra and Antony's defiance of Rome, to Marie and Pierre Curie's partnership in science, to John and Abigail Adams' political alliance, <span class="highlight-yellow">love has influenced history itself</span>.</p>
-            
-            <div class="block-highlight-teal">
-                Love's ultimate lesson may be that we must embrace its whole spectrum — the joy and the grief, the building and the breaking, the passion and the peace — to experience its complete transformative power.
-            </div>
-            
-            <p>Love's duality reflects the human condition itself: our capacity for sublime creativity and terrible destruction, our yearning for connection amid inevitable separation. <span class="highlight-yellow">To love consciously is to accept the paradox</span> — that the same force that breaks our hearts also heals them, that what makes us vulnerable also makes us strong.</p>
-            
-            <p>It is both sanctuary and battlefield, salvation and sacrifice. And in the end, perhaps the most courageous words ever spoken in the name of love remain:</p>
-            
-            <div class="pull-quote">
-                “And if I perish, I perish.”
-            </div>
-        </div>
-        
-        <div class="paywall-card">
-            <h2>Enter your access code to unlock the full article</h2>
-            
-            <input type="text" id="accessCode" placeholder="Access Code" maxlength="8" />
-            <div id="validationMessage" class="validation-message"></div>
-            <button id="unlockBtn">Unlock Article</button>
-            <p class="instructions">
-                To get an access code, contact author and make payment.
-            </p>
-            <div class="whatsapp-container">
-                <a href="https://wa.me/255766580492?text=Hello,%20I%20really%20like%20the%20article.%20I%20would%20like%20to%20pay%20for%20full%20access." target="_blank" class="whatsapp-button" aria-label="Contact Lindsey on WhatsApp">
-                    Message on WhatsApp
-                </a>
-            </div>
-        </div>
-    </article>
+<body>
+  <article>
+    <header>
+      <h1>In the end, love always wins</h1>
+      <div class="subtitle">A Testament from 1 Corinthians 13:4–8</div>
+      <div class="meta">
+        <span class="author">🌏 Albright Ai</span>
+        <span class="date">Tanzania</span>
+      </div>
+      <div class="separator"></div>
+    </header>
 
-    <script>
-        // Obfuscated validation logic - hidden from users
-        (function() {
-            // AUTHOR: Change the required characters here (completely hidden from users)
-            // This is the only place where the "must contain" rule is defined
-            const REQUIRED_CHARS = "100"; // <<-- AUTHOR: EDIT THIS LINE ONLY
-            
-            // Create a hidden validation system
-            const _hiddenValidator = {
-                // Secret validation rules (only for author)
-                _secretRules: {
-                    requiredChars: REQUIRED_CHARS,
-                    length: 8,
-                    checksumMod: 3
-                },
-                
-                // Obfuscated validation method
-                _validate: function(code) {
-                    // Check length
-                    if (code.length !== this._secretRules.length) return false;
-                    
-                    // Check required characters
-                    const requiredArray = this._secretRules.requiredChars.split('');
-                    for (let char of requiredArray) {
-                        if (!code.includes(char)) return false;
-                    }
-                    
-                    // Check checksum (additional hidden validation)
-                    const sum = code.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
-                    if (sum % this._secretRules.checksumMod !== 1) return false;
-                    
-                    return true;
-                },
-                
-                // Public method that appears to do something else
-                checkAccess: function(input) {
-                    return this._validate(input);
-                }
-            };
-            
-            // Make the validator available in a way that's hard to detect
-            window._appConfig = {
-                settings: {
-                    validator: _hiddenValidator
-                }
-            };
-            
-            // Initialize the page
-            document.addEventListener('DOMContentLoaded', function() {
-                // DOM elements
-                var unlockBtn = document.getElementById('unlockBtn');
-                var accessInput = document.getElementById('accessCode');
-                var article = document.getElementById('main-article');
-                var validationMessage = document.getElementById('validationMessage');
-                
-                // Function to validate code
-                function validateAccessCode(code) {
-                    validationMessage.className = 'validation-message';
-                    validationMessage.textContent = '';
-                    
-                    if (code.length !== 8) {
-                        validationMessage.textContent = 'Access code must be exactly 8 characters.';
-                        validationMessage.classList.add('validation-error');
-                        return false;
-                    }
-                    
-                    // Hidden validation using the obfuscated validator
-                    if (!window._appConfig.settings.validator.checkAccess(code)) {
-                        validationMessage.textContent = 'Invalid access code';
-                        validationMessage.classList.add('validation-error');
-                        return false;
-                    }
-                    
-                    return true;
-                }
-                
-                // Unlock functionality
-                unlockBtn.addEventListener('click', function() {
-                    var code = accessInput.value.trim();
-                    if (validateAccessCode(code)) {
-                        article.classList.add('unlocked');
-                        unlockBtn.disabled = true;
-                        accessInput.disabled = true;
-                        validationMessage.textContent = 'Content unlocked successfully!';
-                        validationMessage.classList.add('validation-success');
-                    } else {
-                        accessInput.value = '';
-                        accessInput.focus();
-                    }
-                });
-                
-                // Allow Enter key to submit
-                accessInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        unlockBtn.click();
-                    }
-                });
-            });
-        })();
+    <p>Love often begins <span class="highlight-soft">unnoticed</span>. It is not loud or dramatic at first — it appears in the <span class="key-concept">patience</span> of someone who stays calm when provoked, in the <span class="key-concept">kindness</span> of a small gesture when no one else is watching, in the <span class="key-concept">forgiveness</span> that slips quietly into a conversation without fanfare. And yet, despite this subtle beginning, love is also <span class="highlight-text">one of the most distorted realities</span> in human life.</p>
 
-        // Additional content protection
-        document.addEventListener('DOMContentLoaded', function() {
-            // Content protection - prevent right-click (but allow on links)
-            document.addEventListener('contextmenu', function(e) {
-                if (!e.target.closest('a')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
+    <p>All around us, we hear of love tangled with suffering: <span class="highlight-soft">heartbreak sung as glory</span>, <span class="highlight-soft">jealousy romanticized as passion</span>, <span class="highlight-soft">obsession portrayed as devotion</span>. In marriages, people are told to endure abuse in the name of "love." In friendships, control is mistaken for care. In communities, loyalty is twisted into silence about injustice. Even faith has sometimes misused the language of love to <span class="highlight-important">keep people in chains</span>.</p>
+
+    <p>But Paul's words in 1 Corinthians 13:4–8 <span class="highlight-text">cut through the noise</span>. They show us what love is, and just as importantly, what love is not. They unmask false versions of love — those that harm and enslave — and replace them with a vision that <span class="highlight-text">heals, redeems, and perseveres</span>.</p>
+
+    <div class="pull-quote">True love is not the author of pain but the force that redeems it.</div>
+
+    <div class="section-break">⸻</div>
+    <h2>Marriage: Love beyond endurance of harm</h2>
+    <p>In marriage, love is often reduced to <span class="highlight-soft">survival</span>. People are told that to be patient means to remain silent through cruelty, or that to forgive means to erase accountability. But Paul's patience is not passive tolerance of abuse. <span class="highlight-line">It is strength restrained, a refusal to answer wound with wound.</span> His kindness is not weakness but the <span class="highlight-text">active choice to build instead of break</span>.</p>
+
+    <p>Love in marriage <span class="key-concept">protects</span>. It does not dishonor. It does not demand self-seeking dominance. It does not keep score of every mistake to weaponize later. Instead, it creates a space where two flawed humans can <span class="highlight-text">flourish side by side</span>.</p>
+
+    <p>When envy rises — comparing roles, incomes, attention, or affection — Paul's vision cuts through: <span class="highlight-line">love does not envy</span>. When pride tempts one to win every argument, Scripture reminds: <span class="highlight-line">love is not proud</span>. And when bitterness lurks, waiting to tally every wrong, Paul insists: <span class="highlight-line">love keeps no record of wrongs</span>.</p>
+
+    <div class="pull-quote">Love in marriage does not glorify endurance of cruelty. It builds trust, protection, and hope that outlast storms.</div>
+
+    <div class="section-break">⸻</div>
+    <h2>Friendship: Love without possession</h2>
+    <p>In friendship, the distortions take subtler forms. We may call jealousy "care." We may call control "closeness." We may disguise gossip as honesty. Yet Paul's picture demands more. <span class="highlight-text">True friendship does not envy another's blessings</span>. It does not boast in superiority. It does not demand possession over another's time or choices.</p>
+
+    <p>A real friend <span class="key-concept">rejoices in truth</span>, even when that truth hurts. They tell us when we are wandering off course, not to wound us but to restore us. They forgive without keeping ledgers, but they also protect — which sometimes means <span class="highlight-text">setting boundaries when harm occurs</span>.</p>
+
+    <div class="pull-quote">Friendship warped by control becomes a cage; friendship grounded in Paul's love becomes a shelter.</div>
+
+    <div class="section-break">⸻</div>
+    <h2>Community: Love that resists silence</h2>
+    <p>In communities — neighborhoods, workplaces, churches — love is often reduced to <span class="highlight-soft">politeness</span>. We mistake keeping peace for making peace. We confuse silence about injustice with patience. But Paul reminds us: <span class="highlight-line">love does not delight in evil but rejoices with the truth</span>.</p>
+
+    <p>When a community ignores wrongdoing in the name of harmony, it is not love. When loyalty is twisted into covering for harm, it is not love. <span class="highlight-text">Love does not hide sin in shadows to protect reputations</span>. It rejoices when truth is brought into the light.</p>
+
+    <p>This means love in community requires <span class="highlight-important">courage</span>. It means protecting the vulnerable, challenging the proud, and refusing to let envy or boasting poison shared life. Communities built on true love do not crumble under crisis, because they are woven not with silence but with <span class="highlight-text">honesty, forgiveness, and perseverance</span>.</p>
+
+    <div class="pull-quote">Love in community refuses to protect comfort at the expense of justice.</div>
+
+    <div class="section-break">⸻</div>
+    <h2>Social justice: Love that acts</h2>
+    <p>Love has often been dismissed as "soft," but in Scripture, love is <span class="highlight-important">fierce</span>. It <span class="key-concept">always protects</span>, <span class="key-concept">always hopes</span>, <span class="key-concept">always perseveres</span>. That is not passive language — it is the language of <span class="highlight-text">resistance, of persistence, of action</span>.</p>
+
+    <p>Movements for justice have thrived not on hatred but on love. The love that says: no child should starve. The love that says: no neighbor should live under oppression. The love that hopes for a future that does not yet exist and perseveres until it does.</p>
+
+    <p>Here again, we see Paul's warning. False love delights in evil — in systems that profit from exploitation, in narratives that scapegoat the weak. True love rejoices with truth, even when truth disrupts comfort. <span class="highlight-text">True love is not blind loyalty to systems; it is loyalty to human dignity</span>.</p>
+
+    <div class="pull-quote">Love in justice work refuses to accept suffering as normal. It protects, hopes, and perseveres until freedom is reality.</div>
+
+    <div class="section-break">⸻</div>
+    <h2>Faith struggle: Love that carries us</h2>
+    <p>Even in faith, love is misunderstood. Some are told that loving God means suppressing questions. Others are told that God's love is proven only in suffering, as if pain itself were holy. But Paul insists otherwise.</p>
+
+    <p>God's love is not a chain but a <span class="highlight-text">refuge</span>. <span class="highlight-line">It protects, trusts, hopes, perseveres.</span> It welcomes doubt without condemnation. It forgives without scorekeeping. It rejoices not in religious performance but in truth — even when that truth reveals our frailty.</p>
+
+    <p>In the darkest seasons of faith — when prayers feel unanswered, when trials multiply, when silence stretches long — this love proves <span class="highlight-important">unshakable</span>. It does not demand perfection to remain. It does not collapse under questions. <span class="highlight-text">It perseveres until the end</span>.</p>
+
+    <div class="pull-quote">Faith may falter, but love never fails. Where belief wavers, love carries us through.</div>
+
+    <div class="section-break">⸻</div>
+    <h2>Love never fails</h2>
+    <p>Paul's final words are not a sentimental slogan. They are a <span class="highlight-important">defiant declaration</span> against every counterfeit love. False loves do fail. Jealous love corrodes. Prideful love collapses. Manipulative love betrays. Silent love that covers evil destroys communities. Passion disguised as cruelty wrecks marriages. But true love — patient, kind, honest, enduring — <span class="highlight-text">does not fail</span>.</p>
+
+    <p>It does not mean we never suffer, but it ensures suffering does not define us. It does not mean we never break, but it ensures breaking is never the end. Love is the quiet force that gathers our fragments and <span class="highlight-text">rebuilds us into something whole</span>.</p>
+
+    <p>When marriages falter, friendships strain, communities fracture, justice feels delayed, and faith feels fragile — <span class="highlight-line">love endures</span>. <span class="highlight-line">Love waits</span>. <span class="highlight-line">Love heals</span>. <span class="highlight-line">Love keeps going</span>.</p>
+
+    <div class="pull-quote">When all false loves collapse, only this one remains: the love that never fails.</div>
+
+    <div class="section-break">⸻</div>
+    <p class="conclusion"><strong>In the end, love always wins.</strong></p>
+  </article>
+<script>
+// Protection against copying - works silently
+document.addEventListener('copy', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('cut', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+// Protection against developer tools - works silently
+(function() {
+    var devtools = {
+        open: false,
+        orientation: null
+    };
+    var threshold = 160;
+    
+    var checkDevTools = function() {
+        var widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        var heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        
+        if (!(heightThreshold && widthThreshold) &&
+            ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || 
+             widthThreshold || heightThreshold)) {
             
-            // Prevent text selection always
-            document.addEventListener('selectstart', function(e) {
-                if (!e.target.closest('a') && 
-                    !e.target.closest('input') && 
-                    !e.target.closest('textarea')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
+            if (!devtools.open) {
+                // Clear the page content when dev tools are detected
+                document.body.innerHTML = '';
+                // Prevent further interaction
+                document.body.style.pointerEvents = 'none';
+                // Make page appear blank
+                document.documentElement.style.backgroundColor = '#2C0F14';
+            }
             
-            // Prevent drag and drop of images (but allow for links)
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            
-            // Allow developer tools when needed but prevent easy access
-            document.addEventListener('keydown', function(e) {
-                // Allow Ctrl+U (View Source) and F12
-                if (e.ctrlKey && e.keyCode === 85) return true;
-                if (e.keyCode === 123) return true;
-                
-                if ((e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-                    (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-                    (e.ctrlKey && e.shiftKey && e.keyCode === 67)) { // Ctrl+Shift+C
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            
-            // Ensure all links work properly
-            document.querySelectorAll('a').forEach(function(link) {
-                // Make sure links are always clickable
-                link.style.pointerEvents = 'auto';
-                link.style.cursor = 'pointer';
-                
-                // Remove any existing click handlers that might interfere
-                link.onclick = null;
-                
-                // Add a simple click event listener to ensure links open
-                link.addEventListener('click', function(e) {
-                    // For external links, let them open normally
-                    if (this.target === '_blank' || this.href.includes('http')) {
-                        return true;
-                    }
-                    
-                    // For internal links, prevent default if content is locked
-                    var article = document.getElementById('main-article');
-                    if (!article.classList.contains('unlocked')) {
-                        e.preventDefault();
-                        return false;
-                    }
-                });
-            });
-            
-            // Additional security: Clear clipboard on copy attempt (but allow on links and inputs)
-            document.addEventListener('copy', function(e) {
-                if (!e.target.closest('a') && 
-                    !e.target.closest('input') && 
-                    !e.target.closest('textarea')) {
-                    e.preventDefault();
-                    e.clipboardData.setData('text/plain', 'Content is protected');
-                    return false;
-                }
-            });
-            
-            // Additional security: Clear clipboard on cut attempt
-            document.addEventListener('cut', function(e) {
-                if (!e.target.closest('a') && 
-                    !e.target.closest('input') && 
-                    !e.target.closest('textarea')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            
-            // Additional security: Prevent paste (but allow in input fields)
-            document.addEventListener('paste', function(e) {
-                if (!e.target.closest('input') && 
-                    !e.target.closest('textarea')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            
-            // Make sure WhatsApp button works
-            var whatsappButton = document.querySelector('.whatsapp-button');
-            if (whatsappButton) {
-                whatsappButton.addEventListener('click', function(e) {
-                    // Allow the link to open normally
-                    return true;
-                });
+            devtools.open = true;
+        } else {
+            devtools.open = false;
+        }
+    };
+    
+    setInterval(checkDevTools, 500);
+})();
+
+// Disable text selection - works silently
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+    document.body.style.msUserSelect = 'none';
+    document.body.style.mozUserSelect = 'none';
+    
+    // Disable dragging
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+});
+
+// Protection against keyboard shortcuts - works silently
+document.addEventListener('keydown', function(e) {
+    // Disable F12
+    if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Disable Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
+    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Disable Ctrl+U
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Protection against iframe embedding - works silently
+if (window.location !== window.parent.location) {
+    document.body.innerHTML = '';
+    document.body.style.pointerEvents = 'none';
+}
+
+// Obfuscation - Hide content source by encoding text nodes
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to encode text content
+    function encodeText(text) {
+        return text.split('').map(function(c) {
+            return String.fromCharCode(c.charCodeAt(0) + 1);
+        }).join('');
+    }
+    
+    // Function to decode text content
+    function decodeText(text) {
+        return text.split('').map(function(c) {
+            return String.fromCharCode(c.charCodeAt(0) - 1);
+        }).join('');
+    }
+    
+    // Encode all text nodes on page load
+    function encodeAllText() {
+        var treeWalker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            { acceptNode: function(node) { 
+                return node.parentNode.tagName !== 'SCRIPT' && 
+                       node.parentNode.tagName !== 'STYLE' ? 
+                       NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
+            }},
+            false
+        );
+        
+        var nodes = [];
+        while(treeWalker.nextNode()) {
+            if (treeWalker.currentNode.nodeValue.trim() !== '') {
+                nodes.push(treeWalker.currentNode);
+            }
+        }
+        
+        nodes.forEach(function(node) {
+            var original = node.nodeValue;
+            node.setAttribute('data-o', btoa(encodeText(original)));
+            node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
+        });
+    }
+    
+    // Decode text when needed (for screen readers and accessibility)
+    function makeContentAccessible() {
+        var treeWalker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            { acceptNode: function(node) { 
+                return node.hasAttribute('data-o') ? 
+                       NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
+            }},
+            false
+        );
+        
+        var nodes = [];
+        while(treeWalker.nextNode()) {
+            nodes.push(treeWalker.currentNode);
+        }
+        
+        nodes.forEach(function(node) {
+            try {
+                node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
+            } catch(e) {
+                // If decoding fails, keep the current value
             }
         });
+    }
+    
+    // Initial encoding
+    encodeAllText();
+    
+    // Make content accessible for screen readers
+    setTimeout(makeContentAccessible, 100);
+    
+    // Re-encode text periodically
+    setInterval(function() {
+        encodeAllText();
+        setTimeout(makeContentAccessible, 50);
+    }, 30000);
+});
 
-        // Advanced obfuscation with stealth validation
-        (function() {
-            // Create multiple validation layers to confuse inspection
-            const validationLayers = [
-                function(c) { return c.length === 8; },
-                function(c) { 
-                    // Hidden checksum validation
-                    const sum = c.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
-                    return sum % 3 === 1;
-                }
-            ];
-
-            // Store the real validation in a way that's hard to trace
-            window.__validators = {
-                layer1: validationLayers[0],
-                layer2: validationLayers[1],
-                validateAll: function(input) {
-                    return this.layer1(input) && this.layer2(input);
-                }
-            };
-
-            // Create misdirection - fake validation functions
-            window.fakeValidator = {
-                checkCode: function(code) {
-                    // This is a fake validator to mislead anyone inspecting
-                    return code === '12345678' || code === '00000000';
-                }
-            };
-
-            // String encryption for any messages (misdirection)
-            const encryptedStrings = [
-                {data: [23, 45, 67, 89, 12, 34, 56, 78], key: 0x55},
-                {data: [98, 76, 54, 32, 10, 11, 12, 13], key: 0xAA}
-            ];
-            
-            // Function to decrypt strings (never actually used, just for misdirection)
-            window.decryptString = function(index) {
-                const item = encryptedStrings[index];
-                return item.data.map(c => String.fromCharCode(c ^ item.key)).join('');
-            };
-        })();
-    </script>
+// Additional protection: Monitor DOM changes to prevent inspection
+(function() {
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && 
+                mutation.attributeName === 'data-o') {
+                // If someone tries to manipulate our obfuscation attribute
+                mutation.target.parentNode.remove();
+            }
+        });
+    });
+    
+    observer.observe(document.documentElement, {
+        attributes: true,
+        subtree: true,
+        attributeFilter: ['data-o']
+    });
+})();
+</script>
 </body>
 </html>
