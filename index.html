@@ -7,36 +7,61 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Dracula Eclipse Theme Variables */
-            --primary-bg: #282A36;
-            --secondary-bg: #343746;
-            --highlight-bg: #44475A;
-            --foreground: #F8F8F2;
-            --comments: #6272A4;
-            --line-numbers: #3B3D4E;
-            --keywords: #FF79C6;
-            --functions: #50FA7B;
-            --variables: #BD93F9;
-            --strings: #F1FA8C;
-            --numbers: #FF79C6;
-            --operators: #F8F8F2;
-            --errors: #FF5555;
-            --diff-add: #50FA7B;
-            --diff-del: #FF5555;
-            --diff-mod: #F1FA8C;
-            --todo: #F1FA8C;
-            
-            /* Additional colors */
-            --whatsapp-green: #25D366;
-            --teal-accent: #018194;
-            --teal-accent-transparent: rgba(1, 129, 148, 0.7);
-            --whatsapp-hover: #98C379;
-            --border-color: #4B4B57;
-            --paywall-bg: #2E2F3D;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --teal-shadow: rgba(198, 120, 221, 0.4);
-            --whatsapp-shadow: rgba(152, 195, 121, 0.3);
-            --whatsapp-hover-shadow: rgba(152, 195, 121, 0.4);
+  /* Core Backgrounds */
+  --primary-bg: #1C1C1E; /* Charcoal black base */
+  --secondary-bg: #242426; /* Slight lift for panels */
+  --highlight-bg: #2E2E32; /* Soft hover/active highlight */
+  --modal-bg: #202022; /* Balanced modal backdrop */
+  --paywall-bg: #262628; /* Slight contrast for paywall */
+
+  /* Foreground and Text */
+  --foreground: #F5F5F7; /* Gentle off-white for primary text */
+  --muted-foreground: #A6A6AD; /* Neutral-muted gray */
+  --comments: #787880; /* Subdued gray for comments */
+
+  /* Syntax Highlighting / Code */
+  --keywords: #EC407A; /* Vibrant rose pink */
+  --functions: #26C6DA; /* Bright teal */
+  --variables: #9575CD; /* Medium lavender purple */
+  --strings: #FFCA28; /* Classic amber */
+  --numbers: #EC407A; /* Match keywords */
+  --operators: #F5F5F7; /* Same as foreground */
+  --errors: #EF5350; /* Classic error red */
+  --line-numbers: #404044; /* Subtle mid-gray */
+
+  /* Diff and Status */
+  --diff-add: #26C6DA; /* Teal for additions */
+  --diff-del: #EF5350; /* Red deletions */
+  --diff-mod: #FFCA28; /* Amber modifications */
+  --todo: #FFCA28; /* Consistent amber */
+
+  /* Accents */
+  --primary-accent: #5C6BC0; /* Muted slate blue */
+  --secondary-accent: #EC407A; /* Rose pink */
+  --whatsapp-green: #25D366; /* Unchanged WhatsApp green */
+  --success: #25D366; /* WhatsApp green for success */
+  --warning: #FFCA28; /* Amber warnings */
+  --error: #EF5350; /* Red errors */
+  --teal-accent-transparent: rgba(92, 107, 192, 0.65); /* Slate blue glow */
+  --whatsapp-hover: #2BE67A; /* Lighter green hover */
+  --whatsapp-hover-shadow: rgba(43, 230, 122, 0.35); /* WhatsApp glow */
+
+  /* Borders and Shadows */
+  --border-color: #2E2E32; /* Neutral charcoal borders */
+  --shadow-color: rgba(0, 0, 0, 0.55); /* Softer depth */
+  --accent-shadow: rgba(92, 107, 192, 0.3); /* Slate blue glow */
+  --whatsapp-shadow: rgba(37, 211, 102, 0.3); /* WhatsApp green shadow */
+  --hover-shadow: rgba(236, 64, 122, 0.3); /* Rose hover glow */
+
+  /* Additional UI Elements */
+  --button-bg: #018194; /* Teal for calm buttons */
+  --button-bg-hover: #7986CB; /* Brighter slate hover */
+  --button-text: #F5F5F7; /* Soft white text */
+  --input-bg: #242426; /* Panel-charcoal for inputs */
+  --input-border: #404044; /* Subtle input border */
+  --overlay-bg: rgba(28, 28, 30, 0.85); /* Charcoal overlay */
+
+
 
             /* Typography */
             --base-font-size: 18px;
@@ -83,7 +108,6 @@
             text-justify: inter-word;
             word-spacing: -0.05em;
             letter-spacing: -0.015em;
-            /* Text selection always disabled */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -317,7 +341,7 @@
             padding: 14px;
             font-size: 1rem;
             font-weight: 600;
-            background: var(--teal-accent);
+            background: var(--button-bg);
             color: var(--foreground);
             border: none;
             border-radius: 8px;
@@ -326,7 +350,7 @@
         }
         
         .paywall-card button:hover {
-            box-shadow: 0 4px 14px var(--teal-shadow);
+            box-shadow: 0 4px 14px var(--accent-shadow);
             transform: translateY(-2px);
         }
         
@@ -393,16 +417,13 @@
             display: none;
         }
         
-        /* Content protection */
         .protected {
-            /* Text selection always disabled */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
         
-        /* Print prevention */
         @media print {
             .locked-content {
                 display: none !important;
@@ -419,7 +440,6 @@
             }
         }
         
-        /* Validation message styling */
         .validation-message {
             padding: 10px;
             border-radius: 6px;
@@ -448,7 +468,6 @@
             text-decoration: none;
             display: inline-block;
             margin-top: 10px;
-            /* Ensured these are always clickable */
             pointer-events: auto !important;
             position: relative;
             z-index: 1000;
@@ -460,17 +479,14 @@
             cursor: pointer;
         }
         
-        /* Overlay for protection - REMOVED */
         .protection-overlay {
             display: none !important;
         }
         
-        /* Transparent overlay for content protection - REMOVED */
         .content-protector {
             display: none !important;
         }
         
-        /* Allow YouTube links to be clickable even when locked */
         .allow-click {
             pointer-events: auto !important;
             position: relative;
@@ -478,24 +494,20 @@
             cursor: pointer !important;
         }
         
-        /* Make sure YouTube links are always above any potential overlays */
         .youtube-link, .allow-click {
             z-index: 10000 !important;
         }
         
-        /* Ensure all links are always clickable */
         a {
             pointer-events: auto !important;
             cursor: pointer !important;
         }
         
-        /* WhatsApp button specific styling */
         .whatsapp-button, .whatsapp-link {
             pointer-events: auto !important;
             cursor: pointer !important;
         }
         
-        /* Input fields should allow text selection */
         input, textarea {
             user-select: auto !important;
             -webkit-user-select: auto !important;
@@ -503,7 +515,6 @@
             -ms-user-select: auto !important;
         }
         
-        /* Divider styling */
         .divider {
             text-align: center;
             margin: 30px 0;
@@ -512,7 +523,6 @@
             letter-spacing: 5px;
         }
         
-        /* Numbered list styling */
         .numbered-list {
             counter-reset: law-counter;
             margin: 30px 0;
