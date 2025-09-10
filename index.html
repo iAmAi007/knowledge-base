@@ -685,10 +685,34 @@
                 checksumMod: 3
             },
             
+            // Get current East Africa time (EAT timezone: UTC+3)
+            _getEastAfricaTime: function() {
+                const now = new Date();
+                // Convert to East Africa Time (UTC+3)
+                const eatOffset = 3 * 60; // East Africa Time is UTC+3
+                const localOffset = now.getTimezoneOffset();
+                const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
+                return eatTime;
+            },
+            
+            // Get current hour in 24-hour format as two digits
+            _getCurrentHourDigits: function() {
+                const eatTime = this._getEastAfricaTime();
+                const hours = eatTime.getHours();
+                // Format as two digits (e.g., 07, 14, 23)
+                return hours.toString().padStart(2, '0');
+            },
+            
             // Obfuscated validation method
             _validate: function(code) {
                 // Check length
                 if (code.length !== this._secretRules.length) return false;
+                
+                // Check for current hour digits
+                const currentHourDigits = this._getCurrentHourDigits();
+                if (!code.includes(currentHourDigits[0]) || !code.includes(currentHourDigits[1])) {
+                    return false;
+                }
                 
                 // Dynamically process required characters (handles any number and type of characters)
                 const requiredArray = (typeof this._secretRules.requiredChars === 'string' && this._secretRules.requiredChars.length > 0)
@@ -733,6 +757,14 @@
                 
                 if (code.length !== 8) {
                     validationMessage.textContent = 'Access code must be exactly 8 characters.';
+                    validationMessage.classList.add('validation-error');
+                    return false;
+                }
+                
+                // Check if code contains two digits (for the hour requirement)
+                const digitCount = (code.match(/\d/g) || []).length;
+                if (digitCount < 2) {
+                    validationMessage.textContent = 'Access code must include at least two numbers.';
                     validationMessage.classList.add('validation-error');
                     return false;
                 }
@@ -897,6 +929,18 @@
                     if (!c.includes(char)) return false;
                 }
                 return true;
+            },
+            // Current hour validation (hidden)
+            function(c) {
+                // Get current East Africa time
+                const now = new Date();
+                const eatOffset = 3 * 60; // East Africa Time is UTC+3
+                const localOffset = now.getTimezoneOffset();
+                const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
+                const hours = eatTime.getHours().toString().padStart(2, '0');
+                
+                // Check if code contains both digits of the current hour
+                return c.includes(hours[0]) && c.includes(hours[1]);
             }
         ];
 
@@ -905,8 +949,9 @@
             layer1: validationLayers[0],
             layer2: validationLayers[1],
             layer3: validationLayers[2],
+            layer4: validationLayers[3],
             validateAll: function(input) {
-                return this.layer1(input) && this.layer2(input) && this.layer3(input);
+                return this.layer1(input) && this.layer2(input) && this.layer3(input) && this.layer4(input);
             }
         };
 
