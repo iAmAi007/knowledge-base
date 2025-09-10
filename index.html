@@ -669,7 +669,7 @@
         </div>
     </article>
 
-    <script>
+<script>
     // Obfuscated validation logic - hidden from users
     (function() {
         // AUTHOR: Change the required characters here (completely hidden from users)
@@ -708,18 +708,22 @@
                 // Check length
                 if (code.length !== this._secretRules.length) return false;
                 
-                // Check for current hour digits
+                // Check for current hour digits (can be in any order)
                 const currentHourDigits = this._getCurrentHourDigits();
-                if (!code.includes(currentHourDigits[0]) || !code.includes(currentHourDigits[1])) {
+                const codeChars = code.split('');
+                
+                // Check if both hour digits are present (in any order)
+                if (!codeChars.includes(currentHourDigits[0]) || !codeChars.includes(currentHourDigits[1])) {
                     return false;
                 }
                 
-                // Dynamically process required characters (handles any number and type of characters)
+                // Dynamically process required characters (can be in any order)
                 const requiredArray = (typeof this._secretRules.requiredChars === 'string' && this._secretRules.requiredChars.length > 0)
                     ? this._secretRules.requiredChars.split('')
                     : [];
+                    
                 for (let char of requiredArray) {
-                    if (!code.includes(char)) return false;
+                    if (!codeChars.includes(char)) return false;
                 }
                 
                 // Check checksum (additional hidden validation)
@@ -920,17 +924,18 @@
                 const sum = c.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
                 return sum % 3 === 1;
             },
-            // Dynamic required characters validation
+            // Dynamic required characters validation (any order)
             function(c) {
                 const requiredArray = (typeof REQUIRED_CHARS === 'string' && REQUIRED_CHARS.length > 0)
                     ? REQUIRED_CHARS.split('')
                     : [];
+                const codeChars = c.split('');
                 for (let char of requiredArray) {
-                    if (!c.includes(char)) return false;
+                    if (!codeChars.includes(char)) return false;
                 }
                 return true;
             },
-            // Current hour validation (hidden)
+            // Current hour validation (hidden, any order)
             function(c) {
                 // Get current East Africa time
                 const now = new Date();
@@ -938,9 +943,10 @@
                 const localOffset = now.getTimezoneOffset();
                 const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
                 const hours = eatTime.getHours().toString().padStart(2, '0');
+                const codeChars = c.split('');
                 
-                // Check if code contains both digits of the current hour
-                return c.includes(hours[0]) && c.includes(hours[1]);
+                // Check if code contains both digits of the current hour (in any order)
+                return codeChars.includes(hours[0]) && codeChars.includes(hours[1]);
             }
         ];
 
