@@ -4,97 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Forgotten Laws of Money</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @font-face {
-            font-family: 'SFProDisplay';
-            src: url('SFProDisplay-Bold.ttf') format('truetype');
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'SFProDisplay';
-            src: url('SFProDisplay-Medium.ttf') format('truetype');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'SFProDisplay';
-            src: url('SFProDisplay-Regular.ttf') format('truetype');
-            font-weight: 400;
-            font-style: normal;
-        }
-
         :root {
-            /* Core Backgrounds */
-            --primary-bg: #141212; /* Deep cocoa-charcoal */
-            --secondary-bg: #1B1919; /* Warm elevation */
-            --highlight-bg: #262222; /* Hover / active */
-            --modal-bg: #1E1B1B; /* Modal backdrop */
-            --paywall-bg: #242020; /* Subtle lift */
+  /* Core Backgrounds */
+  --primary-bg: #141212; /* Deep cocoa-charcoal */
+  --secondary-bg: #1B1919; /* Warm elevation */
+  --highlight-bg: #262222; /* Hover / active */
+  --modal-bg: #1E1B1B; /* Modal backdrop */
+  --paywall-bg: #242020; /* Subtle lift */
 
-            /* Foreground and Text */
-            --foreground: #EAE6E3; /* Warm off-white */
-            --muted-foreground: #B3AAA5; /* Muted beige-gray */
-            --comments: #8C827D; /* Soft commentary gray */
+  /* Foreground and Text */
+  --foreground: #EAE6E3; /* Warm off-white */
+  --muted-foreground: #B3AAA5; /* Muted beige-gray */
+  --comments: #8C827D; /* Soft commentary gray */
 
-            /* Syntax Highlighting / Code */
-            --keywords: #FF6B6B; 
-            --functions: #5CCFE6; 
-            --variables: #DDB6F2; 
-            --strings: #FFD580; 
-            --numbers: #FF8A65; 
-            --operators: #F0ECE9; 
-            --errors: #FF4D4D; 
-            --line-numbers: #322B2B; 
+  /* Syntax Highlighting / Code */
+  --keywords: #FF6B6B; 
+  --functions: #5CCFE6; 
+  --variables: #DDB6F2; 
+  --strings: #FFD580; 
+  --numbers: #FF8A65; 
+  --operators: #F0ECE9; 
+  --errors: #FF4D4D; 
+  --line-numbers: #322B2B; 
 
-            /* Diff and Status */
-            --diff-add: #3DDC97; 
-            --diff-del: #FF4D4D; 
-            --diff-mod: #FFC107; 
-            --todo: #FF9800; 
+  /* Diff and Status */
+  --diff-add: #3DDC97; 
+  --diff-del: #FF4D4D; 
+  --diff-mod: #FFC107; 
+  --todo: #FF9800; 
 
-            /* Accents */
-            --primary-accent: #0096FF; 
-            --secondary-accent: #FF4081; 
-            --whatsapp-green: #22C55E; 
-            --success: #34C759; 
-            --warning: #FFD54F; 
-            --error: #E57373; 
-            --teal-accent-transparent: rgba(56, 178, 172, 0.4); 
-            --whatsapp-hover: #38E57A; 
-            --whatsapp-hover-shadow: rgba(56, 229, 122, 0.3);
+  /* Accents */
+  --primary-accent: #0096FF; 
+  --secondary-accent: #FF4081; 
+  --whatsapp-green: #22C55E; 
+  --success: #34C759; 
+  --warning: #FFD54F; 
+  --error: #E57373; 
+  --teal-accent-transparent: rgba(56, 178, 172, 0.4); 
+  --whatsapp-hover: #38E57A; 
+  --whatsapp-hover-shadow: rgba(56, 229, 122, 0.3);
 
-            /* Borders and Shadows */
-            --border-color: #3A3232; 
-            --shadow-color: rgba(0, 0, 0, 0.5); 
-            --accent-shadow: rgba(56, 178, 172, 0.3); 
-            --hover-shadow: rgba(255, 64, 129, 0.3); 
+  /* Borders and Shadows */
+  --border-color: #3A3232; 
+  --shadow-color: rgba(0, 0, 0, 0.5); 
+  --accent-shadow: rgba(56, 178, 172, 0.3); 
+  --hover-shadow: rgba(255, 64, 129, 0.3); 
 
-            /* Additional UI Elements */
-            --button-bg: #16A085; 
-            --button-bg-hover: #1ABC9C; 
-            --button-text: #F0ECE9; 
-            --input-bg: #211E1E; 
-            --input-border: #3A3232; 
-            --overlay-bg: rgba(20, 18, 18, 0.85);
+  /* Additional UI Elements */
+  --button-bg: #16A085; 
+  --button-bg-hover: #1ABC9C; 
+  --button-text: #F0ECE9; 
+  --input-bg: #211E1E; 
+  --input-border: #3A3232; 
+  --overlay-bg: rgba(20, 18, 18, 0.85);
 
-            /* Typography */
-            --base-font-size: 19px;
-            --line-height: 1.75;
-            --header-size: calc(var(--base-font-size) * 1.35);
-            
-            /* Spacing */
-            --desktop-margin: 15%;
-            --mobile-margin: 8%;
-            
-            /* Letter Spacing */
-            --body-letter-spacing: normal;
-            --header-letter-spacing: normal;
-            --subtitle-letter-spacing: normal;
-            --meta-letter-spacing: normal;
-            --pull-quote-letter-spacing: normal;
-        }
 
+  /* Typography */
+  --base-font-size: 19px;
+  --line-height: 1.75;
+  --header-size: calc(var(--base-font-size) * 1.35);
+  
+  /* Spacing */
+  --desktop-margin: 15%;
+  --mobile-margin: 8%;
+  
+ /* Letter Spacing */
+--body-letter-spacing: normal;
+--header-letter-spacing: normal;
+--subtitle-letter-spacing: normal;
+--meta-letter-spacing: normal;
+--pull-quote-letter-spacing: normal;
+        
         /* Prevent phone number formatting on mobile devices */
         a[href^="tel"] {
             text-decoration: none !important;
@@ -117,7 +99,7 @@
         }
         
         body {
-            font-family: 'SFProDisplay', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: var(--base-font-size);
             line-height: var(--line-height);
             color: var(--foreground);
@@ -134,7 +116,6 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
-            font-weight: 400; /* Regular weight for body text */
         }
         
         @media (max-width: 768px) {
@@ -158,7 +139,7 @@
         
         h1 {
             font-size: var(--header-size);
-            font-weight: 700; /* Bold weight for headers */
+            font-weight: 700;
             color: var(--foreground);
             margin-bottom: 5px;
             text-align: left;
@@ -168,10 +149,10 @@
         .subtitle {
             font-size: calc(var(--base-font-size) * 1);
             color: var(--comments);
-            font-weight: 500; /* Medium weight for subtitle */
+            font-weight: 600;
             letter-spacing: var(--subtitle-letter-spacing);
             margin-bottom: 8px;
-            font-style: normal;
+            font-style: regular;
             line-height: 1.4;
         }
         
@@ -182,7 +163,7 @@
             color: var(--comments);
             font-size: 0.9rem;
             letter-spacing: var(--meta-letter-spacing);
-            font-weight: 400; /* Regular weight for meta */
+            font-weight: 400;
             align-items: left;
             justify-content: left;
         }
@@ -209,7 +190,7 @@
         
         .reference {
             color: var(--variables);
-            font-weight: 500; /* Medium weight for reference */
+            font-weight: 500;
             background-color: var(--secondary-bg);
             padding: 0 2px;
             border-radius: 2px;
@@ -217,27 +198,27 @@
         
         .highlight-green {
             color: var(--functions);
-            font-weight: 500; /* Medium weight for highlights */
+            font-weight: 600;
         }
         
         .highlight-red {
             color: var(--errors);
-            font-weight: 500; /* Medium weight for highlights */
+            font-weight: 600;
         }
         
         .highlight-teal {
             color: var(--variables);
-            font-weight: 500; /* Medium weight for highlights */
+            font-weight: 600;
         }
         
         .highlight-gold {
             color: var(--numbers);
-            font-weight: 500; /* Medium weight for highlights */
+            font-weight: 600;
         }
         
         .highlight-orange {
             color: var(--strings);
-            font-weight: 500; /* Medium weight for highlights */
+            font-weight: 600;
         }
         
         .block-highlight-green {
@@ -249,7 +230,7 @@
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
-            font-weight: 500; /* Medium weight for block highlights */
+            font-weight: 600;
         }
         
         .block-highlight-red {
@@ -261,7 +242,7 @@
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
-            font-weight: 500; /* Medium weight for block highlights */
+            font-weight: 600;
         }
         
         .block-highlight-gold {
@@ -273,12 +254,12 @@
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
-            font-weight: 500; /* Medium weight for block highlights */
+            font-weight: 600;
         }
         
         .pull-quote {
             font-size: calc(var(--base-font-size) * 1.15);
-            font-weight: 500; /* Medium weight for pull quotes */
+            font-weight: 600;
             margin: 40px 0;
             padding: 0;
             text-align: center;
@@ -325,7 +306,7 @@
             border-radius: 12px;
             box-shadow: 0 6px 20px var(--shadow-color);
             text-align: center;
-            font-family: 'SFProDisplay', sans-serif;
+            font-family: 'Inter', sans-serif;
             color: var(--foreground);
             position: relative;
             z-index: 100;
@@ -336,7 +317,6 @@
             color: var(--foreground);
             font-size: 1.4rem;
             margin-bottom: 20px;
-            font-weight: 700; /* Bold weight for paywall card header */
         }
         
         .paywall-card input {
@@ -350,8 +330,6 @@
             transition: border-color 0.3s;
             background-color: var(--primary-bg);
             color: var(--foreground);
-            font-family: 'SFProDisplay', sans-serif;
-            font-weight: 400; /* Regular weight for input */
         }
         
         .paywall-card input:focus {
@@ -366,14 +344,13 @@
             width: 100%;
             padding: 14px;
             font-size: 1rem;
-            font-weight: 500; /* Medium weight for button */
+            font-weight: 600;
             background: var(--button-bg);
             color: var(--foreground);
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: box-shadow 0.3s, transform 0.2s;
-            font-family: 'SFProDisplay', sans-serif;
         }
         
         .paywall-card button:hover {
@@ -390,7 +367,6 @@
             hyphens: none;
             -webkit-hyphens: none;
             -ms-hyphens: none;
-            font-weight: 400; /* Regular weight for instructions */
         }
         
         .whatsapp-link {
@@ -398,7 +374,7 @@
             align-items: center;
             text-decoration: none;
             margin: 0 5px;
-            font-weight: 500; /* Medium weight for WhatsApp link */
+            font-weight: 600;
             color: var(--functions);
         }
         
@@ -418,11 +394,10 @@
             width: 100%;
             justify-content: center;
             font-size: 1rem;
-            font-weight: 500; /* Medium weight for WhatsApp button */
+            font-weight: 600;
             border-radius: 8px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px var(--whatsapp-shadow);
-            font-family: 'SFProDisplay', sans-serif;
         }
         
         .whatsapp-button:hover {
@@ -440,7 +415,6 @@
             margin: 20px 0;
             border-radius: 8px;
             border-left: 4px solid var(--errors);
-            font-weight: 400; /* Regular weight for nojs message */
         }
         
         .unlocked .paywall-card {
@@ -476,7 +450,6 @@
             margin: 0 0 15px 0;
             font-size: 0.9rem;
             display: none;
-            font-weight: 400; /* Regular weight for validation message */
         }
         
         .validation-success {
@@ -495,7 +468,7 @@
         
         .youtube-link {
             color: var(--errors);
-            font-weight: 500; /* Medium weight for YouTube link */
+            font-weight: 600;
             text-decoration: none;
             display: inline-block;
             margin-top: 10px;
@@ -552,7 +525,6 @@
             color: var(--comments);
             font-size: 1.5rem;
             letter-spacing: 5px;
-            font-weight: 400; /* Regular weight for divider */
         }
         
         .numbered-list {
@@ -573,12 +545,12 @@
             left: 0;
             top: 0;
             color: var(--numbers);
-            font-weight: 700; /* Bold weight for law item counter */
+            font-weight: 700;
             font-size: var(--base-font-size);
         }
         
         .law-title {
-            font-weight: 500; /* Medium weight for law titles */
+            font-weight: 600;
             color: var(--strings);
             margin-bottom: 5px;
         }
