@@ -8,61 +8,61 @@
     <style>
         :root {
   /* Core Backgrounds */
-  --primary-bg: #000000; /* Absolute black base */
-  --secondary-bg: #111113; /* Slight elevation for sections */
-  --highlight-bg: #1A1A1C; /* Hover / active contrast */
-  --modal-bg: #0C0C0D; /* Balanced modal backdrop */
-  --paywall-bg: #141416; /* Subtle lift for paywall */
+  --primary-bg: #141212; /* Deep cocoa-charcoal */
+  --secondary-bg: #1B1919; /* Warm elevation */
+  --highlight-bg: #262222; /* Hover / active */
+  --modal-bg: #1E1B1B; /* Modal backdrop */
+  --paywall-bg: #242020; /* Subtle lift */
 
   /* Foreground and Text */
-  --foreground: #F5F5F7; /* Apple off-white */
-  --muted-foreground: #9E9EA2; /* Neutral-muted gray */
-  --comments: #6E6E73; /* Subdued gray, Apple-style */
+  --foreground: #EAE6E3; /* Warm off-white */
+  --muted-foreground: #B3AAA5; /* Muted beige-gray */
+  --comments: #8C827D; /* Soft commentary gray */
 
   /* Syntax Highlighting / Code */
-  --keywords: #FF2D55; 
-  --functions: #64D2FF; 
-  --variables: #BF5AF2; 
-  --strings: #FFD60A; 
-  --numbers: #FF2D55; 
-  --operators: #FFFFFF; 
-  --errors: #FF453A; 
-  --line-numbers: #2C2C2E; 
+  --keywords: #FF6B6B; 
+  --functions: #5CCFE6; 
+  --variables: #DDB6F2; 
+  --strings: #FFD580; 
+  --numbers: #FF8A65; 
+  --operators: #F0ECE9; 
+  --errors: #FF4D4D; 
+  --line-numbers: #322B2B; 
 
   /* Diff and Status */
-  --diff-add: #30D158; 
-  --diff-del: #FF453A; 
-  --diff-mod: #FFD60A; 
-  --todo: #FFD60A; 
+  --diff-add: #3DDC97; 
+  --diff-del: #FF4D4D; 
+  --diff-mod: #FFC107; 
+  --todo: #FF9800; 
 
   /* Accents */
-  --primary-accent: #0A84FF; /* Keep iOS blue for links/accents */
-  --secondary-accent: #FF2D55; 
-  --whatsapp-green: #25D366; 
-  --success: #30D158; 
-  --warning: #FFD60A; 
-  --error: #FF453A; 
-  --teal-accent-transparent: rgba(20, 184, 166, 0.4); /* Teal glow */
-  --whatsapp-hover: #2BE67A; 
-  --whatsapp-hover-shadow: rgba(43, 230, 122, 0.35);
+  --primary-accent: #0096FF; 
+  --secondary-accent: #FF4081; 
+  --whatsapp-green: #22C55E; 
+  --success: #34C759; 
+  --warning: #FFD54F; 
+  --error: #E57373; 
+  --teal-accent-transparent: rgba(56, 178, 172, 0.4); 
+  --whatsapp-hover: #38E57A; 
+  --whatsapp-hover-shadow: rgba(56, 229, 122, 0.3);
 
   /* Borders and Shadows */
-  --border-color: #2C2C2E; 
-  --shadow-color: rgba(0, 0, 0, 0.65); 
-  --accent-shadow: rgba(20, 184, 166, 0.35); /* Teal glow */
-  --whatsapp-shadow: rgba(37, 211, 102, 0.3);
-  --hover-shadow: rgba(255, 45, 85, 0.35); 
+  --border-color: #3A3232; 
+  --shadow-color: rgba(0, 0, 0, 0.5); 
+  --accent-shadow: rgba(56, 178, 172, 0.3); 
+  --hover-shadow: rgba(255, 64, 129, 0.3); 
 
   /* Additional UI Elements */
-  --button-bg: #14B8A6; /* Teal base */
-  --button-bg-hover: #2DD4BF; /* Brighter teal hover */
-  --button-text: #FFFFFF; /* Pure white for clarity */
-  --input-bg: #1C1C1E; 
-  --input-border: #2C2C2E; 
-  --overlay-bg: rgba(0, 0, 0, 0.85); 
+  --button-bg: #16A085; 
+  --button-bg-hover: #1ABC9C; 
+  --button-text: #F0ECE9; 
+  --input-bg: #211E1E; 
+  --input-border: #3A3232; 
+  --overlay-bg: rgba(20, 18, 18, 0.85);
+
 
   /* Typography */
-  --base-font-size: 17px;
+  --base-font-size: 19px;
   --line-height: 1.75;
   --header-size: calc(var(--base-font-size) * 1.35);
   
@@ -70,13 +70,12 @@
   --desktop-margin: 15%;
   --mobile-margin: 8%;
   
-  /* Letter Spacing */
-  --body-letter-spacing: 0.015em;
-  --header-letter-spacing: 0.015em;
-  --subtitle-letter-spacing: 0.015em;
-  --meta-letter-spacing: 0.5px;
-  --pull-quote-letter-spacing: 0.01em;
-}
+ /* Letter Spacing */
+--body-letter-spacing: normal;
+--header-letter-spacing: normal;
+--subtitle-letter-spacing: normal;
+--meta-letter-spacing: normal;
+--pull-quote-letter-spacing: normal;
         
         /* Prevent phone number formatting on mobile devices */
         a[href^="tel"] {
