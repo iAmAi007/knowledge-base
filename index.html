@@ -4,97 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Forgotten Laws of Money</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=system-ui:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
+       :root {
   /* Core Backgrounds */
-  --primary-bg: #0d1117;   /* Main dark background */
-  --secondary-bg: #161b22; /* Sidebar / cards */
-  --highlight-bg: #1e242b; /* Hover / active */
-  --modal-bg: #1a1f25;     /* Modal backdrop */
-  --paywall-bg: #1c2128;   /* Lifted section */
+  --primary-bg: #0a0d10;     /* Softer than pure black for reduced sharp contrast */
+  --secondary-bg: #141820;   /* Softened navy for less harsh transitions */
+  --highlight-bg: #1e2832;   /* Blue-gray tint for clearer hover distinction */
+  --modal-bg: #171c24;       /* Subtle tweak for modal depth */
+  --paywall-bg: #1a2028;     /* Aligned with modal for consistency */
 
   /* Foreground and Text */
-  --foreground: #d1d5da;         /* Main text (softer than white) */
-  --muted-foreground: #8b949e;   /* Muted gray-blue */
-  --comments: #6e7681;           /* Secondary / descriptions */
+  --foreground: #c9d1d9;     /* Softer off-white for reduced glare */
+  --muted-foreground: #82909e; /* Cooler muted gray for better readability */
+  --comments: #67717d;       /* Slightly lighter for secondary text clarity */
 
   /* Syntax Highlighting */
-  --keywords: #87d4e8;   /* Soft aqua */
-  --functions: #c6a0e8;  /* Lavender lilac */
-  --variables: #93c7ff;  /* Muted azure */
-  --strings: #f5c97a;    /* Golden beige */
-  --numbers: #ff9a70;    /* Coral */
-  --operators: #dfe5ea;  /* Light gray-blue */
-  --errors: #e16c6c;     /* Muted red */
-  --line-numbers: #2f353c; /* Dim navy-gray */
+  --keywords: #80c4d8;       /* Softer aqua, less saturated */
+  --functions: #b79de1;      /* Muted lavender for calmer visuals */
+  --variables: #8ab4f8;      /* Softer azure, less intense */
+  --strings: #f0c674;        /* Warmer beige for better contrast on dark bg */
+  --numbers: #f28c68;        /* Slightly softer coral for eye comfort */
+  --operators: #d3d9e0;      /* Lightened for better visibility */
+  --errors: #d65f5f;         /* Softer red to reduce harshness */
+  --line-numbers: #303741;   /* Slightly lighter for better legibility */
 
   /* Diff and Status */
-  --diff-add: #5bbf82;   /* Sage green */
-  --diff-del: #e16c6c;   /* Muted red */
-  --diff-mod: #e2b95b;   /* Muted amber */
-  --todo: #e2b95b;       /* Same muted amber */
+  --diff-add: #55a876;       /* Muted sage green for calmer highlights */
+  --diff-del: #d65f5f;       /* Aligned with errors for consistency */
+  --diff-mod: #d8a94b;       /* Softer amber for less strain */
+  --todo: #d8a94b;           /* Matches diff-mod for consistency */
 
   /* Accents */
-  --primary-accent: #7ecf5b;         /* Softer neon green */
-  --secondary-accent: #7bb6ff;       /* Muted sky blue */
-  --whatsapp-green: #2fbf64;         /* Softer green */
-  --success: #5bbf82;                /* Muted success green */
-  --warning: #e2b95b;                /* Warm amber */
-  --error: #e16c6c;                  /* Gentle error red */
-  --teal-accent-transparent: rgba(123, 182, 255, 0.2); /* Muted transparent blue */
-  --whatsapp-hover: #3edc7a;         /* Muted hover green */
-  --whatsapp-hover-shadow: rgba(46, 188, 100, 0.25);
+  --primary-accent: #72c053;         /* Slightly muted green for less intensity */
+  --secondary-accent: #74a8e6;       /* Cooler blue for calmer accents */
+  --whatsapp-green: #2aa65b;         /* Less saturated green */
+  --success: #55a876;                /* Matches diff-add for consistency */
+  --warning: #d8a94b;                /* Matches diff-mod for consistency */
+  --error: #d65f5f;                  /* Matches errors and diff-del */
+  --teal-accent-transparent: rgba(116, 168, 230, 0.18); /* Softer transparent blue */
+  --whatsapp-hover: #36b46a;         /* Muted hover green */
+  --whatsapp-hover-shadow: rgba(42, 166, 91, 0.22); /* Softer shadow */
 
   /* Borders and Shadows */
-  --border-color: rgba(240, 246, 252, 0.08); /* Softer borders */
-  --shadow-color: rgba(0, 0, 0, 0.5); 
-  --accent-shadow: rgba(126, 207, 91, 0.25); /* Muted accent glow */
-  --hover-shadow: rgba(255, 255, 255, 0.04); /* Softer hover lift */
+  --border-color: rgba(200, 210, 220, 0.1); /* Slightly lighter for visibility */
+  --shadow-color: rgba(0, 0, 0, 0.4);       /* Softer shadow for less contrast */
+  --accent-shadow: rgba(114, 192, 83, 0.2); /* Aligned with primary-accent */
+  --hover-shadow: rgba(255, 255, 255, 0.03); /* Subtler hover effect */
 
   /* Additional UI Elements */
-  --button-bg: #21262d;
-  --button-bg-hover: #30363d;
-  --button-text: #d1d5da;
-  --input-bg: #161b22;
-  --input-border: rgba(240, 246, 252, 0.08);
-  --overlay-bg: rgba(1, 4, 9, 0.85);
+  --button-bg: #1c232b;            /* Matches highlight-bg for consistency */
+  --button-bg-hover: #2a323c;      /* Slightly lighter for hover feedback */
+  --button-text: #c9d1d9;          /* Matches foreground for readability */
+  --input-bg: #141820;             /* Matches secondary-bg for consistency */
+  --input-border: rgba(200, 210, 220, 0.1); /* Matches border-color */
+  --overlay-bg: rgba(10, 12, 16, 0.75); /* Softer overlay for breathable visuals */
+
 
   /* Typography */
-  --base-font-size: 17.5px;
-  --line-height: 1.75;
-  --header-size: calc(var(--base-font-size) * 1.35);
+  --base-font-size: 18px;
+  --line-height: 1.5;
+  --header-size: calc(var(--base-font-size) * 1.2);
 
   /* Spacing */
   --desktop-margin: 15%;
   --mobile-margin: 8%;
 
   /* Letter Spacing */
-  --body-letter-spacing: normal;
-  --header-letter-spacing: normal;
-  --subtitle-letter-spacing: normal;
-  --meta-letter-spacing: normal;
-  --pull-quote-letter-spacing: normal;
+  --body-letter-spacing: 0.025em;
+  --header-letter-spacing: 0.03em;
+  --subtitle-letter-spacing: 0.03em;
+  --meta-letter-spacing: 0.05em;
+  --pull-quote-letter-spacing: 0.05em;
 
 
 
 
 
-  /* Typography */
-  --base-font-size: 18px;
-  --line-height: 1.75;
-  --header-size: calc(var(--base-font-size) * 1.35);
-  
-  /* Spacing */
-  --desktop-margin: 15%;
-  --mobile-margin: 8%;
-  
- /* Letter Spacing */
---body-letter-spacing: normal;
---header-letter-spacing: normal;
---subtitle-letter-spacing: normal;
---meta-letter-spacing: normal;
---pull-quote-letter-spacing: normal;
+ 
         
         /* Prevent phone number formatting on mobile devices */
         a[href^="tel"] {
@@ -118,7 +105,7 @@
         }
         
         body {
-            font-family: 'Sen', sans-serif;
+            font-family: 'system-ui', sans-serif;
             font-size: var(--base-font-size);
             line-height: var(--line-height);
             color: var(--foreground);
@@ -158,7 +145,7 @@
         
         h1 {
             font-size: var(--header-size);
-            font-weight: 700;
+            font-weight: 600;
             color: var(--foreground);
             margin-bottom: 5px;
             text-align: left;
@@ -182,7 +169,7 @@
             color: var(--comments);
             font-size: 0.9rem;
             letter-spacing: var(--meta-letter-spacing);
-            font-weight: 400;
+            font-weight: 450;
             align-items: left;
             justify-content: left;
         }
@@ -325,7 +312,7 @@
             border-radius: 12px;
             box-shadow: 0 6px 20px var(--shadow-color);
             text-align: center;
-            font-family: 'Sen', sans-serif;
+            font-family: 'system-ui', sans-serif;
             color: var(--foreground);
             position: relative;
             z-index: 100;
@@ -334,7 +321,7 @@
         
         .paywall-card h2 {
             color: var(--foreground);
-            font-size: 1.4rem;
+            font-size: calc(var(--base-font-size) * 1.15);;
             margin-bottom: 20px;
         }
         
@@ -362,34 +349,36 @@ font-family: 'Sen', sans-serif !important;
         
         .paywall-card button {
   font-family: 'Sen', sans-serif !important;
-width: 100%;
+  width: 100%;
   padding: 14px;
   font-size: 1rem;
   font-weight: 600;
-  background: linear-gradient(145deg, var(--button-bg-hover), var(--button-bg)); /* Subtle depth */
-  color: var(--foreground);
+  background: linear-gradient(145deg, var(--button-bg-hover), var(--button-bg)); /* Subtle dark gradient */
+  color: var(--button-text); /* Soft off-white for readability */
   border: none;
   border-radius: 8px;
   cursor: pointer;
   box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.4),   /* main shadow */
-    inset 0 1px 0 rgba(255, 255, 255, 0.05); /* light top edge */
-  transition: box-shadow 0.25s ease, transform 0.2s ease;
+    0 4px 6px rgba(0, 0, 0, 0.45), /* Darker shadow for depth */
+    inset 0 1px 0 rgba(255, 255, 255, 0.04); /* Gentle top highlight */
+  transition: box-shadow 0.25s ease, transform 0.2s ease, background 0.3s ease;
 }
 
-/* Hover - stronger lift */
+/* Hover - deeper but still dark */
 .paywall-card button:hover {
+  background: linear-gradient(145deg, #222a33, var(--button-bg)); /* Slightly lighter dark tone */
   box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.5),
-    0 0 8px var(--accent-shadow);
+    0 6px 12px rgba(0, 0, 0, 0.55), /* Stronger depth */
+    0 0 8px rgba(255, 255, 255, 0.06); /* Subtle glow, still dark */
   transform: translateY(-2px);
 }
 
-/* Active / pressed - "push in" look */
+/* Active / pressed - darker push-in */
 .paywall-card button:active {
+  background: linear-gradient(145deg, var(--button-bg), #101418); /* Deeper pressed look */
   box-shadow:
-    inset 0 3px 6px rgba(0, 0, 0, 0.6),
-    inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+    inset 0 3px 6px rgba(0, 0, 0, 0.6), /* Dark inset for pressed state */
+    inset 0 -1px 2px rgba(255, 255, 255, 0.03); /* Faint edge highlight */
   transform: translateY(2px);
 }
         
@@ -482,7 +471,7 @@ width: 100%;
         .validation-message {
             padding: 10px;
             border-radius: 6px;
-            margin: 0 0 15px 0;
+            margin: 0 0 20px 0;
             font-size: 0.9rem;
             display: none;
         }
@@ -602,11 +591,11 @@ width: 100%;
     <article id="main-article">
         
         <header>
-            <h1>Wealth Versus Debt: The Forgotten Laws of Money</h1>
+            <h1>The Forgotten Laws of Money</h1>
             <div class="subtitle">Why some build lasting wealth while others lose everything</div>
             <div class="meta">
                 <span class="author">🌏 Albright Ai</span>
-                <span class="date"> Financial Wisdom</span>
+                <span class="date">Tanzania</span>
             </div>
             <div class="separator"></div>
         </header>
