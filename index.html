@@ -4,66 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Forgotten Laws of Money</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-    /* Core Backgrounds */
-    --primary-bg: #0d1a24; /* Deep midnight navy */
-    --secondary-bg: #12202E; /* Slightly lifted slate */
-    --highlight-bg: #1A2D3C; /* Hover / active */
-    --modal-bg: #152633; /* Modal backdrop */
-    --paywall-bg: #1B3042; /* Subtle lift */
+  /* Core Backgrounds */
+  --primary-bg: #0d1117;   /* Main dark background */
+  --secondary-bg: #161b22; /* Sidebar / cards */
+  --highlight-bg: #1e242b; /* Hover / active */
+  --modal-bg: #1a1f25;     /* Modal backdrop */
+  --paywall-bg: #1c2128;   /* Lifted section */
 
-    /* Foreground and Text */
-    --foreground: #E5EEF3; /* Cool soft white */
-    --muted-foreground: #A8B7C2; /* Muted blue-gray */
-    --comments: #7C8C96; /* Desaturated steel gray */
+  /* Foreground and Text */
+  --foreground: #d1d5da;         /* Main text (softer than white) */
+  --muted-foreground: #8b949e;   /* Muted gray-blue */
+  --comments: #6e7681;           /* Secondary / descriptions */
 
-    /* Syntax Highlighting / Code */
-    --keywords: #5CCFE6; /* Aqua-blue keywords */
-    --functions: #9CDCFE; /* Lighter azure */
-    --variables: #DDB6F2; /* Lilac for variables */
-    --strings: #FFD580; /* Warm gold */
-    --numbers: #FF8A65; /* Coral-orange */
-    --operators: #F0F6FA; /* Very light blue-gray */
-    --errors: #FF4D4D; /* Error red */
-    --line-numbers: #203344; /* Dim navy */
+  /* Syntax Highlighting */
+  --keywords: #87d4e8;   /* Soft aqua */
+  --functions: #c6a0e8;  /* Lavender lilac */
+  --variables: #93c7ff;  /* Muted azure */
+  --strings: #f5c97a;    /* Golden beige */
+  --numbers: #ff9a70;    /* Coral */
+  --operators: #dfe5ea;  /* Light gray-blue */
+  --errors: #e16c6c;     /* Muted red */
+  --line-numbers: #2f353c; /* Dim navy-gray */
 
-    /* Diff and Status */
-    --diff-add: #3DDC97; /* Mint green */
-    --diff-del: #FF4D4D; /* Bright delete red */
-    --diff-mod: #FFC107; /* Amber */
-    --todo: #FF9800; /* Orange */
+  /* Diff and Status */
+  --diff-add: #5bbf82;   /* Sage green */
+  --diff-del: #e16c6c;   /* Muted red */
+  --diff-mod: #e2b95b;   /* Muted amber */
+  --todo: #e2b95b;       /* Same muted amber */
 
-    /* Accents */
-    --primary-accent: #0096FF; /* Electric blue */
-    --secondary-accent: #FF4081; /* Pink */
-    --whatsapp-green: #22C55E; 
-    --success: #34C759; 
-    --warning: #FFD54F; 
-    --error: #E57373; 
-    --teal-accent-transparent: rgba(0, 150, 255, 0.25); /* Transparent blue accent */
-    --whatsapp-hover: #38E57A; 
-    --whatsapp-hover-shadow: rgba(56, 229, 122, 0.3);
+  /* Accents */
+  --primary-accent: #7ecf5b;         /* Softer neon green */
+  --secondary-accent: #7bb6ff;       /* Muted sky blue */
+  --whatsapp-green: #2fbf64;         /* Softer green */
+  --success: #5bbf82;                /* Muted success green */
+  --warning: #e2b95b;                /* Warm amber */
+  --error: #e16c6c;                  /* Gentle error red */
+  --teal-accent-transparent: rgba(123, 182, 255, 0.2); /* Muted transparent blue */
+  --whatsapp-hover: #3edc7a;         /* Muted hover green */
+  --whatsapp-hover-shadow: rgba(46, 188, 100, 0.25);
 
-    /* Borders and Shadows */
-    --border-color: #203344; /* Steel navy border */
-    --shadow-color: rgba(0, 0, 0, 0.55); 
-    --accent-shadow: rgba(0, 150, 255, 0.3); 
-    --hover-shadow: rgba(255, 64, 129, 0.25); 
+  /* Borders and Shadows */
+  --border-color: rgba(240, 246, 252, 0.08); /* Softer borders */
+  --shadow-color: rgba(0, 0, 0, 0.5); 
+  --accent-shadow: rgba(126, 207, 91, 0.25); /* Muted accent glow */
+  --hover-shadow: rgba(255, 255, 255, 0.04); /* Softer hover lift */
 
-    /* Additional UI Elements */
-    --button-bg: #006D9C; /* Deep teal-blue */
-    --button-bg-hover: #0086C7; /* Brighter hover */
-    --button-text: #E5EEF3; 
-    --input-bg: #13222F; 
-    --input-border: #203344; 
-    --overlay-bg: rgba(13, 26, 36, 0.88);
+  /* Additional UI Elements */
+  --button-bg: #21262d;
+  --button-bg-hover: #30363d;
+  --button-text: #d1d5da;
+  --input-bg: #161b22;
+  --input-border: rgba(240, 246, 252, 0.08);
+  --overlay-bg: rgba(1, 4, 9, 0.85);
+
+  /* Typography */
+  --base-font-size: 17.5px;
+  --line-height: 1.75;
+  --header-size: calc(var(--base-font-size) * 1.35);
+
+  /* Spacing */
+  --desktop-margin: 15%;
+  --mobile-margin: 8%;
+
+  /* Letter Spacing */
+  --body-letter-spacing: normal;
+  --header-letter-spacing: normal;
+  --subtitle-letter-spacing: normal;
+  --meta-letter-spacing: normal;
+  --pull-quote-letter-spacing: normal;
+
+
 
 
 
   /* Typography */
-  --base-font-size: 19px;
+  --base-font-size: 18px;
   --line-height: 1.75;
   --header-size: calc(var(--base-font-size) * 1.35);
   
@@ -100,7 +118,7 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Sen', sans-serif;
             font-size: var(--base-font-size);
             line-height: var(--line-height);
             color: var(--foreground);
@@ -307,7 +325,7 @@
             border-radius: 12px;
             box-shadow: 0 6px 20px var(--shadow-color);
             text-align: center;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Sen', sans-serif;
             color: var(--foreground);
             position: relative;
             z-index: 100;
@@ -339,25 +357,41 @@
         
         .paywall-card input::placeholder {
             color: var(--comments);
+font-family: 'Sen', sans-serif !important;
         }
         
         .paywall-card button {
-            width: 100%;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: 600;
-            background: var(--button-bg);
-            color: var(--foreground);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: box-shadow 0.3s, transform 0.2s;
-        }
-        
-        .paywall-card button:hover {
-            box-shadow: 0 4px 14px var(--accent-shadow);
-            transform: translateY(-2px);
-        }
+  font-family: 'Sen', sans-serif !important;
+width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(145deg, var(--button-bg-hover), var(--button-bg)); /* Subtle depth */
+  color: var(--foreground);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.4),   /* main shadow */
+    inset 0 1px 0 rgba(255, 255, 255, 0.05); /* light top edge */
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+/* Hover - stronger lift */
+.paywall-card button:hover {
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.5),
+    0 0 8px var(--accent-shadow);
+  transform: translateY(-2px);
+}
+
+/* Active / pressed - "push in" look */
+.paywall-card button:active {
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+  transform: translateY(2px);
+}
         
         .paywall-card .instructions {
             margin: 20px 0;
@@ -646,7 +680,7 @@
                 
                 <div class="law-item">
                     <div class="law-title">Protect what you build.</div>
-                    <p>Wealth unguarded is wealth unfinished. Insurance, diversification, estate planning, trusted networks, legal protections, and teaching heirs are not luxuries—they are shields. History shows that fortunes crumble as quickly as they rise when protection is neglected. <span class="highlight-red">Money is not only to be earned, saved, and invested; it must also be defended</span>.</p>
+                    <p>Wealth unguarded is wealth unfinished. Insurance, diversification, estate planning, trusted networks, legal protections, and teaching heirs are not luxuries—they are shields. History shows that fortunes crumble as quickly as they rise when protection is neglected. <span class="highlight-red">Money is not only to be earned, saved, and invested; it must also be protected.</span>.</p>
                 </div>
             </div>
             
@@ -679,7 +713,7 @@
     (function() {
         // AUTHOR: Change the required characters here (completely hidden from users)
         // This is the only place where the "must contain" rule is defined
-        const REQUIRED_CHARS = "SCT"; // <<-- AUTHOR: EDIT THIS LINE ONLY
+        const REQUIRED_CHARS = "FEW"; // <<-- AUTHOR: EDIT THIS LINE ONLY
         
         // Create a hidden validation system
         const _hiddenValidator = {
