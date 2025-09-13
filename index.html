@@ -205,5 +205,195 @@
       <p class="conclusion">The most dangerous thief is not the one who breaks into houses, but the one who enters your heart, learns your secrets, and steals your trust. Guard your heart and be discerning, for deceit brings ruin to both the deceiver and the deceived.</p>
     </article>
   </main>
+  <script>
+// Protection against copying - works silently
+document.addEventListener('copy', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('cut', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+// Protection against developer tools - works silently
+(function() {
+    var devtools = {
+        open: false,
+        orientation: null
+    };
+    var threshold = 160;
+    
+    var checkDevTools = function() {
+        var widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        var heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        
+        if (!(heightThreshold && widthThreshold) &&
+            ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || 
+             widthThreshold || heightThreshold)) {
+            
+            if (!devtools.open) {
+                // Clear the page content when dev tools are detected
+                document.body.innerHTML = '';
+                // Prevent further interaction
+                document.body.style.pointerEvents = 'none';
+                // Make page appear blank
+                document.documentElement.style.backgroundColor = '#1A2F2A';
+            }
+            
+            devtools.open = true;
+        } else {
+            devtools.open = false;
+        }
+    };
+    
+    setInterval(checkDevTools, 500);
+})();
+
+// Disable text selection - works silently
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+    document.body.style.msUserSelect = 'none';
+    document.body.style.mozUserSelect = 'none';
+    
+    // Disable dragging
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+});
+
+// Protection against keyboard shortcuts - works silently
+document.addEventListener('keydown', function(e) {
+    // Disable F12
+    if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Disable Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
+    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Disable Ctrl+U
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Protection against iframe embedding - works silently
+if (window.location !== window.parent.location) {
+    document.body.innerHTML = '';
+    document.body.style.pointerEvents = 'none';
+}
+
+// Obfuscation - Hide content source by encoding text nodes
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to encode text content
+    function encodeText(text) {
+        return text.split('').map(function(c) {
+            return String.fromCharCode(c.charCodeAt(0) + 1);
+        }).join('');
+    }
+    
+    // Function to decode text content
+    function decodeText(text) {
+        return text.split('').map(function(c) {
+            return String.fromCharCode(c.charCodeAt(0) - 1);
+        }).join('');
+    }
+    
+    // Encode all text nodes on page load
+    function encodeAllText() {
+        var treeWalker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            { acceptNode: function(node) { 
+                return node.parentNode.tagName !== 'SCRIPT' && 
+                       node.parentNode.tagName !== 'STYLE' ? 
+                       NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
+            }},
+            false
+        );
+        
+        var nodes = [];
+        while(treeWalker.nextNode()) {
+            if (treeWalker.currentNode.nodeValue.trim() !== '') {
+                nodes.push(treeWalker.currentNode);
+            }
+        }
+        
+        nodes.forEach(function(node) {
+            var original = node.nodeValue;
+            node.setAttribute('data-o', btoa(encodeText(original)));
+            node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
+        });
+    }
+    
+    // Decode text when needed (for screen readers and accessibility)
+    function makeContentAccessible() {
+        var treeWalker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            { acceptNode: function(node) { 
+                return node.hasAttribute('data-o') ? 
+                       NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
+            }},
+            false
+        );
+        
+        var nodes = [];
+        while(treeWalker.nextNode()) {
+            nodes.push(treeWalker.currentNode);
+        }
+        
+        nodes.forEach(function(node) {
+            try {
+                node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
+            } catch(e) {
+                // If decoding fails, keep the current value
+            }
+        });
+    }
+    
+    // Initial encoding
+    encodeAllText();
+    
+    // Make content accessible for screen readers
+    setTimeout(makeContentAccessible, 100);
+    
+    // Re-encode text periodically
+    setInterval(function() {
+        encodeAllText();
+        setTimeout(makeContentAccessible, 50);
+    }, 30000);
+});
+
+// Additional protection: Monitor DOM changes to prevent inspection
+(function() {
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && 
+                mutation.attributeName === 'data-o') {
+                // If someone tries to manipulate our obfuscation attribute
+                mutation.target.parentNode.remove();
+            }
+        });
+    });
+    
+    observer.observe(document.documentElement, {
+        attributes: true,
+        subtree: true,
+        attributeFilter: ['data-o']
+    });
+})();
+</script>
 </body>
 </html>
