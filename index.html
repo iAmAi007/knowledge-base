@@ -1,1031 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Forgotten Laws of Money</title>
-    <link href="https://fonts.googleapis.com/css2?family=system-ui:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-       :root {
-  /* Core Backgrounds */
-  --primary-bg: #0a0d10;     /* Softer than pure black for reduced sharp contrast */
-  --secondary-bg: #141820;   /* Softened navy for less harsh transitions */
-  --highlight-bg: #1e2832;   /* Blue-gray tint for clearer hover distinction */
-  --modal-bg: #171c24;       /* Subtle tweak for modal depth */
-  --paywall-bg: #1a2028;     /* Aligned with modal for consistency */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A moral tale about deception and trust in a quiet town, written by Albright Ai.">
+  <meta name="author" content="Albright Ai">
+  <meta name="keywords" content="moral tales, deception, trust, storytelling">
+  <meta property="og:title" content="The Most Dangerous Thief | Albright Ai">
+  <meta property="og:description" content="A moral tale about deception and trust in a quiet town.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yourwebsite.com/the-most-dangerous-thief">
+  <meta property="og:image" content="https://yourwebsite.com/og-image.jpg">
+  <title>The Most Dangerous Thief | Albright Ai</title>
+  <style>
+    :root {
+      --primary-bg: #000000;
+      --secondary-bg: #1E2329;
+      --foreground: #E0E7ED;
+      --comments: #00BFFF; /* Improved contrast */
+      --separator-color: #D1D9E0;
+      --base-font-size: 17.5px;
+      --subtitle-font-size: calc(var(--base-font-size) * 1.05);
+      --meta-font-size: calc(var(--base-font-size) * 0.85);
+      --line-height: 1.5;
+      --header-size: calc(1.4rem + 1.1vw);
+      --margin: 6vw;
+      --spacing-unit: 1.5rem;
+    }
 
-  /* Foreground and Text */
-  --foreground: #c9d1d9;     /* Softer off-white for reduced glare */
-  --muted-foreground: #82909e; /* Cooler muted gray for better readability */
-  --comments: #67717d;       /* Slightly lighter for secondary text clarity */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  /* Syntax Highlighting */
-  --keywords: #80c4d8;       /* Softer aqua, less saturated */
-  --functions: #b79de1;      /* Muted lavender for calmer visuals */
-  --variables: #8ab4f8;      /* Softer azure, less intense */
-  --strings: #f0c674;        /* Warmer beige for better contrast on dark bg */
-  --numbers: #f28c68;        /* Slightly softer coral for eye comfort */
-  --operators: #d3d9e0;      /* Lightened for better visibility */
-  --errors: #d65f5f;         /* Softer red to reduce harshness */
-  --line-numbers: #303741;   /* Slightly lighter for better legibility */
+    html {
+      scroll-behavior: smooth;
+    }
 
-  /* Diff and Status */
-  --diff-add: #55a876;       /* Muted sage green for calmer highlights */
-  --diff-del: #d65f5f;       /* Aligned with errors for consistency */
-  --diff-mod: #d8a94b;       /* Softer amber for less strain */
-  --todo: #d8a94b;           /* Matches diff-mod for consistency */
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: var(--base-font-size);
+      line-height: var(--line-height);
+      font-weight: 400;
+      color: var(--foreground);
+      background-color: var(--primary-bg);
+      padding: 0 var(--margin);
+      text-align: left;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
 
-  /* Accents */
-  --primary-accent: #72c053;         /* Slightly muted green for less intensity */
-  --secondary-accent: #74a8e6;       /* Cooler blue for calmer accents */
-  --whatsapp-green: #2aa65b;         /* Less saturated green */
-  --success: #55a876;                /* Matches diff-add for consistency */
-  --warning: #d8a94b;                /* Matches diff-mod for consistency */
-  --error: #d65f5f;                  /* Matches errors and diff-del */
-  --teal-accent-transparent: rgba(116, 168, 230, 0.18); /* Softer transparent blue */
-  --whatsapp-hover: #36b46a;         /* Muted hover green */
-  --whatsapp-hover-shadow: rgba(42, 166, 91, 0.22); /* Softer shadow */
+    main {
+      max-width: 100%;
+      margin: 2rem auto;
+    }
 
-  /* Borders & Shadows */
-  --border-color: rgba(200, 210, 220, 0.1); /* Slightly lighter for visibility */
-  --shadow-color: rgba(0, 0, 0, 0.4);       /* Softer shadow for less contrast */
-  --accent-shadow: rgba(114, 192, 83, 0.2); /* Aligned with primary-accent */
-  --hover-shadow: rgba(255, 255, 255, 0.03); /* Subtler hover effect */
+    article {
+      max-width: 100%;
+    }
 
-  /* Additional UI Elements */
-  --button-bg: #1c232b;            /* Matches highlight-bg for consistency */
-  --button-bg-hover: #2a323c;      /* Slightly lighter for hover feedback */
-  --button-text: #c9d1d9;          /* Matches foreground for readability */
-  --input-bg: #141820;             /* Matches secondary-bg for consistency */
-  --input-border: rgba(200, 210, 220, 0.1); /* Matches border-color */
-  --overlay-bg: rgba(10, 12, 16, 0.75); /* Softer overlay for breathable visuals */
+    header {
+      margin-bottom: var(--spacing-unit);
+    }
 
+    h1 {
+      font-size: var(--header-size);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
 
-  /* Typography */
-  --base-font-size: 18px;
-  --line-height: 1.5;
-  --header-size: calc(var(--base-font-size) * 1.2);
+    .subtitle {
+      font-size: var(--subtitle-font-size);
+      color: var(--comments);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
 
-  /* Spacing */
-  --desktop-margin: 15%;
-  --mobile-margin: 8%;
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-weight: 500;
+      margin-bottom: calc(var(--spacing-unit) * 0.5);
+      color: var(--comments);
+      font-size: var(--meta-font-size);
+      letter-spacing: 0.02em;
+    }
 
-  /* Letter Spacing */
-  --body-letter-spacing: 0.025em;
-  --header-letter-spacing: 0.03em;
-  --subtitle-letter-spacing: 0.03em;
-  --meta-letter-spacing: 0.05em;
-  --pull-quote-letter-spacing: 0.05em;
+    .meta span:not(:last-child)::after {
+      content: "•";
+      margin-left: 0.5rem;
+      color: var(--comments);
+    }
 
+    .separator {
+      border: none;
+      border-top: 1px solid var(--comments);
+      margin-bottom: var(--spacing-unit);
+    }
 
+    p {
+      margin-bottom: calc(var(--base-font-size) * var(--line-height));
+    }
 
+    .section-break {
+      text-align: center;
+      margin: 2rem 0;
+      color: var(--comments);
+    }
 
+    .conclusion {
+      font-size: var(--subtitle-font-size);
+      text-align: left;
+      color: var(--comments);
+      margin: 0  0 2.5rem 0;
+      font-weight: 700;
+    }
 
- 
-        
-        /* Prevent phone number formatting on mobile devices */
-        a[href^="tel"] {
-            text-decoration: none !important;
-            color: inherit !important;
-        }
+    @media (min-width: 600px) {
+      --base-font-size: 18px;
+      --margin: 8vw;
+      --subtitle-font-size: calc(var(--base-font-size) * 0.95);
+      --meta-font-size: calc(var(--base-font-size) * 0.9);
 
-        /* For iOS Safari specifically */
-        @media (max-device-width: 480px) {
-            .instructions strong {
-                text-decoration: none !important;
-                color: inherit !important;
-            }
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body {
-            font-family: 'system-ui', sans-serif;
-            font-size: var(--base-font-size);
-            line-height: var(--line-height);
-            color: var(--foreground);
-            background-color: var(--primary-bg);
-            padding: 0 var(--desktop-margin);
-            text-align: justify;
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            text-justify: inter-word;
-            word-spacing: -0.05em;
-            letter-spacing: var(--body-letter-spacing);
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 0 var(--mobile-margin);
-                text-align: left;
-                text-justify: auto;
-            }
-        }
-        
-        article {
-            max-width: 900px;
-            margin: 40px auto;
-            background-color: var(--primary-bg);
-            position: relative;
-        }
-        
-        header {
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            font-size: var(--header-size);
-            font-weight: 600;
-            color: var(--foreground);
-            margin-bottom: 5px;
-            text-align: left;
-            letter-spacing: var(--header-letter-spacing);
-        }
-        
-        .subtitle {
-            font-size: calc(var(--base-font-size) * 1);
-            color: var(--comments);
-            font-weight: 600;
-            letter-spacing: var(--subtitle-letter-spacing);
-            margin-bottom: 8px;
-            font-style: regular;
-            line-height: 1.4;
-        }
-        
-        .meta {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            color: var(--comments);
-            font-size: 0.9rem;
-            letter-spacing: var(--meta-letter-spacing);
-            font-weight: 450;
-            align-items: left;
-            justify-content: left;
-        }
-        
-        .meta span:not(:last-child)::after {
-            content: "•";
-            margin-left: 10px;
-            color: var(--comments);
-        }
-        
-        .separator {
-            height: 0.2px;
-            background-color: var(--foreground);
-            margin-bottom: 30px;
-        }
-        
-        p {
-            margin-bottom: calc(var(--base-font-size) * var(--line-height));
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            text-rendering: optimizeLegibility;
-        }
-        
-        .reference {
-            color: var(--variables);
-            font-weight: 500;
-            background-color: var(--secondary-bg);
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-        
-        .highlight-green {
-            color: var(--functions);
-            font-weight: 600;
-        }
-        
-        .highlight-red {
-            color: var(--errors);
-            font-weight: 600;
-        }
-        
-        .highlight-teal {
-            color: var(--variables);
-            font-weight: 600;
-        }
-        
-        .highlight-gold {
-            color: var(--numbers);
-            font-weight: 600;
-        }
-        
-        .highlight-orange {
-            color: var(--strings);
-            font-weight: 600;
-        }
-        
-        .block-highlight-green {
-            background-color: var(--secondary-bg);
-            color: var(--functions);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-left: 4px solid var(--functions);
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            font-weight: 600;
-        }
-        
-        .block-highlight-red {
-            background-color: var(--secondary-bg);
-            color: var(--errors);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-left: 4px solid var(--errors);
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            font-weight: 600;
-        }
-        
-        .block-highlight-gold {
-            background-color: var(--secondary-bg);
-            color: var(--numbers);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-left: 4px solid var(--numbers);
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            font-weight: 600;
-        }
-        
-        .pull-quote {
-            font-size: calc(var(--base-font-size) * 1.15);
-            font-weight: 600;
-            margin: 40px 0;
-            padding: 0;
-            text-align: center;
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            color: var(--strings);
-            position: relative;
-            letter-spacing: var(--pull-quote-letter-spacing);
-            line-height: 1.6;
-        }
-        
-        .pull-quote::before,
-        .pull-quote::after {
-            content: """;
-            font-size: 3rem;
-            color: var(--numbers);
-            opacity: 0.4;
-            line-height: 1;
-            vertical-align: middle;
-        }
-        
-        .pull-quote::before {
-            margin-right: 15px;
-        }
-        
-        .pull-quote::after {
-            margin-left: 15px;
-        }
-        
-        .locked-content {
-            display: none;
-        }
-        
-        .unlocked .locked-content {
-            display: block;
-        }
-        
-        .paywall-card {
-            max-width: 500px;
-            margin: 60px auto;
-            padding: 30px;
-            background: var(--paywall-bg);
-            border-radius: 12px;
-            box-shadow: 0 6px 20px var(--shadow-color);
-            text-align: center;
-            font-family: 'system-ui', sans-serif;
-            color: var(--foreground);
-            position: relative;
-            z-index: 100;
-            border: 1px solid var(--highlight-bg);
-        }
-        
-        .paywall-card h2 {
-            color: var(--foreground);
-            font-size: calc(var(--base-font-size) * 1.15);;
-            margin-bottom: 20px;
-        }
-        
-        .paywall-card input {
-            width: 100%;
-            padding: 14px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            border: 2px solid var(--highlight-bg);
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.3s;
-            background-color: var(--primary-bg);
-            color: var(--foreground);
-        }
-        
-        .paywall-card input:focus {
-            border-color: var(--teal-accent-transparent);
-        }
-        
-        .paywall-card input::placeholder {
-            color: var(--comments);
-font-family: 'Sen', sans-serif !important;
-        }
-        
-        .paywall-card button {
-  font-family: 'Sen', sans-serif !important;
-  width: 100%;
-  padding: 14px;
-  font-size: 1rem;
-  font-weight: 600;
-  background: linear-gradient(145deg, var(--button-bg-hover), var(--button-bg)); /* Subtle dark gradient */
-  color: var(--button-text); /* Soft off-white for readability */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.45), /* Darker shadow for depth */
-    inset 0 1px 0 rgba(255, 255, 255, 0.04); /* Gentle top highlight */
-  transition: box-shadow 0.25s ease, transform 0.2s ease, background 0.3s ease;
-}
+      body {
+        text-align: justify;
+      }
 
-/* Hover - deeper but still dark */
-.paywall-card button:hover {
-  background: linear-gradient(145deg, #222a33, var(--button-bg)); /* Slightly lighter dark tone */
-  box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.55), /* Stronger depth */
-    0 0 8px rgba(255, 255, 255, 0.06); /* Subtle glow, still dark */
-  transform: translateY(-2px);
-}
+      article {
+        max-width: 800px;
+      }
 
-/* Active / pressed - darker push-in */
-.paywall-card button:active {
-  background: linear-gradient(145deg, var(--button-bg), #101418); /* Deeper pressed look */
-  box-shadow:
-    inset 0 3px 6px rgba(0, 0, 0, 0.6), /* Dark inset for pressed state */
-    inset 0 -1px 2px rgba(255, 255, 255, 0.03); /* Faint edge highlight */
-  transform: translateY(2px);
-}
-        
-        .paywall-card .instructions {
-            margin: 20px 0;
-            font-size: 0.9rem;
-            color: var(--comments);
-            line-height: 1.6;
-            text-align: center;
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-        }
-        
-        .whatsapp-link {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-            margin: 0 5px;
-            font-weight: 600;
-            color: var(--functions);
-        }
-        
-        .whatsapp-container {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .whatsapp-button {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-            padding: 14px 20px;
-            background-color: var(--whatsapp-green);
-            color: var(--primary-bg);
-            width: 100%;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px var(--whatsapp-shadow);
-        }
-        
-        .whatsapp-button:hover {
-            background-color: var(--whatsapp-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--whatsapp-hover-shadow);
-        }
-        
-        .nojs-message {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background-color: var(--secondary-bg);
-            color: var(--errors);
-            margin: 20px 0;
-            border-radius: 8px;
-            border-left: 4px solid var(--errors);
-        }
-        
-        .unlocked .paywall-card {
-            display: none;
-        }
-        
-        .protected {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        
-        @media print {
-            .locked-content {
-                display: none !important;
-            }
-            .paywall-card {
-                display: block !important;
-            }
-            body {
-                text-align: left;
-                hyphens: none;
-            }
-            * {
-                display: none !important;
-            }
-        }
-        
-        .validation-message {
-            padding: 10px;
-            border-radius: 6px;
-            margin: 0 0 20px 0;
-            font-size: 0.9rem;
-            display: none;
-        }
-        
-        .validation-success {
-            background-color: var(--secondary-bg);
-            color: var(--functions);
-            border: 1px solid var(--functions);
-            display: block;
-        }
-        
-        .validation-error {
-            background-color: var(--secondary-bg);
-            color: var(--errors);
-            border: 1px solid var(--errors);
-            display: block;
-        }
-        
-        .youtube-link {
-            color: var(--errors);
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-            pointer-events: auto !important;
-            position: relative;
-            z-index: 1000;
-            cursor: pointer !important;
-        }
-        
-        .youtube-link:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-        
-        .protection-overlay {
-            display: none !important;
-        }
-        
-        .content-protector {
-            display: none !important;
-        }
-        
-        .allow-click {
-            pointer-events: auto !important;
-            position: relative;
-            z-index: 1000;
-            cursor: pointer !important;
-        }
-        
-        .youtube-link, .allow-click {
-            z-index: 10000 !important;
-        }
-        
-        a {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-        }
-        
-        .whatsapp-button, .whatsapp-link {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-        }
-        
-        input, textarea {
-            user-select: auto !important;
-            -webkit-user-select: auto !important;
-            -moz-user-select: auto !important;
-            -ms-user-select: auto !important;
-        }
-        
-        .divider {
-            text-align: center;
-            margin: 30px 0;
-            color: var(--comments);
-            font-size: 1.5rem;
-            letter-spacing: 5px;
-        }
-        
-        .numbered-list {
-            counter-reset: law-counter;
-            margin: 30px 0;
-        }
-        
-        .law-item {
-            margin-bottom: 25px;
-            padding-left: 50px;
-            position: relative;
-        }
-        
-        .law-item::before {
-            counter-increment: law-counter;
-            content: counter(law-counter) ".";
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: var(--numbers);
-            font-weight: 700;
-            font-size: var(--base-font-size);
-        }
-        
-        .law-title {
-            font-weight: 600;
-            color: var(--strings);
-            margin-bottom: 5px;
-        }
-    </style>
+      h1 {
+        font-size: calc(1.8rem + 1vw);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      --base-font-size: 20px;
+      --margin: 10vw;
+      --subtitle-font-size: var(--base-font-size);
+
+      article {
+        max-width: 900px;
+      }
+
+      h1 {
+        font-size: calc(2rem + 1vw);
+      }
+    }
+  </style>
 </head>
-<body class="protected">
-    
-    <noscript>
-        <div class="nojs-message">
-            This article requires JavaScript to unlock content.
-        </div>
-    </noscript>
-    
-    <article id="main-article">
-        
-        <header>
-            <h1>The Forgotten Laws of Money</h1>
-            <div class="subtitle">Why some build lasting wealth while others lose everything</div>
-            <div class="meta">
-                <span class="author">🌏 Albright Ai</span>
-                <span class="date">Tanzania</span>
-            </div>
-            <div class="separator"></div>
-        </header>
-        
-        <div>
-            <p>Why is it that some people earn millions and end up broke, while others with modest incomes quietly build lasting wealth? Why do lottery winners lose fortunes within years, while disciplined workers retire with comfort and security? The answer is not luck, and it is not even income. The real difference lies in how people handle the <span class="highlight-gold">timeless laws of money</span>—laws most of the world has forgotten.</p>
-            
-            <p>History proves this truth. Consider <span class="reference">Mansa Musa of Mali</span>, often called the richest man who ever lived. His empire overflowed with gold, and his pilgrimage to Mecca was so extravagant it disrupted economies along his path. Yet centuries later, that empire vanished. <span class="highlight-red">Wealth built only on resources and showmanship did not last</span> because it lacked <span class="highlight-green">systems of preservation</span>. Now Mansa Musa is a legend, not a dynasty.</p>
-            
-            <p>On the other hand, look at the <span class="reference">Rothschild family</span>, who mastered <span class="highlight-green">discipline, networks, and reinvestment</span>. Their fortune was not just about gold or property; it was about <span class="highlight-green">systems, influence, and preservation across generations</span>. At their peak, they financed governments and shaped economies. Some branches of the family lost relevance over time, but the name itself still stands because their wealth was <span class="highlight-green">structured, not squandered</span>.</p>
-            
-            <p>Then consider families who lost everything. The <span class="reference">Vanderbilts</span> in America once had wealth that rivaled nations. Cornelius Vanderbilt built an empire through shipping and railroads. But within a few generations, through <span class="highlight-red">excess and lack of discipline</span>, most of the fortune disappeared. They built mansions that stood empty within decades. Today, the Vanderbilt name is remembered more for decline than for lasting wealth. Their story is a warning: <span class="highlight-red">riches without discipline dissolve into history's "once upon a time"</span>.</p>
-            
-            <div class="divider">⸻</div>
-            
-            <div><p>Below laws are not new inventions but <span class="highlight-gold"> timeless ancient truths</span>, overlooked in today's rush for <span class="highlight-red">quick wealth</span>.</p></div>
-        </div>
-        
-        <div class="locked-content">
-            <div class="numbered-list">
-                <div class="law-item">
-                    <div class="law-title">Spend less than you earn.</div>
-                    <p>If you spend more than you earn, you will always be broke. This is true whether you are a lottery winner, a billionaire, or a worker earning by the hour. As income rises, most people raise their spending. Bigger houses, newer cars, endless gadgets—all empty in the end. <span class="highlight-red">Debt piles up, freedom disappears, and fortunes collapse</span>.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Live below your means.</div>
-                    <p>Every dynasty that lasted understood this principle. The Rothschilds <span class="highlight-green">reinvested their profits</span> instead of wasting them. The Vanderbilts <span class="highlight-red">flaunted their wealth</span> until it slipped through their fingers. The pattern is clear: <span class="highlight-green">restraint builds; indulgence destroys</span>.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Discipline is non-negotiable.</div>
-                    <p>Wealth without discipline is a curse. This is why <span class="highlight-red">sudden riches vanish</span> so quickly. Lottery winners are modern proof, but history echoes the same lesson. Dynasties fall when children and grandchildren lose the habits that built the fortune. <span class="highlight-red">Without discipline, no wealth can endure</span>.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Save, but also grow.</div>
-                    <p>Saving creates stability, but saving alone is not enough in a world where governments print money and inflation eats away value. Robert Kiyosaki calls savers losers in such a system. Elon Musk put it bluntly: <span class="highlight-gold">"Making an extra $10,000 is easier than trying to save $10,000. The sooner you understand that, the sooner your life will improve."</span>
-                    The real path forward is to find ways to <span class="highlight-green">multiply money</span>—provide services, make products, solve problems, and create streams of income. History agrees: fortunes that grew were invested into assets and enterprises. Fortunes that sat idle were eventually consumed.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Treat money as a tool, not the goal.</div>
-                    <p>Money has value only when it serves life. Mansa Musa displayed wealth as spectacle, but it left little lasting legacy. Families who built schools, businesses, or networks outlived their fortunes through influence and contribution. <span class="highlight-red">Those who chased money for its own sake became footnotes of decline</span>.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Define what is enough.</div>
-                    <p>Enough means your needs are covered, your future is secure, and you can live without constant fear. It is different for everyone, but the principle is universal. Families and men who never defined enough consumed themselves with greed, while those who set limits preserved not just wealth, but peace. <span class="highlight-green">Without enough, no fortune is sufficient. With enough, even modest wealth becomes freedom</span>.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Buy assets, not toys.</div>
-                    <p>An asset puts money in your pocket—investments, businesses, land, skills. Toys take money away—cars that depreciate, mansions that stand empty, luxuries that fade. <span class="highlight-red">The Vanderbilts bought toys; the Rothschilds bought assets</span>. The results are written in history.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Build a legacy.</div>
-                    <p>Wealth without legacy is vanity. To build only for yourself is short-sighted, because money ends when life does. True wealth is measured by what outlives you—children educated, communities strengthened, institutions established, and values passed down. <span class="highlight-green">The one who plants trees under whose shade he may never sit has touched eternity</span>. Legacy converts wealth into influence across generations.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Lead with service.</div>
-                    <p>Money finds its highest power not in what it buys, but in what it gives. The world runs on exchange, but the deepest prosperity comes from serving others with value. Businesses that endure are not the ones that only chase profit, but the ones that solve real problems, improve lives, and build trust. <span class="highlight-gold">The paradox is that service multiplies wealth</span>—when you enrich others, they enrich you.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Practice reciprocation—give to receive.</div>
-                    <p>Nature itself runs on this law. You cannot reap without sowing. You cannot expect harvest without planting seeds. Money follows the same rhythm. When you give value, you attract value. When you invest in people, relationships, and community, doors open that money alone could never buy. Even ancient wisdom declares: <span class="highlight-green">"Give, and it will be given to you."</span> This is not charity for appearances, but genuine contribution that creates cycles of return.</p>
-                </div>
-                
-                <div class="law-item">
-                    <div class="law-title">Protect what you build.</div>
-                    <p>Wealth unguarded is wealth unfinished. Insurance, diversification, estate planning, trusted networks, legal protections, and teaching heirs are not luxuries—they are shields. History shows that fortunes crumble as quickly as they rise when protection is neglected. <span class="highlight-red">Money is not only to be earned, saved, and invested; it must also be protected.</span>.</p>
-                </div>
-            </div>
-            
-            <p>When these laws—<span class="highlight-green">discipline, restraint, saving, investing, service, legacy, and reciprocation</span>—come together, money transforms from a fragile possession into a durable force. The wealthy who endure are those who understand that their fortune is not just theirs—it is a trust, a tool, and a responsibility.</p>
-            
-            <p>Wealth, then, is not only about what you accumulate, but about what you activate. <span class="highlight-gold">Money that builds, serves, and circulates becomes a current that outlasts its owner</span>. Money that is hoarded, flaunted, or wasted dies with the spender.</p>
-            
-            <p><span class="highlight-red">Debt enslaves</span>. <span class="highlight-green">Discipline frees</span>. <span class="highlight-gold">Generosity multiplies</span>. To live by these forgotten laws of money is to live with strength, peace, and enduring impact.</p>
-        </div>
-        
-        <div class="paywall-card">
-            <h2>Enter your access code to unlock the full article</h2>
-            
-            <input type="text" id="accessCode" placeholder="Access Code" maxlength="8" />
-            <div id="validationMessage" class="validation-message"></div>
-            <button id="unlockBtn">Unlock Article</button>
-            <p class="instructions">
-                To get an access code, contact author and make payment.
-            </p>
-            <div class="whatsapp-container">
-                <a href="https://wa.me/255766580492?text=Hello,%20I%20really%20like%20the%20article.%20I%20would%20like%20to%20pay%20for%20full%20access." target="_blank" class="whatsapp-button" aria-label="Contact Lindsey on WhatsApp">
-                    Message on WhatsApp
-                </a>
-            </div>
-        </div>
+<body>
+  <main>
+    <article>
+      <header role="banner">
+        <h1>The Most Dangerous Thief</h1>
+        <div class="subtitle">A Tale of Deception in a Quiet Town</div>
+        <footer class="meta" role="contentinfo">
+          <span class="author">Albright Ai</span>
+          <span class="category">Moral Tales</span>
+          <!--<span class="date">2025</span>-->
+        </footer>
+        <div class="separator"></div>
+      </header>
+
+      <p>Once upon a time, in a small quiet town, there lived a young woman named Daisy Monroe. She was calm, soft-spoken, and carried herself with grace. On Sundays, she sat in the front pew of the church, head bowed, lips moving in prayer. People admired her, calling her humble, pure, and holy—a model of goodness.</p>
+
+      <p>But Daisy hid a dark secret. In her office, she handled private papers—bank accounts, loans, and records of wealth. Where others saw numbers, Daisy saw stories. She studied who had inherited fortunes, who saved diligently, and who dreamed of rising above their lot. She saw not only their wealth but their deepest longings.</p>
+
+      <p>Beyond the office, Daisy was a listener. Every chat in the marketplace, every whisper at the water pump, every hushed workplace conversation—she collected them like treasures. She learned what made her neighbors proud, what kept them awake, what dreams they hid. Their hopes, fears, and wounds became her tools, stored for later use.</p>
+
+      <p>With this knowledge, Daisy wove a quiet net of deceit.</p>
+
+      <p>One day, she visited Sarah, a hardworking woman saving for her children's future. Daisy's voice was soft, almost hymn-like. "Dear Sarah," she said, "while I prayed, I felt guided to a fine piece of land—wide, peaceful, perfect for your family. Perhaps this is a divine gift to you."</p>
+
+      <p>Sarah hesitated. "Miss Daisy, such things are too costly. I must be careful."</p>
+
+      <p>Daisy smiled, tilting her head. "Do not fear. The seller is like family to me and offers a kind price. Sarah, you've worked so hard. Don't your children deserve a home to be proud of?"</p>
+
+      <p>The words struck Sarah's heart, stirring pride and love. Believing Daisy's words were heaven-sent, Sarah signed the papers, unaware that Daisy and the seller had schemed to inflate the price, with Daisy pocketing a share. She sowed lies, and though she did not yet know it, she would reap a bitter harvest.</p>
+
+      <p>This was Daisy's craft. With some, she played on pride; with others, she stirred fear, whispering, "If you wait, the chance will be gone." Always, she cloaked her deceit in faith, claiming divine guidance. She never forced, only guided, her quietness a sharper tool than any shout. Daisy was not a thief of houses but a thief of hearts.</p>
+
+      <p>For a time, no one suspected her. Families thought her land deals were blessings. But debts mounted, and blessings turned to burdens. Yet Daisy prayed loudest in church, tears in her eyes, hands raised high, hiding her hypocrisy like a tomb polished on the outside but rotten within.</p>
+
+      <p>Truth, however, cannot stay buried. A widow named Ruth, watchful and wise, noticed the pattern: families suffered after Daisy's deals, always with a "kind" seller and a "perfect" price. Ruth investigated, tracing sales and asking questions. She uncovered Daisy's web of deceit, built on private records and stolen confidences. No secret remains hidden forever, and Daisy's lies were laid bare.</p>
+
+      <p>The townspeople turned from Daisy. No one traded with her, no one greeted her, and her church pew stood empty. Her name, once honored, became bitter. Her deceit destroyed her place among them, as those who lie find no welcome in a house of truth. The community rejected her, casting her out not by distance but by disdain.</p>
+
+      <p>In desperation, Daisy tried one last scheme, targeting a wealthy outsider she thought naïve. But he was shrewd, uncovering her fraud and reporting it. The trap she set for others ensnared her instead. Shame and punishment followed—legal consequences, perhaps fines or imprisonment, as justice demanded restitution for her wrongs. Her greed, which had fed on others' trust, brought her downfall, reaping the calamity she had sown.</p>
+
+      <p>Worse still was her spiritual ruin. Daisy lifted her hands in prayer, but found no peace. Her tears, once a tool to fool others, could not reach heaven. Her prayers were empty, like cries into a void, unanswered because her heart clung to sin. Having worn the mask of holiness for so long, she could no longer find true faith. Her soul, hardened by deceit, was left desolate, separated from divine comfort.</p>
+
+      <p>Yet redemption was possible. Had Daisy confessed her sins and sought forgiveness with a broken heart, she might have found mercy. But she clung to her schemes, unrepentant, and her soul remained in ruin, a thief caught not just by man, but by her own hardened heart.</p>
+
+      <p>Thus Daisy's fate was threefold: rejected by her people, punished in this world, and ruined in her soul. She was remembered not as a saint, but as the most dangerous thief—one who stole trust and lost everything.</p>
+
+      <hr class="section-break" aria-hidden="true">
+      <p class="conclusion">The most dangerous thief is not the one who breaks into houses, but the one who enters your heart, learns your secrets, and steals your trust. Guard your heart and be discerning, for deceit brings ruin to both the deceiver and the deceived.</p>
     </article>
-
-<script>
-    // Obfuscated validation logic - hidden from users
-    (function() {
-        // AUTHOR: Change the required characters here (completely hidden from users)
-        // This is the only place where the "must contain" rule is defined
-        const REQUIRED_CHARS = "FEW"; // <<-- AUTHOR: EDIT THIS LINE ONLY
-        
-        // Create a hidden validation system
-        const _hiddenValidator = {
-            // Secret validation rules (only for author)
-            _secretRules: {
-                requiredChars: REQUIRED_CHARS,
-                length: 8,
-                checksumMod: 3
-            },
-            
-            // Get current East Africa time (EAT timezone: UTC+3)
-            _getEastAfricaTime: function() {
-                const now = new Date();
-                // Convert to East Africa Time (UTC+3)
-                const eatOffset = 3 * 60; // East Africa Time is UTC+3
-                const localOffset = now.getTimezoneOffset();
-                const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
-                return eatTime;
-            },
-            
-            // Get current hour in 24-hour format as two digits
-            _getCurrentHourDigits: function() {
-                const eatTime = this._getEastAfricaTime();
-                const hours = eatTime.getHours();
-                // Format as two digits (e.g., 07, 14, 23)
-                return hours.toString().padStart(2, '0');
-            },
-            
-            // Obfuscated validation method
-            _validate: function(code) {
-                // Check length
-                if (code.length !== this._secretRules.length) return false;
-                
-                // Check for current hour digits (can be in any order)
-                const currentHourDigits = this._getCurrentHourDigits();
-                const codeChars = code.split('');
-                
-                // Check if both hour digits are present (in any order)
-                if (!codeChars.includes(currentHourDigits[0]) || !codeChars.includes(currentHourDigits[1])) {
-                    return false;
-                }
-                
-                // Dynamically process required characters (can be in any order)
-                const requiredArray = (typeof this._secretRules.requiredChars === 'string' && this._secretRules.requiredChars.length > 0)
-                    ? this._secretRules.requiredChars.split('')
-                    : [];
-                    
-                for (let char of requiredArray) {
-                    if (!codeChars.includes(char)) return false;
-                }
-                
-                // Check checksum (additional hidden validation)
-                const sum = code.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
-                if (sum % this._secretRules.checksumMod !== 1) return false;
-                
-                return true;
-            },
-            
-            // Public method that appears to do something else
-            checkAccess: function(input) {
-                return this._validate(input);
-            }
-        };
-        
-        // Make the validator available in a way that's hard to detect
-        window._appConfig = {
-            settings: {
-                validator: _hiddenValidator
-            }
-        };
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM elements
-            var unlockBtn = document.getElementById('unlockBtn');
-            var accessInput = document.getElementById('accessCode');
-            var article = document.getElementById('main-article');
-            var validationMessage = document.getElementById('validationMessage');
-            
-            // Function to validate code
-            function validateAccessCode(code) {
-                validationMessage.className = 'validation-message';
-                validationMessage.textContent = '';
-                
-                if (code.length !== 8) {
-                    validationMessage.textContent = 'Access code must be exactly 8 characters.';
-                    validationMessage.classList.add('validation-error');
-                    return false;
-                }
-                
-                // Check if code contains two digits (for the hour requirement)
-                const digitCount = (code.match(/\d/g) || []).length;
-                if (digitCount < 2) {
-                    validationMessage.textContent = 'Access code must include at least two numbers.';
-                    validationMessage.classList.add('validation-error');
-                    return false;
-                }
-                
-                // Hidden validation using the obfuscated validator
-                if (!window._appConfig.settings.validator.checkAccess(code)) {
-                    validationMessage.textContent = 'Invalid access code';
-                    validationMessage.classList.add('validation-error');
-                    return false;
-                }
-                
-                return true;
-            }
-            
-            // Unlock functionality
-            unlockBtn.addEventListener('click', function() {
-                var code = accessInput.value.trim();
-                if (validateAccessCode(code)) {
-                    article.classList.add('unlocked');
-                    unlockBtn.disabled = true;
-                    accessInput.disabled = true;
-                    validationMessage.textContent = 'Content unlocked successfully!';
-                    validationMessage.classList.add('validation-success');
-                } else {
-                    accessInput.value = '';
-                    accessInput.focus();
-                }
-            });
-            
-            // Allow Enter key to submit
-            accessInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    unlockBtn.click();
-                }
-            });
-        });
-    })();
-
-    // Additional content protection
-    document.addEventListener('DOMContentLoaded', function() {
-        // Content protection - prevent right-click (but allow on links)
-        document.addEventListener('contextmenu', function(e) {
-            if (!e.target.closest('a')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // Prevent text selection always
-        document.addEventListener('selectstart', function(e) {
-            if (!e.target.closest('a') && 
-                !e.target.closest('input') && 
-                !e.target.closest('textarea')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // Prevent drag and drop of images (but allow for links)
-        document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // Allow developer tools when needed but prevent easy access
-        document.addEventListener('keydown', function(e) {
-            // Allow Ctrl+U (View Source) and F12
-            if (e.ctrlKey && e.keyCode === 85) return true;
-            if (e.keyCode === 123) return true;
-            
-            if ((e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-                (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-                (e.ctrlKey && e.shiftKey && e.keyCode === 67)) { // Ctrl+Shift+C
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // Ensure all links work properly
-        document.querySelectorAll('a').forEach(function(link) {
-            // Make sure links are always clickable
-            link.style.pointerEvents = 'auto';
-            link.style.cursor = 'pointer';
-            
-            // Remove any existing click handlers that might interfere
-            link.onclick = null;
-            
-            // Add a simple click event listener to ensure links open
-            link.addEventListener('click', function(e) {
-                // For external links, let them open normally
-                if (this.target === '_blank' || this.href.includes('http')) {
-                    return true;
-                }
-                
-                // For internal links, prevent default if content is locked
-                var article = document.getElementById('main-article');
-                if (!article.classList.contains('unlocked')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-        });
-        
-        // Additional security: Clear clipboard on copy attempt (but allow on links and inputs)
-        document.addEventListener('copy', function(e) {
-            if (!e.target.closest('a') && 
-                !e.target.closest('input') && 
-                !e.target.closest('textarea')) {
-                e.preventDefault();
-                e.clipboardData.setData('text/plain', 'Content is protected');
-                return false;
-            }
-        });
-        
-        // Additional security: Clear clipboard on cut attempt
-        document.addEventListener('cut', function(e) {
-            if (!e.target.closest('a') && 
-                !e.target.closest('input') && 
-                !e.target.closest('textarea')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // Additional security: Prevent paste (but allow in input fields)
-        document.addEventListener('paste', function(e) {
-            if (!e.target.closest('input') && 
-                !e.target.closest('textarea')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // Make sure WhatsApp button works
-        var whatsappButton = document.querySelector('.whatsapp-button');
-        if (whatsappButton) {
-            whatsappButton.addEventListener('click', function(e) {
-                // Allow the link to open normally
-                return true;
-            });
-        }
-    });
-
-    // Advanced obfuscation with stealth validation
-    (function() {
-        // Create multiple validation layers to confuse inspection
-        const validationLayers = [
-            function(c) { return c.length === 8; },
-            function(c) { 
-                // Hidden checksum validation
-                const sum = c.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
-                return sum % 3 === 1;
-            },
-            // Dynamic required characters validation (any order)
-            function(c) {
-                const requiredArray = (typeof REQUIRED_CHARS === 'string' && REQUIRED_CHARS.length > 0)
-                    ? REQUIRED_CHARS.split('')
-                    : [];
-                const codeChars = c.split('');
-                for (let char of requiredArray) {
-                    if (!codeChars.includes(char)) return false;
-                }
-                return true;
-            },
-            // Current hour validation (hidden, any order)
-            function(c) {
-                // Get current East Africa time
-                const now = new Date();
-                const eatOffset = 3 * 60; // East Africa Time is UTC+3
-                const localOffset = now.getTimezoneOffset();
-                const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
-                const hours = eatTime.getHours().toString().padStart(2, '0');
-                const codeChars = c.split('');
-                
-                // Check if code contains both digits of the current hour (in any order)
-                return codeChars.includes(hours[0]) && codeChars.includes(hours[1]);
-            }
-        ];
-
-        // Store the real validation in a way that's hard to trace
-        window.__validators = {
-            layer1: validationLayers[0],
-            layer2: validationLayers[1],
-            layer3: validationLayers[2],
-            layer4: validationLayers[3],
-            validateAll: function(input) {
-                return this.layer1(input) && this.layer2(input) && this.layer3(input) && this.layer4(input);
-            }
-        };
-
-        // Create misdirection - fake validation functions
-        window.fakeValidator = {
-            checkCode: function(code) {
-                // This is a fake validator to mislead anyone inspecting
-                return code === '12345678' || code === '00000000';
-            }
-        };
-
-        // String encryption for any messages (misdirection)
-        const encryptedStrings = [
-            {data: [23, 45, 67, 89, 12, 34, 56, 78], key: 0x55},
-            {data: [98, 76, 54, 32, 10, 11, 12, 13], key: 0xAA}
-        ];
-        
-        // Function to decrypt strings (never actually used, just for misdirection)
-        window.decryptString = function(index) {
-            const item = encryptedStrings[index];
-            return item.data.map(b => String.fromCharCode(b ^ item.key)).join('');
-        };
-    })();
-
-    // Final initialization
-    document.addEventListener('DOMContentLoaded', function() {
-        // Ensure proper WhatsApp link functionality
-        const whatsappLink = document.querySelector('.whatsapp-button');
-        if (whatsappLink) {
-            whatsappLink.addEventListener('click', function(e) {
-                // Allow the WhatsApp link to open normally
-                return true;
-            });
-        }
-
-        // Additional protection against iframe embedding
-        if (window.location !== window.top.location) {
-            window.top.location = window.location;
-        }
-    });
-</script>
+  </main>
 </body>
 </html>
