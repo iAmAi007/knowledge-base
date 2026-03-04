@@ -12,15 +12,61 @@
   <meta property="og:url" content="https://yourwebsite.com/beyond-the-final-breath"/>
   <meta property="og:image" content="https://yourwebsite.com/og-image.jpg"/>
   <title>Beyond the Final Breath | Albright Ai</title>
-  <!-- Load Inter Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+  <!-- Load Inter Google Font + IBM Plex Mono for subtle accent -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <style>
+    /* === AIRSPACE INTELLIGENCE COLOR THEME (root) === */
     :root {
-      --primary-bg: #000000;
-      --secondary-bg: #1E2329;
-      --foreground: #E0E7ED;
-      --comments: #00BFFF; /* Improved contrast */
-      --separator-color: #D1D9E0;
+      /* Primary */
+      --navy: #0A1F3D;
+      --slate: #2E3A46;
+      --cyan: #00C2FF;
+      --orange: #FF6A00;
+      
+      /* Neutrals */
+      --light-surface: #F4F7FA;
+      --graphite: #1A1F24;
+      
+      /* Dark theme (default) */
+      --bg-dark: #0B1320;
+      --card-dark: #111A2B;
+      
+      /* Extended UI */
+      --white: #ffffff;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      
+      /* Text on dark */
+      --text-primary: #e0e6ed;
+      --text-secondary: #cbd5e1;
+      --text-tertiary: #7890a8;
+      --text-muted: #7f8fa0;
+      
+      /* Borders / accents */
+      --border-dark: #1e2a3a;
+      --border-card: #1f2b3f;
+      --border-light: #203349;
+      --border-lighter: #253449;
+      
+      /* Interactive */
+      --cyan-hover: #33ccff;
+      --cyan-glow: rgba(0,194,255,0.3);
+      --cyan-subtle: rgba(0,194,255,0.1);
+      
+      /* Gradients */
+      --gradient-cyan: linear-gradient(130deg, white, var(--cyan));
+      --gradient-card: linear-gradient(145deg, #0e1a2b, #0b1422);
+      --gradient-hero: radial-gradient(circle at 30% 50%, #132237, #0a121f);
+      
+      /* Legacy status */
+      --status-operational: var(--cyan);
+      
+      /* Overlay / stack */
+      --overlay-dark: #1b2537;
+      --stack-bg: #101a28;
+      --mono-accent: var(--cyan);
+      
+      /* Original structural variables (preserved) */
       --base-font-size: 17.5px;
       --subtitle-font-size: calc(var(--base-font-size) * 1.05);
       --meta-font-size: calc(var(--base-font-size) * 0.85);
@@ -40,8 +86,8 @@
 
     html, body {
       display: flex;
-      justify-content: center;  /* Horizontal center */
-      align-items: center;      /* Vertical center */
+      justify-content: center;
+      align-items: center;
     }
 
     html {
@@ -53,8 +99,8 @@
       font-size: var(--base-font-size);
       line-height: var(--line-height);
       font-weight: 400;
-      color: var(--foreground);
-      background-color: var(--primary-bg);
+      color: var(--text-primary);
+      background-color: var(--bg-dark);
       padding: 0 var(--margin);
       text-align: left;
       -webkit-font-smoothing: antialiased;
@@ -64,7 +110,6 @@
       animation: fadeIn 1s var(--transition-timing) forwards;
     }
 
-    /* Apple-specific font stack */
     body.apple-device {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -93,6 +138,7 @@
       margin-bottom: 0.5rem;
       line-height: 1.3;
       letter-spacing: -0.02em;
+      color: var(--white);
     }
 
     @keyframes slideInUp {
@@ -108,7 +154,7 @@
 
     .subtitle {
       font-size: var(--subtitle-font-size);
-      color: var(--comments);
+      color: var(--cyan);
       font-weight: 700;
       margin-bottom: 0.5rem;
       opacity: 0;
@@ -122,7 +168,7 @@
       gap: 0.5rem;
       font-weight: 500;
       margin-bottom: calc(var(--spacing-unit) * 0.5);
-      color: var(--comments);
+      color: var(--text-secondary);
       font-size: var(--meta-font-size);
       letter-spacing: 0.02em;
       opacity: 0;
@@ -132,17 +178,18 @@
     .meta span {
       position: relative;
       display: inline-block;
+      color: var(--text-tertiary);
     }
 
     .meta span:not(:last-child)::after {
       content: "•";
       margin-left: 0.5rem;
-      color: var(--comments);
+      color: var(--cyan);
     }
 
     .separator {
       border: none;
-      border-top: 1px solid var(--comments);
+      border-top: 1px solid var(--border-lighter);
       margin-bottom: var(--spacing-unit);
       opacity: 0;
       animation: expandWidth 0.8s var(--transition-timing) 0.8s forwards;
@@ -165,6 +212,7 @@
       transform: translateY(10px);
       transition: transform var(--transition-duration) var(--transition-timing), 
                   opacity var(--transition-duration) var(--transition-timing);
+      color: var(--text-secondary);
     }
 
     p.in-view {
@@ -175,10 +223,13 @@
     .section-break {
       text-align: center;
       margin: 2rem 0;
-      color: var(--comments);
+      color: var(--cyan);
       position: relative;
       opacity: 0;
       transition: opacity 1s var(--transition-timing);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
     }
 
     .section-break::before,
@@ -188,7 +239,7 @@
       top: 50%;
       width: 40%;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--comments), transparent);
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
       transition: width 0.5s var(--transition-timing);
     }
 
@@ -212,12 +263,13 @@
     .conclusion {
       font-size: var(--subtitle-font-size);
       text-align: left;
-      color: var(--comments);
-      margin: 0  0 2.5rem 0;
+      color: var(--cyan);
+      margin: 0 0 2.5rem 0;
       font-weight: 700;
       opacity: 0;
       transform: translateY(15px);
       transition: all 0.8s var(--transition-timing);
+      /* NO CARD STYLING - just plain text as requested */
     }
 
     .conclusion.in-view {
@@ -225,22 +277,30 @@
       transform: translateY(0);
     }
 
-    /* Hover effects for interactive elements */
+    /* Hover effects */
     .meta span:hover {
       transform: translateY(-2px);
       transition: transform 0.2s ease;
+      color: var(--cyan);
     }
 
-    /* Scroll progress indicator */
+    /* Scroll progress indicator – using cyan */
     .scroll-progress {
       position: fixed;
       top: 0;
       left: 0;
       width: 0%;
       height: 3px;
-      background: linear-gradient(90deg, var(--comments), #4FC3F7);
+      background: linear-gradient(90deg, var(--cyan), #4FC3F7);
       z-index: 1000;
       transition: width 0.2s ease;
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    /* Optional subtle hover on paragraphs */
+    p:hover {
+      text-shadow: 0 0 2px var(--cyan-subtle);
+      transition: text-shadow 0.2s;
     }
 
     @media (min-width: 600px) {
@@ -299,7 +359,7 @@
 
       <p>Yet even as responsibility grounds us, ambition propels us. Human beings are wired with aspirations, with a hunger to achieve, to create, to leave a mark. Accomplishments and achievements, whether grand or modest, are milestones that affirm our growth and resilience. They are proof that we have dared to reach beyond comfort into possibility.</p>
 
-      <p>Inevitably, life bends toward its conclusion, a truth both sobering and clarifying. Death is not an interruption of life’s meaning but its completion, the final punctuation mark on our narrative. Yet what truly matters is not that the journey ends, but whether our presence endures beyond that ending. Legacy is the echo of a life well-lived, the resonance of contributions that outlast our physical existence.</p>
+      <p>Inevitably, life bends toward its conclusion, a truth both sobering and clarifying. Death is not an interruption of life's meaning but its completion, the final punctuation mark on our narrative. Yet what truly matters is not that the journey ends, but whether our presence endures beyond that ending. Legacy is the echo of a life well-lived, the resonance of contributions that outlast our physical existence.</p>
 
       <p>Legacy is found in the values we instill, the kindness we extend, the knowledge we share, and the love we scatter into the world. It is the small, consistent acts that accumulate until they form the architecture of remembrance. A meaningful life, then, is not measured by length of years but by depth of impact.</p>
 
@@ -311,256 +371,260 @@
 
       <p>To live meaningfully is to weave together ambition with responsibility, individual achievement with collective contribution, and personal fulfillment with legacy. In this weaving, life transcends its brevity and becomes something eternal—not because we are immortal, but because what we give, inspire, and create continues to ripple through generations long after we are gone.</p>
 
-      <hr class="section-break" aria-hidden="true">
+      <hr class="section-break" aria-hidden="true" data-content="◈">
+      
+      <!-- CONCLUSION: PLAIN TEXT, NO CARD, just cyan color for emphasis -->
       <p class="conclusion">Live fully. Give generously. Leave a legacy that speaks when your voice is gone.</p>
     </article>
   </main>
-<script>
-  // Detect Apple devices and apply appropriate font
-  (function detectAppleDevice() {
-    const isApple = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
-    if (isApple) {
-      document.body.classList.add('apple-device');
-    }
-  })();
 
-  // Intersection Observer for scroll animations
-  document.addEventListener('DOMContentLoaded', function() {
-    // Create scroll progress bar
-    const scrollProgress = document.querySelector('.scroll-progress');
-    
-    // Observe paragraphs for animation
-    const paragraphs = document.querySelectorAll('p');
-    const sectionBreak = document.querySelector('.section-break');
-    const conclusion = document.querySelector('.conclusion');
-    
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          // Stop observing after animation triggers
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-    
-    // Observe all paragraphs
-    paragraphs.forEach(p => {
-      observer.observe(p);
-    });
-    
-    // Observe section break
-    if (sectionBreak) {
-      observer.observe(sectionBreak);
-    }
-    
-    // Observe conclusion
-    if (conclusion) {
-      observer.observe(conclusion);
-    }
-    
-    // Scroll progress indicator
-    window.addEventListener('scroll', function() {
-      const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrolled = (window.scrollY / windowHeight) * 100;
-      scrollProgress.style.width = scrolled + '%';
-    });
-  });
-
-  // Protection against copying - works silently
-  document.addEventListener('copy', function(e) {
-    e.preventDefault();
-  });
-
-  document.addEventListener('cut', function(e) {
-    e.preventDefault();
-  });
-
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-  });
-
-  // Protection against developer tools - works silently
-  (function() {
-    var devtools = {
-      open: false,
-      orientation: null
-    };
-    var threshold = 160;
-    
-    var checkDevTools = function() {
-      var widthThreshold = window.outerWidth - window.innerWidth > threshold;
-      var heightThreshold = window.outerHeight - window.innerHeight > threshold;
-      
-      if (!(heightThreshold && widthThreshold) &&
-          ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || 
-           widthThreshold || heightThreshold)) {
-        
-        if (!devtools.open) {
-          // Clear the page content when dev tools are detected
-          document.body.innerHTML = '';
-          // Prevent further interaction
-          document.body.style.pointerEvents = 'none';
-          // Make page appear blank
-          document.documentElement.style.backgroundColor = '#1A2F2A';
-        }
-        
-        devtools.open = true;
-      } else {
-        devtools.open = false;
+  <script>
+    // (all your existing JavaScript remains exactly the same)
+    // Detect Apple devices and apply appropriate font
+    (function detectAppleDevice() {
+      const isApple = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
+      if (isApple) {
+        document.body.classList.add('apple-device');
       }
-    };
-    
-    setInterval(checkDevTools, 500);
-  })();
+    })();
 
-  // Disable text selection - works silently
-  document.addEventListener('DOMContentLoaded', function() {
-    document.body.style.userSelect = 'none';
-    document.body.style.webkitUserSelect = 'none';
-    document.body.style.msUserSelect = 'none';
-    document.body.style.mozUserSelect = 'none';
-    
-    // Disable dragging
-    document.addEventListener('dragstart', function(e) {
-      e.preventDefault();
-      return false;
-    });
-  });
-
-  // Protection against keyboard shortcuts - works silently
-  document.addEventListener('keydown', function(e) {
-    // Disable F12
-    if (e.key === 'F12') {
-      e.preventDefault();
-      return false;
-    }
-    
-    // Disable Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
-    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) {
-      e.preventDefault();
-      return false;
-    }
-    
-    // Disable Ctrl+U
-    if (e.ctrlKey && e.key === 'u') {
-      e.preventDefault();
-      return false;
-    }
-  });
-
-  // Protection against iframe embedding - works silently
-  if (window.location !== window.parent.location) {
-    document.body.innerHTML = '';
-    document.body.style.pointerEvents = 'none';
-  }
-
-  // Obfuscation - Hide content source by encoding text nodes
-  document.addEventListener('DOMContentLoaded', function() {
-    // Function to encode text content
-    function encodeText(text) {
-      return text.split('').map(function(c) {
-        return String.fromCharCode(c.charCodeAt(0) + 1);
-      }).join('');
-    }
-    
-    // Function to decode text content
-    function decodeText(text) {
-      return text.split('').map(function(c) {
-        return String.fromCharCode(c.charCodeAt(0) - 1);
-      }).join('');
-    }
-    
-    // Encode all text nodes on page load
-    function encodeAllText() {
-      var treeWalker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT,
-        { acceptNode: function(node) { 
-          return node.parentNode.tagName !== 'SCRIPT' && 
-                 node.parentNode.tagName !== 'STYLE' ? 
-                 NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
-        }},
-        false
-      );
+    // Intersection Observer for scroll animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create scroll progress bar
+      const scrollProgress = document.querySelector('.scroll-progress');
       
-      var nodes = [];
-      while(treeWalker.nextNode()) {
-        if (treeWalker.currentNode.nodeValue.trim() !== '') {
+      // Observe paragraphs for animation
+      const paragraphs = document.querySelectorAll('p');
+      const sectionBreak = document.querySelector('.section-break');
+      const conclusion = document.querySelector('.conclusion');
+      
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+      
+      const observer = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            // Stop observing after animation triggers
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      // Observe all paragraphs
+      paragraphs.forEach(p => {
+        observer.observe(p);
+      });
+      
+      // Observe section break
+      if (sectionBreak) {
+        observer.observe(sectionBreak);
+      }
+      
+      // Observe conclusion
+      if (conclusion) {
+        observer.observe(conclusion);
+      }
+      
+      // Scroll progress indicator
+      window.addEventListener('scroll', function() {
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        scrollProgress.style.width = scrolled + '%';
+      });
+    });
+
+    // Protection against copying - works silently
+    document.addEventListener('copy', function(e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('cut', function(e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    // Protection against developer tools - works silently
+    (function() {
+      var devtools = {
+        open: false,
+        orientation: null
+      };
+      var threshold = 160;
+      
+      var checkDevTools = function() {
+        var widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        var heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        
+        if (!(heightThreshold && widthThreshold) &&
+            ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || 
+             widthThreshold || heightThreshold)) {
+          
+          if (!devtools.open) {
+            // Clear the page content when dev tools are detected
+            document.body.innerHTML = '';
+            // Prevent further interaction
+            document.body.style.pointerEvents = 'none';
+            // Make page appear blank (using theme navy)
+            document.documentElement.style.backgroundColor = '#0B1320';
+          }
+          
+          devtools.open = true;
+        } else {
+          devtools.open = false;
+        }
+      };
+      
+      setInterval(checkDevTools, 500);
+    })();
+
+    // Disable text selection - works silently
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.style.userSelect = 'none';
+      document.body.style.webkitUserSelect = 'none';
+      document.body.style.msUserSelect = 'none';
+      document.body.style.mozUserSelect = 'none';
+      
+      // Disable dragging
+      document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+      });
+    });
+
+    // Protection against keyboard shortcuts - works silently
+    document.addEventListener('keydown', function(e) {
+      // Disable F12
+      if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Disable Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Disable Ctrl+U
+      if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // Protection against iframe embedding - works silently
+    if (window.location !== window.parent.location) {
+      document.body.innerHTML = '';
+      document.body.style.pointerEvents = 'none';
+    }
+
+    // Obfuscation - Hide content source by encoding text nodes
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to encode text content
+      function encodeText(text) {
+        return text.split('').map(function(c) {
+          return String.fromCharCode(c.charCodeAt(0) + 1);
+        }).join('');
+      }
+      
+      // Function to decode text content
+      function decodeText(text) {
+        return text.split('').map(function(c) {
+          return String.fromCharCode(c.charCodeAt(0) - 1);
+        }).join('');
+      }
+      
+      // Encode all text nodes on page load
+      function encodeAllText() {
+        var treeWalker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          { acceptNode: function(node) { 
+            return node.parentNode.tagName !== 'SCRIPT' && 
+                   node.parentNode.tagName !== 'STYLE' ? 
+                   NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
+          }},
+          false
+        );
+        
+        var nodes = [];
+        while(treeWalker.nextNode()) {
+          if (treeWalker.currentNode.nodeValue.trim() !== '') {
+            nodes.push(treeWalker.currentNode);
+          }
+        }
+        
+        nodes.forEach(function(node) {
+          var original = node.nodeValue;
+          node.setAttribute('data-o', btoa(encodeText(original)));
+          node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
+        });
+      }
+      
+      // Decode text when needed (for screen readers and accessibility)
+      function makeContentAccessible() {
+        var treeWalker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          { acceptNode: function(node) { 
+            return node.hasAttribute('data-o') ? 
+                   NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
+          }},
+          false
+        );
+        
+        var nodes = [];
+        while(treeWalker.nextNode()) {
           nodes.push(treeWalker.currentNode);
         }
+        
+        nodes.forEach(function(node) {
+          try {
+            node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
+          } catch(e) {
+            // If decoding fails, keep the current value
+          }
+        });
       }
       
-      nodes.forEach(function(node) {
-        var original = node.nodeValue;
-        node.setAttribute('data-o', btoa(encodeText(original)));
-        node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
-      });
-    }
-    
-    // Decode text when needed (for screen readers and accessibility)
-    function makeContentAccessible() {
-      var treeWalker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT,
-        { acceptNode: function(node) { 
-          return node.hasAttribute('data-o') ? 
-                 NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
-        }},
-        false
-      );
-      
-      var nodes = [];
-      while(treeWalker.nextNode()) {
-        nodes.push(treeWalker.currentNode);
-      }
-      
-      nodes.forEach(function(node) {
-        try {
-          node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
-        } catch(e) {
-          // If decoding fails, keep the current value
-        }
-      });
-    }
-    
-    // Initial encoding
-    encodeAllText();
-    
-    // Make content accessible for screen readers
-    setTimeout(makeContentAccessible, 100);
-    
-    // Re-encode text periodically
-    setInterval(function() {
+      // Initial encoding
       encodeAllText();
-      setTimeout(makeContentAccessible, 50);
-    }, 30000);
-  });
+      
+      // Make content accessible for screen readers
+      setTimeout(makeContentAccessible, 100);
+      
+      // Re-encode text periodically
+      setInterval(function() {
+        encodeAllText();
+        setTimeout(makeContentAccessible, 50);
+      }, 30000);
+    });
 
-  // Additional protection: Monitor DOM changes to prevent inspection
-  (function() {
-    var observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        if (mutation.type === 'attributes' && 
-            mutation.attributeName === 'data-o') {
-          // If someone tries to manipulate our obfuscation attribute
-          mutation.target.parentNode.remove();
-        }
+    // Additional protection: Monitor DOM changes to prevent inspection
+    (function() {
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes' && 
+              mutation.attributeName === 'data-o') {
+            // If someone tries to manipulate our obfuscation attribute
+            mutation.target.parentNode.remove();
+          }
+        });
       });
-    });
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      subtree: true,
-      attributeFilter: ['data-o']
-    });
-  })();
-</script>
+      
+      observer.observe(document.documentElement, {
+        attributes: true,
+        subtree: true,
+        attributeFilter: ['data-o']
+      });
+    })();
+  </script>
 </body>
 </html>
