@@ -2,629 +2,674 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Beyond the Final Breath — a reflective essay on living intentionally, giving generously, and leaving a legacy that endures."/>
-  <meta name="author" content="Albright Ai"/>
-  <meta name="keywords" content="legacy, life, giving, responsibility, mentoring, reflection, inspiration"/>
-  <meta property="og:title" content="Beyond the Final Breath"/>
-  <meta property="og:description" content="Living, Giving, and Leaving a Legacy."/>
-  <meta property="og:type" content="article"/>
-  <meta property="og:url" content="https://yourwebsite.com/beyond-the-final-breath"/>
-  <meta property="og:image" content="https://yourwebsite.com/og-image.jpg"/>
-  <title>Beyond the Final Breath | Albright Ai</title>
-  <!-- Load Inter Google Font + IBM Plex Mono for subtle accent -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Infinite Scroll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/framer-motion@11/dist/framer-motion.js"></script>
   <style>
-    /* === AIRSPACE INTELLIGENCE COLOR THEME (root) === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: none; }
+
     :root {
-      /* Primary */
-      --navy: #0A1F3D;
-      --slate: #2E3A46;
-      --cyan: #00C2FF;
-      --orange: #FF6A00;
-      
-      /* Neutrals */
-      --light-surface: #F4F7FA;
-      --graphite: #1A1F24;
-      
-      /* Dark theme (default) */
-      --bg-dark: #0B1320;
-      --card-dark: #111A2B;
-      
-      /* Extended UI */
-      --white: #ffffff;
-      --gray-300: #d1d5db;
-      --gray-600: #4b5563;
-      
-      /* Text on dark */
-      --text-primary: #e0e6ed;
-      --text-secondary: #cbd5e1;
-      --text-tertiary: #7890a8;
-      --text-muted: #7f8fa0;
-      
-      /* Borders / accents */
-      --border-dark: #1e2a3a;
-      --border-card: #1f2b3f;
-      --border-light: #203349;
-      --border-lighter: #253449;
-      
-      /* Interactive */
-      --cyan-hover: #33ccff;
-      --cyan-glow: rgba(0,194,255,0.3);
-      --cyan-subtle: rgba(0,194,255,0.1);
-      
-      /* Gradients */
-      --gradient-cyan: linear-gradient(130deg, white, var(--cyan));
-      --gradient-card: linear-gradient(145deg, #0e1a2b, #0b1422);
-      --gradient-hero: radial-gradient(circle at 30% 50%, #132237, #0a121f);
-      
-      /* Legacy status */
-      --status-operational: var(--cyan);
-      
-      /* Overlay / stack */
-      --overlay-dark: #1b2537;
-      --stack-bg: #101a28;
-      --mono-accent: var(--cyan);
-      
-      /* Original structural variables (preserved) */
-      --base-font-size: 17.5px;
-      --subtitle-font-size: calc(var(--base-font-size) * 1.05);
-      --meta-font-size: calc(var(--base-font-size) * 0.85);
-      --line-height: 1.5;
-      --header-size: calc(1.4rem + 1.1vw);
-      --margin: 6vw;
-      --spacing-unit: 1.5rem;
-      --transition-duration: 0.3s;
-      --transition-timing: ease-in-out;
+      --bg: hsl(240, 6%, 4%);
+      --fg: hsl(240, 5%, 90%);
+      --border: rgba(220,220,230,0.10);
+      --muted: rgba(220,220,230,0.55);
+      --font: 'Lexend', ui-sans-serif, system-ui, sans-serif;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      font-size: var(--base-font-size);
-      line-height: var(--line-height);
-      font-weight: 400;
-      color: var(--text-primary);
-      background-color: var(--bg-dark);
-      padding: 0 var(--margin);
-      text-align: left;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+      font-weight: 300;
       min-height: 100vh;
-      opacity: 0;
-      animation: fadeIn 1s var(--transition-timing) forwards;
     }
 
-    body.apple-device {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: hsl(240,4%,20%); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: hsl(240,4%,30%); }
+    ::selection { background: hsl(240,4%,25%); color: hsl(240,5%,92%); }
+
+    /* ── Scroll Progress ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      height: 1px; transform-origin: left;
+      background: linear-gradient(90deg, rgba(220,220,230,0.15), rgba(220,220,230,0.45), rgba(220,220,230,0.15));
+      transform: scaleX(0);
+      transition: transform 0.05s linear;
+    }
+    #top-vignette {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+      height: 80px; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(10,10,11,0.7) 0%, transparent 100%);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* ── Side Navigator ── */
+    #side-nav {
+      position: fixed; left: 28px; top: 50%; transform: translateY(-50%);
+      z-index: 40; display: flex; flex-direction: column; gap: 16px;
     }
+    @media (max-width: 1024px) { #side-nav { display: none; } }
 
-    main {
-      max-width: 100%;
-      margin: 2rem auto;
-    }
-
-    article {
-      max-width: 100%;
-    }
-
-    header {
-      margin-bottom: var(--spacing-unit);
-    }
-
-    h1 {
-      font-size: var(--header-size);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      line-height: 1.3;
-      letter-spacing: -0.02em;
-      color: var(--white);
-    }
-
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .subtitle {
-      font-size: var(--subtitle-font-size);
-      color: var(--cyan);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      opacity: 0;
-      transform: translateY(15px);
-      animation: slideInUp 0.7s var(--transition-timing) 0.4s forwards;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      font-weight: 500;
-      margin-bottom: calc(var(--spacing-unit) * 0.5);
-      color: var(--text-secondary);
-      font-size: var(--meta-font-size);
-      letter-spacing: 0.02em;
-      opacity: 0;
-      animation: fadeIn 0.6s var(--transition-timing) 0.6s forwards;
-    }
-
-    .meta span {
+    .nav-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 12px; padding: 0;
       position: relative;
-      display: inline-block;
-      color: var(--text-tertiary);
+    }
+    .nav-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(220,220,230,0.15);
+      transition: background 0.35s ease, transform 0.35s ease;
+      transform: scale(0.7);
+    }
+    .nav-btn.active .nav-dot {
+      background: rgba(220,220,230,0.65);
+      transform: scale(1);
+    }
+    .nav-label {
+      font-size: 9px; letter-spacing: 0.18em; font-weight: 300;
+      color: transparent; white-space: nowrap;
+      transition: color 0.35s ease, transform 0.35s ease;
+      transform: translateX(-4px);
+    }
+    .nav-btn.active .nav-label {
+      color: rgba(220,220,230,0.55);
+      transform: translateX(0);
     }
 
-    .meta span:not(:last-child)::after {
-      content: "•";
-      margin-left: 0.5rem;
-      color: var(--cyan);
+    /* ── Hero ── */
+    #hero {
+      height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden; position: relative; user-select: none;
+      transition: opacity 0.1s linear;
+    }
+    .hero-bg-1 {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, hsl(240,6%,3%) 100%);
+    }
+    .hero-bg-2 {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 600px; height: 400px; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(ellipse, rgba(220,220,230,0.025) 0%, transparent 70%);
+    }
+    .hero-content { position: relative; z-index: 10; text-align: center; padding: 0 24px; }
+    .hero-brand {
+      margin-bottom: 56px; display: flex; align-items: center;
+      justify-content: center; gap: 12px;
+    }
+    .hero-brand-line { display: block; height: 1px; width: 48px; background: rgba(220,220,230,0.18); }
+    .hero-brand-text {
+      font-size: 10px; letter-spacing: 0.35em; font-weight: 300;
+      color: rgba(220,220,230,0.32);
+    }
+    .hero-the {
+      font-size: clamp(0.75rem, 1.8vw, 1.1rem); font-weight: 200;
+      letter-spacing: 0.22em; margin-bottom: 0.3em;
+      color: rgba(220,220,230,0.45); text-align: left;
+    }
+    .hero-title {
+      font-size: clamp(3.2rem, 10vw, 8rem); font-weight: 100;
+      letter-spacing: -0.04em; line-height: 0.88;
+      color: var(--fg); white-space: nowrap;
+    }
+    .hero-rule {
+      width: 48px; height: 1px; margin: 56px auto 0;
+      background: linear-gradient(90deg, transparent, rgba(220,220,230,0.25), transparent);
+    }
+    .hero-sub {
+      margin-top: 32px; font-size: 11px; letter-spacing: 0.28em; font-weight: 300;
+      color: rgba(220,220,230,0.28);
+    }
+    .scroll-cue {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      background: none; border: none; cursor: pointer;
+    }
+    .scroll-line {
+      position: relative; width: 1px; height: 48px; overflow: hidden;
+      background: rgba(220,220,230,0.10);
+    }
+    .scroll-line-inner {
+      position: absolute; inset-x: 0; top: 0; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(220,220,230,0.4), transparent);
+      animation: scrollFlow 2.8s ease-in-out infinite;
+    }
+    @keyframes scrollFlow {
+      0%   { transform: translateY(-100%); }
+      50%  { transform: translateY(100%); }
+      100% { transform: translateY(-100%); }
+    }
+    .scroll-cue-text {
+      font-size: 9px; letter-spacing: 0.3em; font-weight: 300;
+      color: rgba(220,220,230,0.22);
     }
 
-    .separator {
-      border: none;
-      border-top: 1px solid var(--border-lighter);
-      margin-bottom: var(--spacing-unit);
-      opacity: 0;
-      animation: expandWidth 0.8s var(--transition-timing) 0.8s forwards;
-    }
+    /* ── Article ── */
+    main { position: relative; z-index: 10; }
+    article { max-width: 672px; margin: 0 auto; padding: 0 24px; }
 
-    @keyframes expandWidth {
-      from {
-        opacity: 0;
-        width: 0%;
-      }
-      to {
-        opacity: 1;
-        width: 100%;
-      }
+    /* Article Meta */
+    .article-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 80px; opacity: 0; transform: translateY(10px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
     }
-
-    p {
-      margin-bottom: calc(var(--base-font-size) * var(--line-height));
-      opacity: 0;
-      transform: translateY(10px);
-      transition: transform var(--transition-duration) var(--transition-timing), 
-                  opacity var(--transition-duration) var(--transition-timing);
-      color: var(--text-secondary);
+    .article-meta.visible { opacity: 1; transform: translateY(0); }
+    .meta-left { display: flex; align-items: center; gap: 12px; }
+    .meta-avatar {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid rgba(220,220,230,0.12);
+      background: rgba(220,220,230,0.04);
+      display: flex; align-items: center; justify-content: center;
     }
-
-    p.in-view {
-      opacity: 1;
-      transform: translateY(0);
+    .meta-avatar span {
+      font-size: 9px; font-weight: 300; letter-spacing: 0.05em;
+      color: rgba(220,220,230,0.45);
     }
+    .meta-names { display: flex; align-items: center; gap: 10px; }
+    .meta-author {
+      font-size: 11px; font-weight: 300; letter-spacing: 0.12em;
+      color: rgba(220,220,230,0.45);
+    }
+    .meta-dot {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: rgba(220,220,230,0.18); display: inline-block;
+    }
+    .meta-cat {
+      font-size: 11px; font-weight: 300; letter-spacing: 0.12em;
+      color: rgba(220,220,230,0.25);
+    }
+    .meta-time {
+      font-size: 10px; font-weight: 300; letter-spacing: 0.15em;
+      color: rgba(220,220,230,0.18);
+    }
+    @media (max-width: 640px) { .meta-time { display: none; } }
 
+    /* Paragraph */
+    .para {
+      font-weight: 300; margin-bottom: 36px; color: rgba(220,220,230,0.75);
+      font-size: clamp(16px, 2.4vw, 18.5px); line-height: 1.78; letter-spacing: 0.005em;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .para.visible { opacity: 1; transform: translateY(0); }
+
+    /* Section Break */
     .section-break {
-      text-align: center;
-      margin: 2rem 0;
-      color: var(--cyan);
-      position: relative;
-      opacity: 0;
-      transition: opacity 1s var(--transition-timing);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 64px 0; gap: 20px;
     }
-
-    .section-break::before,
-    .section-break::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 40%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-      transition: width 0.5s var(--transition-timing);
+    .break-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(220,220,230,0.10), transparent);
     }
-
-    .section-break::before {
-      left: 0;
+    .break-dots { display: flex; align-items: center; gap: 8px; }
+    .break-dot {
+      border-radius: 50%; background: rgba(220,220,230,0.20);
+      width: 3px; height: 3px; display: block;
     }
+    .break-dot.mid { width: 4px; height: 4px; }
 
-    .section-break::after {
-      right: 0;
-    }
-
-    .section-break.in-view {
-      opacity: 1;
-    }
-
-    .section-break.in-view::before,
-    .section-break.in-view::after {
-      width: 45%;
-    }
-
+    /* Conclusion card */
     .conclusion {
-      font-size: var(--subtitle-font-size);
-      text-align: left;
-      color: var(--cyan);
-      margin: 0 0 2.5rem 0;
-      font-weight: 700;
-      opacity: 0;
-      transform: translateY(15px);
-      transition: all 0.8s var(--transition-timing);
-      /* NO CARD STYLING - just plain text as requested */
+      position: relative; margin-top: 96px; margin-bottom: 32px;
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 1.1s ease, transform 1.1s ease;
+    }
+    .conclusion.visible { opacity: 1; transform: translateY(0); }
+    .conclusion-card {
+      position: relative; overflow: hidden; border-radius: 12px; cursor: default;
+      background: linear-gradient(160deg, hsl(240,6%,7%) 0%, hsl(240,5%,5%) 100%);
+      border: 1px solid rgba(220,220,230,0.08);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.4), inset 0 1px 0 rgba(220,220,230,0.06), 0 24px 48px rgba(0,0,0,0.4);
+    }
+    .conclusion-top-line {
+      position: absolute; top: 0; left: 32px; right: 32px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(220,220,230,0.12), transparent);
+    }
+    .conclusion-inner { position: relative; z-index: 10; padding: 40px 32px; }
+    @media (min-width: 640px) { .conclusion-inner { padding: 56px; } }
+    .conclusion-label-row { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .conclusion-label-line { display: block; height: 1px; width: 24px; background: rgba(220,220,230,0.2); }
+    .conclusion-label {
+      font-size: 9px; letter-spacing: 0.3em; font-weight: 300;
+      color: rgba(220,220,230,0.3);
+    }
+    .conclusion-text {
+      font-weight: 100; line-height: 1.55; letter-spacing: -0.01em;
+      font-size: clamp(1.15rem, 2.8vw, 1.6rem); color: rgba(220,220,230,0.88);
+    }
+    .conclusion-text .dim { color: rgba(220,220,230,0.52); }
+    .conclusion-footer {
+      display: flex; align-items: center; gap: 16px; margin-top: 40px;
+    }
+    .conclusion-footer-line { flex: 1; height: 1px; background: rgba(220,220,230,0.06); }
+    .conclusion-footer-text {
+      font-size: 9px; letter-spacing: 0.25em; font-weight: 300;
+      color: rgba(220,220,230,0.18);
     }
 
-    .conclusion.in-view {
-      opacity: 1;
-      transform: translateY(0);
+    /* Footer */
+    footer {
+      margin-top: 80px; padding-bottom: 80px;
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    footer.visible { opacity: 1; }
+    .footer-rule {
+      margin-bottom: 40px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(220,220,230,0.08) 20%, rgba(220,220,230,0.08) 80%, transparent);
+    }
+    .footer-inner {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: space-between; gap: 20px;
+    }
+    @media (min-width: 640px) { .footer-inner { flex-direction: row; } }
+    .footer-dots { display: none; align-items: center; gap: 8px; }
+    @media (min-width: 640px) { .footer-dots { display: flex; } }
+    .footer-dot { width: 2px; height: 2px; border-radius: 50%; display: inline-block; }
+    .footer-tagline {
+      font-size: 10px; letter-spacing: 0.22em; font-weight: 300;
+      color: rgba(220,220,230,0.14);
     }
 
-    /* Hover effects */
-    .meta span:hover {
-      transform: translateY(-2px);
-      transition: transform 0.2s ease;
-      color: var(--cyan);
-    }
-
-    /* Scroll progress indicator – using cyan */
-    .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--cyan), #4FC3F7);
-      z-index: 1000;
-      transition: width 0.2s ease;
-      box-shadow: 0 0 8px var(--cyan);
-    }
-
-    /* Optional subtle hover on paragraphs */
-    p:hover {
-      text-shadow: 0 0 2px var(--cyan-subtle);
-      transition: text-shadow 0.2s;
-    }
-
-    @media (min-width: 600px) {
-      --base-font-size: 18px;
-      --margin: 8vw;
-      --subtitle-font-size: calc(var(--base-font-size) * 0.95);
-      --meta-font-size: calc(var(--base-font-size) * 0.9);
-
-      body {
-        text-align: justify;
-      }
-
-      article {
-        max-width: 800px;
-      }
-
-      h1 {
-        font-size: calc(1.8rem + 1vw);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      --base-font-size: 20px;
-      --margin: 10vw;
-      --subtitle-font-size: var(--base-font-size);
-
-      article {
-        max-width: 900px;
-      }
-
-      h1 {
-        font-size: calc(2rem + 1vw);
-      }
-    }
+    /* Fade-in animations triggered by IntersectionObserver */
+    .anim { opacity: 0; transform: translateY(16px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .anim.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
-  <div class="scroll-progress"></div>
-  <main>
-    <article>
-      <header role="banner">
-        <h1>Beyond the Final Breath</h1>
-        <div class="subtitle">Living, Giving, and Leaving a Legacy</div>
-        <footer class="meta" role="contentinfo">
-          <span class="author">Albright Ai</span>
-          <span class="category">Reflection & Legacy</span>
-        </footer>
-        <div class="separator"></div>
-      </header>
 
-      <p>Life is a universal thread binding us all, a shared journey that begins with birth and flows inevitably toward an end. We are ushered into existence without choice, yet from that first breath, we are given the gift of potential—a canvas upon which we will paint our unique story.</p>
+<!-- Scroll Progress -->
+<div id="progress-bar"></div>
+<div id="top-vignette"></div>
 
-      <p>As we grow, we are shaped by the environments we encounter, the people who surround us, and the countless lessons life offers. Growth is not a straight line but a spiral; we learn, we unlearn, and we relearn, constantly refining our understanding of who we are and what matters most. This cycle of discovery equips us with the wisdom to navigate the ever-changing responsibilities that arise along the way, from caring for family to contributing to the well-being of those entrusted to us.</p>
+<!-- Side Navigator -->
+<nav id="side-nav" aria-label="Story navigation">
+  <button class="nav-btn active" data-target="origin" aria-label="Jump to The Bowl">
+    <div class="nav-dot"></div><span class="nav-label">The Bowl</span>
+  </button>
+  <button class="nav-btn" data-target="growth" aria-label="Jump to The Feed">
+    <div class="nav-dot"></div><span class="nav-label">The Feed</span>
+  </button>
+  <button class="nav-btn" data-target="responsibility" aria-label="Jump to No Boundaries">
+    <div class="nav-dot"></div><span class="nav-label">No Boundaries</span>
+  </button>
+  <button class="nav-btn" data-target="ambition" aria-label="Jump to Jamal">
+    <div class="nav-dot"></div><span class="nav-label">Jamal</span>
+  </button>
+  <button class="nav-btn" data-target="legacy" aria-label="Jump to Amara">
+    <div class="nav-dot"></div><span class="nav-label">Amara</span>
+  </button>
+  <button class="nav-btn" data-target="machine" aria-label="Jump to The Machine">
+    <div class="nav-dot"></div><span class="nav-label">The Machine</span>
+  </button>
+  <button class="nav-btn" data-target="funeral" aria-label="Jump to The Funeral">
+    <div class="nav-dot"></div><span class="nav-label">The Funeral</span>
+  </button>
+  <button class="nav-btn" data-target="note" aria-label="Jump to The Note">
+    <div class="nav-dot"></div><span class="nav-label">The Note</span>
+  </button>
+  <button class="nav-btn" data-target="paradox" aria-label="Jump to The Paradox">
+    <div class="nav-dot"></div><span class="nav-label">The Paradox</span>
+  </button>
+  <button class="nav-btn" data-target="curiosity" aria-label="Jump to Curiosity">
+    <div class="nav-dot"></div><span class="nav-label">Curiosity</span>
+  </button>
+  <button class="nav-btn" data-target="conclusion" aria-label="Jump to The Choice">
+    <div class="nav-dot"></div><span class="nav-label">The Choice</span>
+  </button>
+</nav>
 
-      <p>Responsibilities are not mere obligations; they are opportunities for love, sacrifice, and connection. They remind us that life is not lived in isolation but in relationship with others. As we shoulder duties—raising children, supporting partners, providing for parents, or serving communities—we discover that fulfillment often emerges not from what we accumulate but from what we give.</p>
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-bg-1"></div>
+  <div class="hero-bg-2"></div>
+  <div class="hero-content">
+    <div class="hero-brand">
+      <span class="hero-brand-line"></span>
+      <span class="hero-brand-text">Albright Ai</span>
+      <span class="hero-brand-line"></span>
+    </div>
+    <div>
+      <p class="hero-the">The</p>
+      <h1 class="hero-title">Infinite Scroll</h1>
+    </div>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">Comparison · Choice · What Remains</p>
+  </div>
+  <button class="scroll-cue" onclick="window.scrollTo({top:window.innerHeight,behavior:'smooth'})" aria-label="Scroll down to read">
+    <div class="scroll-line"><div class="scroll-line-inner"></div></div>
+    <span class="scroll-cue-text">Scroll</span>
+  </button>
+</section>
 
-      <p>Yet even as responsibility grounds us, ambition propels us. Human beings are wired with aspirations, with a hunger to achieve, to create, to leave a mark. Accomplishments and achievements, whether grand or modest, are milestones that affirm our growth and resilience. They are proof that we have dared to reach beyond comfort into possibility.</p>
+<!-- Main Content -->
+<main>
+  <article>
 
-      <p>Inevitably, life bends toward its conclusion, a truth both sobering and clarifying. Death is not an interruption of life's meaning but its completion, the final punctuation mark on our narrative. Yet what truly matters is not that the journey ends, but whether our presence endures beyond that ending. Legacy is the echo of a life well-lived, the resonance of contributions that outlast our physical existence.</p>
+    <!-- Article Meta -->
+    <div class="article-meta anim">
+      <div class="meta-left">
+        <div class="meta-avatar"><span>A</span></div>
+        <div class="meta-names">
+          <span class="meta-author">Albright Ai</span>
+          <span class="meta-dot"></span>
+          <span class="meta-cat">Short Fiction</span>
+        </div>
+      </div>
+      <span class="meta-time">18 min read</span>
+    </div>
 
-      <p>Legacy is found in the values we instill, the kindness we extend, the knowledge we share, and the love we scatter into the world. It is the small, consistent acts that accumulate until they form the architecture of remembrance. A meaningful life, then, is not measured by length of years but by depth of impact.</p>
+    <!-- The Bowl -->
+    <section id="origin">
+      <p class="para anim">When Daniel was seventeen, his grandmother gave him a wooden bowl.</p>
+      <p class="para anim">It wasn't valuable. It wasn't antique. It wasn't even particularly beautiful. One side was slightly warped, and the varnish had faded into uneven shades of brown.</p>
+      <p class="para anim">"Why this?" Daniel asked.</p>
+      <p class="para anim">His grandmother smiled.</p>
+      <p class="para anim">"Because one day you'll understand."</p>
+      <p class="para anim">At seventeen, Daniel considered this answer deeply unsatisfying.</p>
+      <p class="para anim">At twenty-seven, he still didn't understand.</p>
+      <p class="para anim">The bowl sat on a shelf in his apartment overlooking the city, gathering dust while his life unfolded through a six-inch screen.</p>
+    </section>
 
-      <p>But no one builds such a life alone. Along the way, we all require guidance to help us navigate uncertainty, courage to withstand adversity, and protection to guard against the storms of existence. We need encouragement to keep us moving when hope flickers, and mentorship to light the path with wisdom gained from those who have walked before us.</p>
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
 
-      <p>At times, the pursuit of dreams requires funding to transform vision into reality, while inspiration fuels the soul when resources seem scarce. Companionship and company make the journey less lonely, support reassures us in our moments of weakness, and community offers the shared strength of belonging. These pillars—guidance, courage, mentorship, encouragement, and companionship—form the invisible scaffolding that allows individuals to rise, persist, and ultimately flourish.</p>
+    <!-- The Feed -->
+    <section id="growth">
+      <p class="para anim">Every morning began the same way.</p>
+      <p class="para anim">Before his feet touched the floor, he opened Instagram.</p>
+      <p class="para anim">Someone was vacationing in Bali.</p>
+      <p class="para anim">Someone had launched a startup.</p>
+      <p class="para anim">Someone had gotten engaged.</p>
+      <p class="para anim">Someone had bought a Mercedes.</p>
+      <p class="para anim">Someone was six-pack shredded.</p>
+      <p class="para anim">Someone had just moved to Dubai.</p>
+      <p class="para anim">Someone had married someone stunning.</p>
+      <p class="para anim">Someone seemed impossibly happy.</p>
+      <p class="para anim">The feed never ended.</p>
+      <p class="para anim">Neither did the comparisons.</p>
+      <p class="para anim">Daniel wasn't unsuccessful. He had a decent marketing job. Good friends. Reasonable health. A clean apartment.</p>
+      <p class="para anim">Yet every day felt like evidence that he was choosing his life poorly.</p>
+      <p class="para anim">Because there were too many lives to compare it against.</p>
+    </section>
 
-      <p>The reality of human existence is, therefore, both humbling and ennobling. We are born fragile yet full of potential, we grow amid challenges and triumphs, we strive to balance responsibilities with aspirations, and we face the certainty of an end with the hope of leaving something enduring behind.</p>
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
 
-      <p>To live meaningfully is to weave together ambition with responsibility, individual achievement with collective contribution, and personal fulfillment with legacy. In this weaving, life transcends its brevity and becomes something eternal—not because we are immortal, but because what we give, inspire, and create continues to ripple through generations long after we are gone.</p>
+    <!-- No Boundaries -->
+    <section id="responsibility">
+      <p class="para anim">The internet had expanded his world beyond anything his parents could have imagined.</p>
+      <p class="para anim">His father had grown up in a small town.</p>
+      <p class="para anim">When his father was young, the prettiest girl he knew was the prettiest girl he knew. The richest man he knew was the richest man he knew. The smartest person he knew was the smartest person he knew.</p>
+      <p class="para anim">Comparison had boundaries.</p>
+      <p class="para anim">Daniel's generation had none.</p>
+      <p class="para anim">Every day he encountered thousands of people.</p>
+      <p class="para anim">Models. Millionaires. Athletes. Entrepreneurs. Digital nomads. Influencers.</p>
+      <p class="para anim">People who woke up at 4 AM. People who retired at 30. People who earned six figures. People who earned seven.</p>
+      <p class="para anim">People who seemed to have solved existence itself.</p>
+      <p class="para anim">The result wasn't inspiration.</p>
+      <p class="para anim">It was paralysis.</p>
+      <p class="para anim">Every path looked inferior to another path. Every choice seemed wrong.</p>
+    </section>
 
-      <hr class="section-break" aria-hidden="true" data-content="◈">
-      
-      <!-- CONCLUSION: PLAIN TEXT, NO CARD, just cyan color for emphasis -->
-      <p class="conclusion">Live fully. Give generously. Leave a legacy that speaks when your voice is gone.</p>
-    </article>
-  </main>
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
 
-  <script>
-    // (all your existing JavaScript remains exactly the same)
-    // Detect Apple devices and apply appropriate font
-    (function detectAppleDevice() {
-      const isApple = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
-      if (isApple) {
-        document.body.classList.add('apple-device');
+    <!-- Jamal -->
+    <section id="ambition">
+      <p class="para anim">One Friday evening, Daniel met his friend Jamal for coffee.</p>
+      <p class="para anim">Jamal had known him since university and possessed the rare ability to detect dissatisfaction before Daniel voiced it.</p>
+      <p class="para anim">"You've been quiet."</p>
+      <p class="para anim">"I'm thinking."</p>
+      <p class="para anim">"Dangerous."</p>
+      <p class="para anim">Daniel laughed.</p>
+      <p class="para anim">"I don't know what I'm doing with my life."</p>
+      <p class="para anim">"Again?"</p>
+      <p class="para anim">Daniel rolled his eyes. "Seriously."</p>
+      <p class="para anim">Jamal leaned back. "What's wrong now?"</p>
+      <p class="para anim">Daniel hesitated. "Maybe I should leave marketing."</p>
+      <p class="para anim">"For what?" "Tech." "Why?" "Better money." "Then do it." "But maybe AI will replace those jobs." "Then don't." "Maybe I should start a business." "Doing what?" "I don't know."</p>
+      <p class="para anim">Jamal stared at him. "You know your problem?"</p>
+      <p class="para anim">"I assume you're about to tell me."</p>
+      <p class="para anim">"You think every decision is permanent."</p>
+      <p class="para anim">Daniel shrugged. "Some are." "Not most."</p>
+      <p class="para anim">Jamal pointed toward the window. Outside, hundreds of people moved through the city.</p>
+      <p class="para anim">"Look at them." Daniel looked. "What about them?"</p>
+      <p class="para anim">"Every one of them thinks somebody else has figured life out."</p>
+    </section>
+
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
+
+    <!-- Amara -->
+    <section id="legacy">
+      <p class="para anim">A month later, Daniel attended a networking event.</p>
+      <p class="para anim">He hated networking events. They were performance theaters disguised as conversations.</p>
+      <p class="para anim">Everyone presented polished versions of themselves.</p>
+      <p class="para anim">Nobody discussed anxiety. Nobody discussed confusion. Nobody discussed loneliness.</p>
+      <p class="para anim">Everyone sounded successful. Everyone sounded certain.</p>
+      <p class="para anim">Daniel found himself speaking with a woman named Amara.</p>
+      <p class="para anim">She was beautiful. Not merely physically attractive. Confident. Thoughtful. Grounded. The kind of presence that made other people seem blurry.</p>
+      <p class="para anim">They spoke for nearly an hour. Books. Travel. Family. Work. Music. Life.</p>
+      <p class="para anim">When she laughed, he found himself wanting to hear it again.</p>
+      <p class="para anim">As the evening ended, they exchanged numbers.</p>
+      <p class="para anim">Walking home, Daniel felt strangely hopeful.</p>
+      <p class="para anim">Then he opened social media. A mistake.</p>
+      <p class="para anim">Within minutes he was comparing himself against hundreds of men. Men richer than him. Taller than him. Fitter than him. More successful than him.</p>
+      <p class="para anim">The optimism vanished.</p>
+      <p class="para anim">By midnight he had convinced himself Amara could date virtually anyone. Why would she choose him?</p>
+      <p class="para anim">He never texted her.</p>
+      <p class="para anim">Three months later, he saw a photo online. She was engaged.</p>
+      <p class="para anim">Not to one of the imaginary competitors in his head. To a teacher. A completely ordinary teacher.</p>
+      <p class="para anim">Daniel stared at the picture. The teacher wasn't exceptionally handsome. Wasn't wealthy. Wasn't famous.</p>
+      <p class="para anim">He had simply made a choice.</p>
+      <p class="para anim">He had acted while Daniel compared.</p>
+    </section>
+
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
+
+    <!-- The Machine -->
+    <section id="machine">
+      <p class="para anim">Years passed. The world became more connected. And somehow more fragmented.</p>
+      <p class="para anim">Algorithms learned exactly what people desired. Then showed them people who possessed it. If someone wanted beauty, endless beauty appeared. If someone wanted wealth, endless wealth appeared.</p>
+      <p class="para anim">The machine generated dissatisfaction at industrial scale.</p>
+      <p class="para anim">Daniel wasn't immune.</p>
+      <p class="para anim">Dating apps became another battlefield. Thousands of profiles. Thousands of possibilities. Thousands of alternatives.</p>
+      <p class="para anim">Every match competed against hypothetical future matches. Every conversation competed against imagined conversations. Everyone became replaceable.</p>
+      <p class="para anim">One evening he sat across from a woman named Sophia at dinner. She was intelligent. Funny. Kind. The date was genuinely enjoyable.</p>
+      <p class="para anim">But afterward his brain whispered:</p>
+      <p class="para anim">What if someone better exists? What if the next swipe is perfect? What if you're settling? What if she's settling?</p>
+      <p class="para anim">The relationship lasted six weeks. Not because of incompatibility. Because uncertainty consumed possibility.</p>
+      <p class="para anim">Years later he couldn't remember why they stopped seeing each other. Only that they did.</p>
+    </section>
+
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
+
+    <!-- The Funeral -->
+    <section id="funeral">
+      <p class="para anim">At thirty-two, Daniel received news that his grandmother had died.</p>
+      <p class="para anim">The funeral took place in the town where she'd lived for nearly sixty years.</p>
+      <p class="para anim">Afterward, family members sorted through her belongings. Daniel wandered through her house.</p>
+      <p class="para anim">Everything felt smaller than he remembered. The kitchen. The hallway. The living room.</p>
+      <p class="para anim">Then he noticed something. The wooden bowl. An almost identical bowl sat on her dining table.</p>
+      <p class="para anim">He picked it up. His aunt noticed. "She loved those." "Why?"</p>
+      <p class="para anim">His aunt smiled. "Did she never tell you?" "No."</p>
+      <p class="para anim">"Those bowls were handmade by your grandfather."</p>
+      <p class="para anim">Daniel froze. His grandfather had died before Daniel was born.</p>
+      <p class="para anim">"He made hundreds." "Hundreds?" His aunt nodded.</p>
+      <p class="para anim">"He tried different woods. Different shapes. Different finishes." She ran her fingers across the bowl. "But this one was her favorite."</p>
+      <p class="para anim">Daniel examined it. It wasn't perfect. Actually, several others nearby looked better. More symmetrical. Better crafted. More polished.</p>
+      <p class="para anim">"Why this one?" His aunt laughed. "Because it was the one she chose."</p>
+      <p class="para anim">Daniel frowned. "That's it?" "That's it."</p>
+    </section>
+
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
+
+    <!-- The Note -->
+    <section id="note">
+      <p class="para anim">That night he stayed in her empty house.</p>
+      <p class="para anim">Unable to sleep, he wandered through old photo albums. Black-and-white pictures. Faded memories. Lives compressed into pages.</p>
+      <p class="para anim">His grandparents appeared again and again. Not glamorous. Not rich. Not extraordinary by modern standards. Yet they looked happy.</p>
+      <p class="para anim">Genuinely happy. Not performatively happy. Not algorithmically happy. Happy.</p>
+      <p class="para anim">Daniel noticed something else. Their lives were remarkably limited.</p>
+      <p class="para anim">They had never traveled internationally. Never browsed dating apps. Never compared themselves against celebrities. Never consumed endless streams of curated perfection.</p>
+      <p class="para anim">Their world was smaller. Their commitments stronger. Their choices fewer. And perhaps because of that, their gratitude deeper.</p>
+      <p class="para anim">Around midnight he found a handwritten note tucked between photographs. His grandmother's handwriting.</p>
+      <p class="para anim">The note wasn't addressed to anyone. Maybe it was a journal entry. Maybe a reminder. Maybe both.</p>
+      <p class="para anim">It read:</p>
+      <p class="para anim">"The secret isn't finding the best thing. The secret is loving what you've chosen. There will always be something prettier, richer, newer, smarter, easier. If you spend your life searching for the perfect option, you'll never belong anywhere. Every meaningful thing becomes meaningful because you stay."</p>
+      <p class="para anim">Daniel stared at the words. Again. And again. And again.</p>
+      <p class="para anim">Something shifted.</p>
+    </section>
+
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
+
+    <!-- The Paradox -->
+    <section id="paradox">
+      <p class="para anim">The next morning he sat on the porch watching the sunrise.</p>
+      <p class="para anim">For years he had assumed freedom meant unlimited options. Unlimited options meant unlimited potential. Unlimited potential meant happiness.</p>
+      <p class="para anim">Yet his actual experience suggested the opposite.</p>
+      <p class="para anim">The more options he gained, the harder decisions became. The harder decisions became, the less satisfied he felt.</p>
+      <p class="para anim">Choice promised freedom. Excessive choice produced imprisonment.</p>
+      <p class="para anim">A paradox.</p>
+      <p class="para anim">He suddenly understood the bowl.</p>
+      <p class="para anim">His grandmother could have preferred hundreds of others. Better bowls existed. More beautiful bowls existed. More valuable bowls existed.</p>
+      <p class="para anim">That wasn't the point.</p>
+      <p class="para anim">Meaning emerged from commitment. Not optimization.</p>
+    </section>
+
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
+
+    <!-- Curiosity -->
+    <section id="curiosity">
+      <p class="para anim">One afternoon he attended a community event. A cultural festival celebrating dozens of backgrounds and traditions.</p>
+      <p class="para anim">Music drifted through the air. Children ran between booths. Languages intertwined like rivers.</p>
+      <p class="para anim">Daniel found himself speaking with a woman named Zuri.</p>
+      <p class="para anim">She had grown up in a different country. Different culture. Different experiences. Different assumptions about life.</p>
+      <p class="para anim">Years earlier those differences might have intimidated him. Now they fascinated him.</p>
+      <p class="para anim">They spent hours talking. Not comparing. Not performing. Not evaluating alternatives. Simply exploring another human being.</p>
+      <p class="para anim">Over time they grew closer. Friends first. Then something more.</p>
+      <p class="para anim">People occasionally questioned their relationship. Different races. Different backgrounds. Different families. Different histories.</p>
+      <p class="para anim">But Daniel noticed something. The strongest connections weren't built from similarity. They were built from curiosity.</p>
+      <p class="para anim">Comparison creates distance. Curiosity creates intimacy.</p>
+      <p class="para anim">One asks: "How do you rank against others?" The other asks: "Who are you?"</p>
+    </section>
+
+    <div class="section-break"><div class="break-line"></div><div class="break-dots"><span class="break-dot"></span><span class="break-dot mid"></span><span class="break-dot"></span></div><div class="break-line"></div></div>
+
+    <!-- The Choice -->
+    <section id="conclusion">
+      <p class="para anim">Several years later, Daniel sat in his apartment. A different apartment now. Larger. Warmer. Filled with evidence of an actual life.</p>
+      <p class="para anim">Books. Photographs. Plants. Memories.</p>
+      <p class="para anim">Zuri was reading nearby. Rain tapped gently against the windows. The wooden bowl sat on a shelf. Still imperfect. Still slightly warped. Still his favorite object.</p>
+      <p class="para anim">His phone buzzed. A notification. Someone announcing success. Someone traveling somewhere exotic. Someone achieving something impressive.</p>
+      <p class="para anim">For a moment the old reflex appeared. Comparison. The familiar temptation.</p>
+      <p class="para anim">Then it faded.</p>
+      <p class="para anim">Because he finally understood something social media could never teach.</p>
+      <p class="para anim">Every person online represented a path not taken. And there were billions of them.</p>
+      <p class="para anim">You could spend an entire lifetime examining those paths. Comparing. Evaluating. Wondering. Optimizing. Scrolling.</p>
+      <p class="para anim">Or you could live one.</p>
+      <p class="para anim">Not the perfect one. Not the objectively best one. Just yours.</p>
+      <p class="para anim">Daniel placed the phone face down.</p>
+      <p class="para anim">Outside, the rain continued. Inside, Zuri smiled at something in her book. The bowl remained quietly on its shelf.</p>
+      <p class="para anim">And for the first time in many years, Daniel felt no urgency to be somewhere else, someone else, or living some other life.</p>
+      <p class="para anim">The world still contained infinite possibilities.</p>
+      <p class="para anim">But happiness, he discovered, had never lived among the possibilities.</p>
+      <p class="para anim">It lived in the choice.</p>
+
+      <!-- Conclusion Card -->
+      <div class="conclusion anim">
+        <div class="conclusion-card">
+          <div class="conclusion-top-line"></div>
+          <div class="conclusion-inner">
+            <div class="conclusion-label-row">
+              <span class="conclusion-label-line"></span>
+              <span class="conclusion-label">The choice</span>
+            </div>
+            <p class="conclusion-text">
+              You could spend an entire lifetime examining paths not taken.
+              <span class="dim"> Or you could live one. Not the perfect one. Not the objectively best one. Just yours.</span>
+            </p>
+            <div class="conclusion-footer">
+              <div class="conclusion-footer-line"></div>
+              <span class="conclusion-footer-text">Albright Ai</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="anim">
+      <div class="footer-rule"></div>
+      <div class="footer-inner">
+        <div class="footer-dots">
+          <span class="footer-dot" style="background:rgba(220,220,230,0.06)"></span>
+          <span class="footer-dot" style="background:rgba(220,220,230,0.10)"></span>
+          <span class="footer-dot" style="background:rgba(220,220,230,0.14)"></span>
+        </div>
+        <span class="footer-tagline">A reflection on legacy</span>
+      </div>
+    </footer>
+
+  </article>
+</main>
+
+<script>
+  // ── Scroll Progress ──
+  const bar = document.getElementById('progress-bar');
+  const hero = document.getElementById('hero');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = `scaleX(${docH > 0 ? scrollTop / docH : 0})`;
+    // Hero opacity fade
+    const fadeEnd = window.innerHeight * 0.55;
+    hero.style.opacity = Math.max(0, 1 - scrollTop / fadeEnd);
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ── Side Navigator ──
+  const SECTIONS = ['origin','growth','responsibility','ambition','legacy','machine','funeral','note','paradox','curiosity','conclusion'];
+  const navBtns = document.querySelectorAll('.nav-btn');
+  function updateNav() {
+    let active = SECTIONS[0];
+    for (let i = SECTIONS.length - 1; i >= 0; i--) {
+      const el = document.getElementById(SECTIONS[i]);
+      if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.52) {
+        active = SECTIONS[i]; break;
       }
-    })();
-
-    // Intersection Observer for scroll animations
-    document.addEventListener('DOMContentLoaded', function() {
-      // Create scroll progress bar
-      const scrollProgress = document.querySelector('.scroll-progress');
-      
-      // Observe paragraphs for animation
-      const paragraphs = document.querySelectorAll('p');
-      const sectionBreak = document.querySelector('.section-break');
-      const conclusion = document.querySelector('.conclusion');
-      
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-      };
-      
-      const observer = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-            // Stop observing after animation triggers
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-      
-      // Observe all paragraphs
-      paragraphs.forEach(p => {
-        observer.observe(p);
-      });
-      
-      // Observe section break
-      if (sectionBreak) {
-        observer.observe(sectionBreak);
-      }
-      
-      // Observe conclusion
-      if (conclusion) {
-        observer.observe(conclusion);
-      }
-      
-      // Scroll progress indicator
-      window.addEventListener('scroll', function() {
-        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        scrollProgress.style.width = scrolled + '%';
-      });
-    });
-
-    // Protection against copying - works silently
-    document.addEventListener('copy', function(e) {
-      e.preventDefault();
-    });
-
-    document.addEventListener('cut', function(e) {
-      e.preventDefault();
-    });
-
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-
-    // Protection against developer tools - works silently
-    (function() {
-      var devtools = {
-        open: false,
-        orientation: null
-      };
-      var threshold = 160;
-      
-      var checkDevTools = function() {
-        var widthThreshold = window.outerWidth - window.innerWidth > threshold;
-        var heightThreshold = window.outerHeight - window.innerHeight > threshold;
-        
-        if (!(heightThreshold && widthThreshold) &&
-            ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || 
-             widthThreshold || heightThreshold)) {
-          
-          if (!devtools.open) {
-            // Clear the page content when dev tools are detected
-            document.body.innerHTML = '';
-            // Prevent further interaction
-            document.body.style.pointerEvents = 'none';
-            // Make page appear blank (using theme navy)
-            document.documentElement.style.backgroundColor = '#0B1320';
-          }
-          
-          devtools.open = true;
-        } else {
-          devtools.open = false;
-        }
-      };
-      
-      setInterval(checkDevTools, 500);
-    })();
-
-    // Disable text selection - works silently
-    document.addEventListener('DOMContentLoaded', function() {
-      document.body.style.userSelect = 'none';
-      document.body.style.webkitUserSelect = 'none';
-      document.body.style.msUserSelect = 'none';
-      document.body.style.mozUserSelect = 'none';
-      
-      // Disable dragging
-      document.addEventListener('dragstart', function(e) {
-        e.preventDefault();
-        return false;
-      });
-    });
-
-    // Protection against keyboard shortcuts - works silently
-    document.addEventListener('keydown', function(e) {
-      // Disable F12
-      if (e.key === 'F12') {
-        e.preventDefault();
-        return false;
-      }
-      
-      // Disable Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
-      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) {
-        e.preventDefault();
-        return false;
-      }
-      
-      // Disable Ctrl+U
-      if (e.ctrlKey && e.key === 'u') {
-        e.preventDefault();
-        return false;
-      }
-    });
-
-    // Protection against iframe embedding - works silently
-    if (window.location !== window.parent.location) {
-      document.body.innerHTML = '';
-      document.body.style.pointerEvents = 'none';
     }
-
-    // Obfuscation - Hide content source by encoding text nodes
-    document.addEventListener('DOMContentLoaded', function() {
-      // Function to encode text content
-      function encodeText(text) {
-        return text.split('').map(function(c) {
-          return String.fromCharCode(c.charCodeAt(0) + 1);
-        }).join('');
-      }
-      
-      // Function to decode text content
-      function decodeText(text) {
-        return text.split('').map(function(c) {
-          return String.fromCharCode(c.charCodeAt(0) - 1);
-        }).join('');
-      }
-      
-      // Encode all text nodes on page load
-      function encodeAllText() {
-        var treeWalker = document.createTreeWalker(
-          document.body,
-          NodeFilter.SHOW_TEXT,
-          { acceptNode: function(node) { 
-            return node.parentNode.tagName !== 'SCRIPT' && 
-                   node.parentNode.tagName !== 'STYLE' ? 
-                   NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
-          }},
-          false
-        );
-        
-        var nodes = [];
-        while(treeWalker.nextNode()) {
-          if (treeWalker.currentNode.nodeValue.trim() !== '') {
-            nodes.push(treeWalker.currentNode);
-          }
-        }
-        
-        nodes.forEach(function(node) {
-          var original = node.nodeValue;
-          node.setAttribute('data-o', btoa(encodeText(original)));
-          node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
-        });
-      }
-      
-      // Decode text when needed (for screen readers and accessibility)
-      function makeContentAccessible() {
-        var treeWalker = document.createTreeWalker(
-          document.body,
-          NodeFilter.SHOW_TEXT,
-          { acceptNode: function(node) { 
-            return node.hasAttribute('data-o') ? 
-                   NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; 
-          }},
-          false
-        );
-        
-        var nodes = [];
-        while(treeWalker.nextNode()) {
-          nodes.push(treeWalker.currentNode);
-        }
-        
-        nodes.forEach(function(node) {
-          try {
-            node.nodeValue = decodeText(atob(node.getAttribute('data-o')));
-          } catch(e) {
-            // If decoding fails, keep the current value
-          }
-        });
-      }
-      
-      // Initial encoding
-      encodeAllText();
-      
-      // Make content accessible for screen readers
-      setTimeout(makeContentAccessible, 100);
-      
-      // Re-encode text periodically
-      setInterval(function() {
-        encodeAllText();
-        setTimeout(makeContentAccessible, 50);
-      }, 30000);
+    navBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.target === active);
     });
+  }
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = document.getElementById(btn.dataset.target);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
 
-    // Additional protection: Monitor DOM changes to prevent inspection
-    (function() {
-      var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          if (mutation.type === 'attributes' && 
-              mutation.attributeName === 'data-o') {
-            // If someone tries to manipulate our obfuscation attribute
-            mutation.target.parentNode.remove();
-          }
-        });
-      });
-      
-      observer.observe(document.documentElement, {
-        attributes: true,
-        subtree: true,
-        attributeFilter: ['data-o']
-      });
-    })();
-  </script>
+  // ── Intersection Observer (fade-in animations) ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '-40px 0px', threshold: 0.01 });
+
+  document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+</script>
 </body>
-</html>
+</html></html>
